@@ -23,11 +23,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RestController
 public class DscovrFileListController {
 
+	//these constants are all dependent on the setup of the filesystem, make sure they match
 	private static final String dirBase = "/nfs/dscovr_private/";
 	private static final String dirStruct = "Y/MM";
         private static final String datePattern = "yyyyMMddHHmmss";
         private static final DateTimeFormatter sFormat = DateTimeFormat.forPattern( "'s'" + datePattern );
         private static final DateTimeFormatter eFormat = DateTimeFormat.forPattern( "'e'" + datePattern );
+
 	//TODO put actual mission start in here, format (year, month, day, hour, minute)
 	public static final DateTime MissionStart = new DateTime(2000, 06, 10, 0, 0);
 	//uncommend this, add the date when the mission ends, also see below in the 
@@ -38,12 +40,11 @@ public class DscovrFileListController {
 	public @ResponseBody List<String> getFiles(@PathVariable("start") String start, @PathVariable("end") String end) {
 
 		List<String> fileList = new ArrayList<String>();
-
                 DateTime validStart = validateTimeBound( start );
                 DateTime validEnd = validateTimeBound( end );
-
                 Interval requestInterval = new Interval( validStart, validEnd );
 
+		//iterate by months since that is the directory resolution
                 for ( DateTime iter = validStart; iter.isBefore( validEnd ); iter = iter.plusMonths(1) ) {
                     String dirToSearch = dirBase + iter.toString( dirStruct );
                     File folder = new File( dirToSearch );
@@ -53,8 +54,8 @@ public class DscovrFileListController {
                             DateTime[] range = getFileDateTimeRange( fileName );
                             Interval fileInterval = new Interval( range[0], range[1] );
                             if (requestInterval.contains( fileInterval ) ) {
-                                //fileList.add( fileName );
-                                fileList.add ( range[0].toString(datePattern) ); //TESTING
+                                fileList.add( fileName );
+                                //fileList.add ( range[0].toString(datePattern) ); //TESTING
                             }
                         }
                     }
@@ -66,6 +67,8 @@ public class DscovrFileListController {
 
 	protected DateTime validateTimeBound(String msString) {
                 DateTime MissionEnd = new DateTime();
+
+		//parse string
                 long msLong;
 		try {
 			msLong = Long.parseLong( msString );
@@ -73,6 +76,7 @@ public class DscovrFileListController {
 			throw new IllegalArgumentException( "Seconds not parsable" );
 		}
 
+		//then validate
                 DateTime request = new DateTime( msLong );
                 if ( request.isBefore( MissionStart ) || request.isAfter( MissionEnd ) ) {
 			 throw new IllegalArgumentException("requested time is out of bounds");
