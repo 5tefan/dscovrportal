@@ -23,10 +23,10 @@ public class DscovrFileListController {
 	private static final String dirBase = "/nfs/dscovr_public/";
 	private static final String dirStruct = "Y/MM";
 	//TODO put actual mission start in here
-	private static final LocalDate MissionStart = new LocalDate(2000, 06, 10);
+	public static final LocalDate MissionStart = new LocalDate(2000, 06, 10);
 	//uncommend this, add the date when the mission ends, also see below in the 
 	//validateTimeBound function
-	//private static final LocalDate MissionEnd = new LocalDate(year, month, day);
+	//public static final LocalDate MissionEnd = new LocalDate(year, month, day);
 
 	@RequestMapping(value={"/between/{start}/{end}"}, method=RequestMethod.GET, headers="accept=application/json")
 	public @ResponseBody List<String> getFiles(@PathVariable("start") String start, @PathVariable("end") String end) {
