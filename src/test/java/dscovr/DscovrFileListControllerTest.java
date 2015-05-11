@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import org.joda.time.LocalDate;
 import org.joda.time.DateTime;
 
 public class DscovrFileListControllerTest {
@@ -35,8 +34,8 @@ public class DscovrFileListControllerTest {
         try {
         
             //test the day before the mission start
-            LocalDate DayBeforeMissionStart = controller.MissionStart.minusDays(1);
-            String input = String.valueOf( DayBeforeMissionStart.toDateTimeAtCurrentTime().getMillis()/1000 ); 
+            DateTime DayBeforeMissionStart = controller.MissionStart.minusDays(1);
+            String input = String.valueOf( DayBeforeMissionStart.getMillis() );
             controller.validateTimeBound( input );
             fail("should have thrown IllegalArgumentException");
         } catch (IllegalArgumentException e) {}
@@ -48,13 +47,23 @@ public class DscovrFileListControllerTest {
         try {
 
             //test the day the mission started
-            LocalDate DayBeforeMissionStart = controller.MissionStart;
-            String input = String.valueOf( DayBeforeMissionStart.toDateTimeAtCurrentTime().getMillis()/1000 ); 
+            DateTime DayOfMissionStart = controller.MissionStart;
+            String input = String.valueOf( DayOfMissionStart.getMillis() );
             controller.validateTimeBound( input );
 
         } catch (IllegalArgumentException e) {
             fail("should not have thrown IllegalArgumentException");
         }
+    }
+
+    @Test
+    public void shouldParseDatesFromFileName() {
+        String testFileName = "it_att_dscovr_s20150315000000_e20150315235959_p20150317012246_emb.nc";
+        DateTime start = new DateTime(2015, 03, 15, 0, 0, 0);
+        DateTime end = new DateTime( 2015, 03, 15, 23, 59, 59);
+        DateTime[] range = controller.getFileDateTimeRange( testFileName );
+        assertEquals("Start datetime not parsed correctly", start.toString(), range[0].toString());
+        assertEquals("End datetime not parsed correctly", end.toString(), range[1].toString());
     }
 
 }
