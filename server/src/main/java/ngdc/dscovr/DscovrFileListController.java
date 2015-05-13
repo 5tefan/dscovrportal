@@ -1,19 +1,18 @@
 package ngdc.dscovr;
 
-import java.util.List;
-import java.util.ArrayList;
 import java.text.ParseException;
 
 import java.io.File;
 
+import java.util.List;
+import java.util.ArrayList;
+
 import org.joda.time.DateTimeZone;
 import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
 import org.joda.time.Interval;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,7 +34,7 @@ public class DscovrFileListController {
 	public static final DateTime MissionStart = new DateTime(2000, 06, 10, 0, 0);
 	//uncommend this, add the date when the mission ends, also see below in the 
 	//validateTimeBound function
-	//public static final LocalDate MissionEnd = new LocalDate(year, month, day);
+	//public static final DateTime MissionEnd = new DateTime(year, month, day, hour, minute, second);
 
 	@RequestMapping(value={"/between/{start}/{end}"}, method=RequestMethod.GET, headers="accept=application/json")
 	public @ResponseBody List<String> getFiles(@PathVariable("start") String start, @PathVariable("end") String end) {
@@ -47,9 +46,11 @@ public class DscovrFileListController {
 
 		//iterate by months since that is the directory resolution
                 for ( DateTime iter = validStart; iter.isBefore( validEnd ); iter = iter.plusMonths(1) ) {
+
                     String dirToSearch = dirBase + iter.toString( dirStruct );
                     File folder = new File( dirToSearch );
                     for ( final File fileEntry : folder.listFiles() ) {
+
                         if ( ! fileEntry.isDirectory() ) {
                             String fileName = fileEntry.getName();
                             try {
@@ -60,17 +61,22 @@ public class DscovrFileListController {
                                     //fileList.add ( range[0].toString(datePattern) ); //TESTING
                                 }
                             } catch (ParseException | IllegalArgumentException ex) {
-                                //ignore that file
+                                // ignore the file if the filename doesn't look how we expect it to
+                                // will assume it is not supposed to be there.
                             };
                         }
-                    }
-                }
+
+                    } //end for:fileEntry
+
+                } //end for:iter
 
 
 		return fileList;
 	}
 
 	protected DateTime validateTimeBound(String msString) {
+                //Until the mission actually ends, the end time is latest time we have data.
+                //approximate latest time with data as now for every request
                 DateTime MissionEnd = new DateTime();
 
 		//parse string
@@ -81,7 +87,7 @@ public class DscovrFileListController {
 			throw new IllegalArgumentException( "Seconds not parsable" );
 		}
 
-		//then validate
+		//then validate time is in bounds
                 DateTime request = new DateTime( msLong );
                 if ( request.isBefore( MissionStart ) || request.isAfter( MissionEnd ) ) {
 			 throw new IllegalArgumentException("requested time is out of bounds");
@@ -94,6 +100,7 @@ public class DscovrFileListController {
             //example file name:
             //it_att_dscovr_s20150315000000_e20150315235959_p20150317012246_emb.nc
             String[] fileNameParts = fileName.split("_");
+            //some sanity checks on the format of the filename
             if (fileNameParts.length < 5 || fileNameParts[3].length() != 15 || fileNameParts[4].length() != 15 ) {
                 throw new ParseException("filename malformed", 0);
             }
