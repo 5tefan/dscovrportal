@@ -7,8 +7,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 
 
 @RunWith(SpringJUnit4ClassRunner)
-@SpringApplicationConfiguration(classes = DscovrFileListController)
-class DscovrFileListControllerTests {
+@SpringApplicationConfiguration(classes = DataFileListingController)
+class DataFileListingControllerTests {
 
     @Test
     void contextLoads() {

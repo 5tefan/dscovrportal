@@ -8,12 +8,12 @@ import java.text.ParseException;
 
 import org.joda.time.DateTime;
 
-public class DscovrFileListControllerTest {
-    private DscovrFileListController controller;
+public class DataFileListingControllerTest {
+    private DataFileListingController controller;
 
     @Before
     public void setup() {
-        controller = new DscovrFileListController();
+        controller = new DataFileListingController();
     }
 
     @Test

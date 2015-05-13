@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
-public class DscovrFileListController {
+public class DataFileListingController {
 
 	//these constants are all dependent on the setup of the filesystem, make sure they match
 	private static final String dirBase = "/nfs/dscovr_private/";
