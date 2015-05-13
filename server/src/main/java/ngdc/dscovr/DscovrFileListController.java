@@ -1,4 +1,4 @@
-package dscovr;
+package ngdc.dscovr;
 
 import java.util.List;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package dscovr;
+package ngdc.dscovr;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
