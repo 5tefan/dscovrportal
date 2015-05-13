@@ -84,8 +84,8 @@ public class DscovrFileListControllerTest {
             //expects start before end
             String testFileName = "it_att_dscovr_e20150315000000_s20150315235959_p20150317012246_emb.nc";
             DateTime[] range = controller.getFileDateTimeRange( testFileName );
-            fail("should have thrown ParseException");
-        } catch (ParseException ex) {}
+            fail("should have thrown IllegalArgumentException");
+        } catch (ParseException | IllegalArgumentException ex) {}
     }
 
 }
