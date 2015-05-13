@@ -2,6 +2,7 @@ package dscovr;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.text.ParseException;
 
 import java.io.File;
 
@@ -51,12 +52,16 @@ public class DscovrFileListController {
                     for ( final File fileEntry : folder.listFiles() ) {
                         if ( ! fileEntry.isDirectory() ) {
                             String fileName = fileEntry.getName();
-                            DateTime[] range = getFileDateTimeRange( fileName );
-                            Interval fileInterval = new Interval( range[0], range[1] );
-                            if (requestInterval.contains( fileInterval ) ) {
-                                fileList.add( fileName );
-                                //fileList.add ( range[0].toString(datePattern) ); //TESTING
-                            }
+                            try {
+                                DateTime[] range = getFileDateTimeRange( fileName );
+                                Interval fileInterval = new Interval( range[0], range[1] );
+                                if (requestInterval.contains( fileInterval ) ) {
+                                    fileList.add( fileName );
+                                    //fileList.add ( range[0].toString(datePattern) ); //TESTING
+                                }
+                            } catch (ParseException | IllegalArgumentException ex) {
+                                //ignore that file
+                            };
                         }
                     }
                 }
@@ -85,10 +90,13 @@ public class DscovrFileListController {
 		return request;
 	}
 
-        protected DateTime[] getFileDateTimeRange(String fileName) {
+        protected DateTime[] getFileDateTimeRange(String fileName) throws ParseException {
             //example file name:
             //it_att_dscovr_s20150315000000_e20150315235959_p20150317012246_emb.nc
             String[] fileNameParts = fileName.split("_");
+            if (fileNameParts.length < 5 || fileNameParts[3].length() != 15 || fileNameParts[4].length() != 15 ) {
+                throw new ParseException("filename malformed", 0);
+            }
             
             //parse the start datetime
             String sDateString = fileNameParts[3];
