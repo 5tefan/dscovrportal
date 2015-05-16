@@ -14,6 +14,21 @@ angular.module('dscovrDataApp')
 	$scope.mission_end = moment.utc("12-12-2015", "DD-MM-YYYY");
 	var mission_range = moment.range($scope.mission_start, $scope.mission_end);
 
+	//info icon to do desc
+	$scope.download_data_type = {
+		mg1 : {selected: false, desc: "Magnetometer L1 data"},
+		fc1 : {selected: false, desc: "Faraday Cup L1 data"},
+		m1s : {selected: false, desc: "Magnetometer 1 second"},
+		f3s : {selected: false, desc: "Faraday Cup 3 second"},
+		m1m : {selected: false, desc: "Magnetometer 1 minute average"},
+		f1m : {selected: false, desc: "Faraday Cup 1 minute average"},
+		pop : {selected: false, desc: "Predicted Orbit Product"},
+		mgc : {selected: false, desc: "Magnetometer Calibration"},
+		fcc : {selected: false, desc: "Faraday Cup Calibration"},
+		tmd : {selected: false, desc: "Telemetry Database"},
+		att : {selected: false, desc: "Spacecraft Attitude"},
+	};
+
 	$scope.download_dayfile_info = {
 			typea: "/dscovr_data/typea/{{year}}/{{month}}/{{year}}{{month}}{{day}}-day.nc",
 			typeb: "/dscovr_data/typeb/{{year}}/{{month}}/{{year}}{{month}}{{day}}-day.nc",
@@ -47,6 +62,8 @@ angular.module('dscovrDataApp')
 				} else {
 					$scope.error_message = "Make sure end date is after start date";
 				}
+			} else {
+				$scope.error_message = "Begin and/or end date is not during mission";
 			}
 		}
 	}
@@ -148,6 +165,5 @@ angular.module('dscovrDataApp')
 		return src;
 	}
 
-	
 
 });

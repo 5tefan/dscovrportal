@@ -13,38 +13,57 @@
 				</ul>
 			</div>
 			<div id="download-selectarea" class="col-xs-10">
-				<div ng-class="{hidden : selectmode != 0}" id="download-summaryselect" class="col-xs-4">
-					<p> start date </p>
-					<p class="input-group">
-						<input type="text" class="form-control" datepicker-popup ng-model="selected_start_date" is-open="datepicker_start_opened" min-date="mission_start" max-date="mission_end" close-text="Close" ng-change="dateselect_start_onchange()" ng-blur="dateselect_start_locationchange()"></input>
-						<span class="input-group-btn">
-							<button type="button" class="btn btn-default" ng-click="datepicker_start_open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-						</span>
-					</p>
+				<div class="row">
+					<div ng-class="{hidden : selectmode != 0}" id="download-summaryselect" class="col-xs-4">
+						<p> start date </p>
+						<p class="input-group">
+							<input type="text" class="form-control" datepicker-popup ng-model="selected_start_date" is-open="datepicker_start_opened" min-date="mission_start" max-date="mission_end" close-text="Close" ng-change="dateselect_start_onchange()" ng-blur="dateselect_start_locationchange()"></input>
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-default" ng-click="datepicker_start_open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+							</span>
+						</p>
+					</div>
+					<div ng-class="{hidden : selectmode != 0}" id="vis-summaryselect" class="col-xs-4">
+						<p> end date </p>
+						<p class="input-group">
+							<input type="text" class="form-control" datepicker-popup ng-model="selected_end_date" is-open="datepicker_end_opened" min-date="mission_start" max-date="mission_end" close-text="Close" ng-change="dateselect_end_onchange()" ng-blur="dateselect_end_locationchange()"></input>
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-default" ng-click="datepicker_end_open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+							</span>
+						</p>
+					</div>
+					<div ng-class="{hidden : selectmode != 0}" id="vis-summaryselect" class="col-xs-4">
+						{{error_message}} <br/>
+						<a href="#/download/file"> Most recent </a>
+					</div>
 				</div>
-				<div ng-class="{hidden : selectmode != 0}" id="vis-summaryselect" class="col-xs-4">
-					<p> end date </p>
-					<p class="input-group">
-						<input type="text" class="form-control" datepicker-popup ng-model="selected_end_date" is-open="datepicker_end_opened" min-date="mission_start" max-date="mission_end" close-text="Close" ng-change="dateselect_end_onchange()" ng-blur="dateselect_end_locationchange()"></input>
-						<span class="input-group-btn">
-							<button type="button" class="btn btn-default" ng-click="datepicker_end_open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-						</span>
-					</p>
+				<div class="row">
+					<label class="checkbox-inline" ng-repeat="(name,val) in download_data_type">
+						<input type="checkbox" ng-model="download_data_type[name].selected"/> {{name}}
+					</label>
 				</div>
-				<div ng-class="{hidden : selectmode != 0}" id="vis-summaryselect" class="col-xs-4">
-					{{error_message}} <br/>
-					<a href="#/download/file"> Most recent </a>
-				</div>
+
+
+	
 				<div ng-class="{hidden : selectmode != 1}" id="download-downloadnav">
 				</div>
 			</div>
 		</div>
+
 		<div id="download-browse" class="row">
 			<div ng-class="{hidden:selectmode!=0}">
 				<div class="col-xs-3 col-xs-offset-1">
-					<h2>Files available:</h2>
+					<h2>Results:</h2>
 				</div>
 				<div class="col-xs-8">
+	<!--
+					<div ng-repeat="(date, links) in results">
+						<h4> {{date.format("YYYY-MM-DD")}} </h4>
+						<div ng-repeat="type in download_data_type | filter:{selected:true}">
+							<a ng-href="{{links[type]">{{ links[type] }}</a>
+						</div>
+					</div>
+	--!>
 					<div ng-repeat="date in filedates">
 						<h4> {{date.format("YYYY-MM-DD")}} </h4>
 						<div ng-repeat="file in download_dayfile_info">
