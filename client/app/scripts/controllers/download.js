@@ -165,5 +165,8 @@ angular.module('dscovrDataApp')
 		return src;
 	}
 
+	$('data-type-name').tooltip();
 
 });
+
+

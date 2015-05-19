@@ -38,8 +38,11 @@
 					</div>
 				</div>
 				<div class="row">
-					<label class="checkbox-inline" ng-repeat="(name,val) in download_data_type">
-						<input type="checkbox" ng-model="download_data_type[name].selected"/> {{name}}
+					<label data-toggle="tooltip" data-placement="bottom" title="{{val.desc}}" class="checkbox-inline data-type-name" ng-repeat="(name,val) in download_data_type">
+						<input type="checkbox" ng-model="download_data_type[name].selected" />
+						<p > {{name}} 
+							<span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+						</p>
 					</label>
 				</div>
 
