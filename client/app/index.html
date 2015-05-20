@@ -41,11 +41,20 @@
     <!-- Add your site or application content here -->
     <div class="container">
 
-<!--BEGIN NESDIS HEADER-->
-<iframe src="//www.ngdc.noaa.gov/include/ngdcheader.html" scrolling="no" frameborder="0" style="height:55px; width:100%; border:none; overflow:auto; background-color:transparent;">
-[Your user agent does not support frames or is currently configured not to display frames. However, you may visit <a href="/include/ngdcheader.html">the header and search bar.</a>]
-</iframe>
-<!--END NESDIS HEADER-->
+<!-- BEGIN HEADER -->
+<link rel="stylesheet" href="//ngdc.noaa.gov/ngdcbasicstyle.css"/>
+<div id="header">
+<div id="ngdcheader"> <a href="/" target="_top" title="go to the National Centers for Environmental Information (formerly the National Geophysical Data Center) home"><img src="//www.ngdc.noaa.gov/image/nesdisngdcleft.gif" alt="NCEI (formerly NGDC)" height="50" width="440" border="0"/></a> </div>
+<div id="imageright">
+  <form method="get" action="//search.usa.gov/search" class="sitesearch">
+    <input type="hidden" name="affiliate" value="ngdc.noaa.gov" />
+    <input type="hidden" name="v:project" value="firstgov" />
+    <input type="text" name="query" id="query-field" placeholder="Search..." />
+    <input type="image" src="//ngdc.noaa.gov/image/search-icon.png" alt="Go" title="Go" />
+  </form>
+</div>
+</div>
+<!-- END HEADER -->
 
       <div class="header" ng-controller="NavCtrl">
 		<img id ="banner" src="images/dscovr_banner.png"></img>
