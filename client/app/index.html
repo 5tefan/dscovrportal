@@ -1,10 +1,28 @@
 <!doctype html>
 <html class="no-js">
   <head>
-    <meta charset="utf-8">
+    <!-- NGDC required meta tags -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="operator" content="william.rowland">
+    <meta name="questions" content="william.rowland">
+    <meta name="return" content="stp">
+
+    <meta name="DC.title" content="">
+    <meta name="DC.date.created" scheme="ISO8601" content="2015-05-20">
+    <meta name="DC.date.reviewed" scheme="ISO8601" content="2015-05-20">
+    <meta name="DC.language" scheme="DCTERMS.RFC1766" content="EN-US">
+    <meta name="DC.publisher" content="U.S. Department of Commerce">
+    <meta name="DC.publisher" content="National Oceanic and Atmospheric Administration (NOAA)">
+    <meta name="DC.publisher" content="National Environmental Satellite, Data, and Information Service (NESDIS)">
+    <meta name="DC.publisher" content="National Centers for Environmental Information (NCEI)">
+    <meta name="DC.subject" scheme="ISO19115" content="geoscientificInformation">
+    <!-- end NGDC required meta tags -->
+
+
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
+
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
@@ -37,10 +55,20 @@
 	
       <div ng-view=""></div>
 
-      <div class="footer">
-        <p>the NGDC DSCOVR team</p>
-      </div>
     </div>
+
+    <!-- BEGIN CALL TO STANDARD FOOTER, EDIT NOSCRIPT IF NECESSARY -->
+    <div align="center" class="footltbg">
+        <script type="text/javascript" src="/bin/ngdcmetafooter.js"></script>
+        <noscript>
+            <div align="center">
+                <a href="/ngdc.html">Home</a> | <a href="/ngdcinfo/privacy.html">disclaimers</a> | <a href="mailto:ngdc.info@noaa.gov">questions</a>
+                <hr>
+                Website of the US Dept of Commerce/NOAA/NESDIS/NCEI
+            </div>
+        </noscript>
+    </div>
+    <!-- END CALL TO STANDARD FOOTER -->
 
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
