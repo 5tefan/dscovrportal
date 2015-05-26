@@ -14,20 +14,34 @@ angular.module('dscovrDataApp')
 	$scope.mission_end = moment.utc("12-12-2015", "DD-MM-YYYY");
 	var mission_range = moment.range($scope.mission_start, $scope.mission_end);
 
+$scope.testData = {
+    "20150401": {
+        "att": "http://www.ngdc.noaa.gov/dscovr/files/2015/04/it_vc0_dscovr_s20150401000000_e20150401235959_p20150402000010_pub.nc.gz"
+    },
+    "20150402": {
+        "att": "http://www.ngdc.noaa.gov/dscovr/files/2015/04/it_vc1_dscovr_s20150402000000_e20150402235959_p20150403000010_pub.nc.gz",
+        "f1m": "http://www.ngdc.noaa.gov/dscovr/files/2015/04/it_vc0_dscovr_s20150402000000_e20150402235959_p20150403000010_pub.nc.gz"
+    },
+    "20150403": {
+        "att": "http://www.ngdc.noaa.gov/dscovr/files/2015/04/it_vc0_dscovr_s20150403000000_e20150403235959_p20150404000059_pub.nc.gz",
+        "f1m": "http://www.ngdc.noaa.gov/dscovr/files/2015/04/it_vc1_dscovr_s20150403000000_e20150403235959_p20150404000059_pub.nc.gz"
+    }
+}
+
 	//info icon to do desc
-	$scope.download_data_type = {
-		mg1 : {selected: false, desc: "Magnetometer L1 data"},
-		fc1 : {selected: false, desc: "Faraday Cup L1 data"},
-		m1s : {selected: false, desc: "Magnetometer 1 second"},
-		f3s : {selected: false, desc: "Faraday Cup 3 second"},
-		m1m : {selected: false, desc: "Magnetometer 1 minute average"},
-		f1m : {selected: false, desc: "Faraday Cup 1 minute average"},
-		pop : {selected: false, desc: "Predicted Orbit Product"},
-		mgc : {selected: false, desc: "Magnetometer Calibration"},
-		fcc : {selected: false, desc: "Faraday Cup Calibration"},
-		tmd : {selected: false, desc: "Telemetry Database"},
-		att : {selected: false, desc: "Spacecraft Attitude"},
-	};
+	$scope.download_data_type = [
+		{type: "mg1", selected: false, desc: "Magnetometer L1 data"},
+		{type: "fc1", selected: false, desc: "Faraday Cup L1 data"},
+		{type: "m1s", selected: false, desc: "Magnetometer 1 second"},
+		{type: "f3s", selected: false, desc: "Faraday Cup 3 second"},
+		{type: "m1m", selected: false, desc: "Magnetometer 1 minute average"},
+		{type: "f1m", selected: false, desc: "Faraday Cup 1 minute average"},
+		{type: "pop", selected: false, desc: "Predicted Orbit Product"},
+		{type: "mgc", selected: false, desc: "Magnetometer Calibration"},
+		{type: "fcc", selected: false, desc: "Faraday Cup Calibration"},
+		{type: "tmd", selected: false, desc: "Telemetry Database"},
+		{type: "att", selected: false, desc: "Spacecraft Attitude"},
+	];
 
 	$scope.download_dayfile_info = {
 			typea: "/dscovr_data/typea/{{year}}/{{month}}/{{year}}{{month}}{{day}}-day.nc",
