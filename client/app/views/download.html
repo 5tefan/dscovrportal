@@ -39,7 +39,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<label data-toggle="tooltip" data-placement="bottom" title="{{val.desc}}" class="checkbox-inline data-type-name" ng-repeat="type in download_data_type">
+						<label data-toggle="tooltip" data-placement="bottom" title="{{type.desc}}" class="checkbox-inline data-type-name" ng-repeat="type in download_data_type">
 							<input type="checkbox" ng-model="download_data_type[$index].selected" />
 							<p > {{type.type}} 
 								<span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
@@ -49,8 +49,13 @@
 				</div>
 
 
-	
 				<div ng-class="{hidden : selectmode != 1}" id="download-downloadnav">
+					<div class="row">
+						<div class="col-xs-4 col-xs-offset-1">
+							<br/>
+							<a href="//ngdc.noaa.gov/dscovr"> Access data from the tape archive</a>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -80,6 +85,11 @@
 					</div>
 	-->
 				</div>
+			</div>
+			<div ng-class="{hidden:selectmode!=1}">
+				<br/>
+				<br/>
+				<br/>
 			</div>
 		</div>
 	</div>

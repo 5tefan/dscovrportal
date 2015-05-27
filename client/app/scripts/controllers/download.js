@@ -30,17 +30,17 @@ $scope.testData = {
 
 	//info icon to do desc
 	$scope.download_data_type = [
-		{type: "mg1", selected: false, desc: "Magnetometer L1 data"},
-		{type: "fc1", selected: false, desc: "Faraday Cup L1 data"},
-		{type: "m1s", selected: false, desc: "Magnetometer 1 second"},
-		{type: "f3s", selected: false, desc: "Faraday Cup 3 second"},
-		{type: "m1m", selected: false, desc: "Magnetometer 1 minute average"},
-		{type: "f1m", selected: false, desc: "Faraday Cup 1 minute average"},
-		{type: "pop", selected: false, desc: "Predicted Orbit Product"},
-		{type: "mgc", selected: false, desc: "Magnetometer Calibration"},
-		{type: "fcc", selected: false, desc: "Faraday Cup Calibration"},
-		{type: "tmd", selected: false, desc: "Telemetry Database"},
-		{type: "att", selected: false, desc: "Spacecraft Attitude"},
+		{type: "mg1", selected: true, desc: "Magnetometer L1 data"},
+		{type: "fc1", selected: true, desc: "Faraday Cup L1 data"},
+		{type: "m1s", selected: true, desc: "Magnetometer 1 second"},
+		{type: "f3s", selected: true, desc: "Faraday Cup 3 second"},
+		{type: "m1m", selected: true, desc: "Magnetometer 1 minute average"},
+		{type: "f1m", selected: true, desc: "Faraday Cup 1 minute average"},
+		{type: "pop", selected: true, desc: "Predicted Orbit Product"},
+		{type: "mgc", selected: true, desc: "Magnetometer Calibration"},
+		{type: "fcc", selected: true, desc: "Faraday Cup Calibration"},
+		{type: "tmd", selected: true, desc: "Telemetry Database"},
+		{type: "att", selected: true, desc: "Spacecraft Attitude"},
 	];
 
 	$scope.download_dayfile_info = {
