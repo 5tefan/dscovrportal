@@ -30,8 +30,8 @@ $scope.testData = {
 
 	//info icon to do desc
 	$scope.download_data_type = [
-		{type: "mg1", selected: true, desc: "Magnetometer L1 data"},
-		{type: "fc1", selected: true, desc: "Faraday Cup L1 data"},
+		{type: "mg1", selected: true, desc: "Magnetometer L1 data full res"},
+		{type: "fc1", selected: true, desc: "Faraday Cup L1 data "},
 		{type: "m1s", selected: true, desc: "Magnetometer 1 second"},
 		{type: "f3s", selected: true, desc: "Faraday Cup 3 second"},
 		{type: "m1m", selected: true, desc: "Magnetometer 1 minute average"},
@@ -39,7 +39,6 @@ $scope.testData = {
 		{type: "pop", selected: true, desc: "Predicted Orbit Product"},
 		{type: "mgc", selected: true, desc: "Magnetometer Calibration"},
 		{type: "fcc", selected: true, desc: "Faraday Cup Calibration"},
-		{type: "tmd", selected: true, desc: "Telemetry Database"},
 		{type: "att", selected: true, desc: "Spacecraft Attitude"},
 	];
 

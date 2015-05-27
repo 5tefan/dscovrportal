@@ -39,12 +39,69 @@
 						</div>
 					</div>
 					<div class="row">
+
+
+
+						<label data-toggle="tooltip" data-placement="bottom" title="Magnetometer L1 data" class="checkbox-inline data-type-name ng-scope" >
+							<input class="ng-pristine ng-untouched ng-valid" ng-model="download_data_type[0].selected" type="checkbox">
+							<p class="ng-binding"> mg1 
+								<span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+							</p>
+						</label><label data-toggle="tooltip" data-placement="bottom" title="Faraday Cup L1 data" class="checkbox-inline data-type-name ng-scope" >
+							<input class="ng-pristine ng-untouched ng-valid" ng-model="download_data_type[1].selected" type="checkbox">
+							<p class="ng-binding"> fc1 
+								<span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+							</p>
+						</label><label data-toggle="tooltip" data-placement="bottom" title="Magnetometer 1 second" class="checkbox-inline data-type-name ng-scope" >
+							<input class="ng-pristine ng-untouched ng-valid" ng-model="download_data_type[2].selected" type="checkbox">
+							<p class="ng-binding"> m1s 
+								<span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+							</p>
+						</label><label data-toggle="tooltip" data-placement="bottom" title="Faraday Cup 3 second" class="checkbox-inline data-type-name ng-scope" >
+							<input class="ng-pristine ng-untouched ng-valid" ng-model="download_data_type[3].selected" type="checkbox">
+							<p class="ng-binding"> f3s 
+								<span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+							</p>
+						</label><label data-toggle="tooltip" data-placement="bottom" title="Magnetometer 1 minute average" class="checkbox-inline data-type-name ng-scope" >
+							<input class="ng-pristine ng-untouched ng-valid" ng-model="download_data_type[4].selected" type="checkbox">
+							<p class="ng-binding"> m1m 
+								<span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+							</p>
+						</label><label data-toggle="tooltip" data-placement="bottom" title="Faraday Cup 1 minute average" class="checkbox-inline data-type-name ng-scope" >
+							<input class="ng-pristine ng-untouched ng-valid" ng-model="download_data_type[5].selected" type="checkbox">
+							<p class="ng-binding"> f1m 
+								<span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+							</p>
+						</label><label data-toggle="tooltip" data-placement="bottom" title="Predicted Orbit Product" class="checkbox-inline data-type-name ng-scope" >
+							<input class="ng-pristine ng-untouched ng-valid" ng-model="download_data_type[6].selected" type="checkbox">
+							<p class="ng-binding"> pop 
+								<span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+							</p>
+						</label><label data-toggle="tooltip" data-placement="bottom" title="Magnetometer Calibration" class="checkbox-inline data-type-name ng-scope" >
+							<input class="ng-pristine ng-untouched ng-valid" ng-model="download_data_type[7].selected" type="checkbox">
+							<p class="ng-binding"> mgc 
+								<span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+							</p>
+						</label><label data-toggle="tooltip" data-placement="bottom" title="Faraday Cup Calibration" class="checkbox-inline data-type-name ng-scope" >
+							<input class="ng-pristine ng-untouched ng-valid" ng-model="download_data_type[8].selected" type="checkbox">
+							<p class="ng-binding"> fcc 
+								<span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+							</p>
+						</label><label data-toggle="tooltip" data-placement="bottom" title="Spacecraft Attitude" class="checkbox-inline data-type-name ng-scope" >
+							<input class="ng-pristine ng-untouched ng-valid" ng-model="download_data_type[9].selected" type="checkbox">
+							<p class="ng-binding"> att 
+								<span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+							</p>
+						</label>
+
+						<!-- this is EXPENSIVE
 						<label data-toggle="tooltip" data-placement="bottom" title="{{type.desc}}" class="checkbox-inline data-type-name" ng-repeat="type in download_data_type">
 							<input type="checkbox" ng-model="download_data_type[$index].selected" />
 							<p > {{type.type}} 
 								<span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
 							</p>
 						</label>
+						-->
 					</div>
 				</div>
 
