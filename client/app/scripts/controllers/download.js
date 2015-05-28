@@ -8,11 +8,12 @@
  * Controller of the dscovrDataApp
  */
 angular.module('dscovrDataApp')
-  .controller('DownloadCtrl', function ($scope, $routeParams, $cookieStore, $location) {
+  .controller('DownloadCtrl', function ($scope, $routeParams, $cookieStore, $location, $http) {
 
 	$scope.mission_start = moment.utc("12-12-1995", "DD-MM-YYYY");
 	$scope.mission_end = moment.utc("12-12-2015", "DD-MM-YYYY");
 	var mission_range = moment.range($scope.mission_start, $scope.mission_end);
+	var file_catalog = "http://gis.ngdc.noaa.gov/dscovr-file-catalog/files";
 
 $scope.testData = {
     "20150401": {
@@ -28,6 +29,7 @@ $scope.testData = {
     }
 }
 
+
 	//info icon to do desc
 	$scope.download_data_type = [
 		{type: "mg1", selected: true, desc: "Magnetometer L1 data full res"},
@@ -40,6 +42,8 @@ $scope.testData = {
 		{type: "mgc", selected: true, desc: "Magnetometer Calibration"},
 		{type: "fcc", selected: true, desc: "Faraday Cup Calibration"},
 		{type: "att", selected: true, desc: "Spacecraft Attitude"},
+		{type: "vc0", selected: true, desc: "Spacecraft Attitude"},
+		{type: "vc1", selected: true, desc: "Spacecraft Attitude"},
 	];
 
 	$scope.download_dayfile_info = {
@@ -63,15 +67,18 @@ $scope.testData = {
 	}
 	$scope.make_filedates = function() {
 		if ($scope.selected_start_date && $scope.selected_end_date) {
-			if (mission_range.contains(moment($scope.selected_start_date)) && mission_range.contains(moment($scope.selected_end_date)) ) {
-				if (moment($scope.selected_start_date).isBefore($scope.selected_end_date) ) {
+			var sel_start = moment($scope.selected_start_date);
+			var sel_end = moment($scope.selected_end_date);
+			if (mission_range.contains(sel_start) && mission_range.contains(sel_end) ) {
+				if (sel_start.isBefore(sel_end) ) {
 					$scope.error_message = "";
-					var range = moment().range($scope.selected_start_date, moment.utc($scope.selected_end_date) );
-					$scope.filedates = [];
-					range.by('days', function(moment) {
-						$scope.filedates.push(moment);
-						console.log("iterating, lookat me!!");
-					});
+
+					//http request, should break out into a service maybe?
+					$http.get(file_catalog, { params: { start_date: sel_start.format(), end_date: sel_end.format() } } )
+						.success( function(data, status) {
+							$scope.files = data;
+						})
+
 				} else {
 					$scope.error_message = "Make sure end date is after start date";
 				}
@@ -81,6 +88,23 @@ $scope.testData = {
 		}
 	}
 
+	//make wget function to create the wget command and bind to the input box
+	$scope.make_wget = function() {
+		if ($scope.files) {
+			var to_return = [];
+			to_return.push("wget");
+			for (var each in $scope.files) {
+				for (var type in $scope.download_data_type) {
+					if ($scope.download_data_type[type].selected == true) {
+						if ($scope.files[ each ][ $scope.download_data_type[type].type ] ) {
+							to_return.push( $scope.files[ each ][ $scope.download_data_type[type].type ]);
+						}
+					}
+				}
+			}
+			return to_return.join(" ");
+		}
+	}
 /*
 	//restore what they had if they go somewhere else and
 	//then come back to the visualize tab, it will look like
