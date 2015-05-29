@@ -46,6 +46,22 @@ $scope.testData = {
 		{type: "vc1", selected: true, desc: "Spacecraft Attitude"},
 	];
 
+	//optimized instead of having to search download data type`
+	$scope.download_data_type_lookaside = {
+		mg1 : 0,
+		fc1 : 1,
+		m1s : 2, 
+		f3s : 3,
+		m1m : 4,
+		f1m : 5,
+		pop : 6,
+		mgc : 7,
+		fcc : 8,
+		att : 9,
+		vc0 : 10,
+		vc1 : 11
+	}
+
 	$scope.download_dayfile_info = {
 			typea: "/dscovr_data/typea/{{year}}/{{month}}/{{year}}{{month}}{{day}}-day.nc",
 			typeb: "/dscovr_data/typeb/{{year}}/{{month}}/{{year}}{{month}}{{day}}-day.nc",
@@ -94,6 +110,14 @@ $scope.testData = {
 			var to_return = [];
 			to_return.push("wget");
 			for (var each in $scope.files) {
+				for (var link_type in $scope.files[each]) {
+					var index = $scope.download_data_type_lookaside[ link_type ];
+					//console.log("i: " + index + ", v:" + link_type);
+					if (index && $scope.download_data_type[ index ].selected == true) {
+						to_return.push( $scope.files[ each ][ link_type ] );
+					}
+				}
+				/* old way, optimized above
 				for (var type in $scope.download_data_type) {
 					if ($scope.download_data_type[type].selected == true) {
 						if ($scope.files[ each ][ $scope.download_data_type[type].type ] ) {
@@ -101,10 +125,12 @@ $scope.testData = {
 						}
 					}
 				}
+				*/
 			}
 			return to_return.join(" ");
 		}
 	}
+
 /*
 	//restore what they had if they go somewhere else and
 	//then come back to the visualize tab, it will look like
