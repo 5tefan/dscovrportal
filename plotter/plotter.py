@@ -26,10 +26,10 @@ dscovr_ts_width = 14 	#inches
 dscovr_ts_height = 10 	#inches
 dscovr_ts_frame_sizes = [
 	#name		#path	#filename		#startms		#finishms
-#	["6hour1",	"dscovr_6hr_plots/%Y/%m",	"%Y%m%d%H-6hr", 0,			1000 * 60 * 60 * 6],
-#	["6hour2",	"dscovr_6hr_plots/%Y/%m",	"%Y%m%d%H-6hr", 1000 * 60 * 60 * 6, 	1000 * 60 * 60 * 12],
-#	["6hour3",	"dscovr_6hr_plots/%Y/%m",	"%Y%m%d%H-6hr", 1000 * 60 * 60 * 12, 	1000 * 60 * 60 * 18],
-#	["6hour4",	"dscovr_6hr_plots/%Y/%m",	"%Y%m%d%H-6hr", 1000 * 60 * 60 * 18, 	1000 * 60 * 60 * 24],
+	["6hour1",	"dscovr_6hr_plots/%Y/%m",	"%Y%m%d00-6hr", 0,			1000 * 60 * 60 * 6],
+	["6hour2",	"dscovr_6hr_plots/%Y/%m",	"%Y%m%d06-6hr", 1000 * 60 * 60 * 6, 	1000 * 60 * 60 * 12],
+	["6hour3",	"dscovr_6hr_plots/%Y/%m",	"%Y%m%d12-6hr", 1000 * 60 * 60 * 12, 	1000 * 60 * 60 * 18],
+	["6hour4",	"dscovr_6hr_plots/%Y/%m",	"%Y%m%d18-6hr", 1000 * 60 * 60 * 18, 	1000 * 60 * 60 * 24],
 	["1day",	"dscovr_1day_plots/%Y/%m",	"%Y%m%d-day", 	0,			1000 * 60 * 60 * 24],
 	["3day",	"dscovr_3day_plots/%Y/",	"%Y%m%d-3day", 	0,			1000 * 60 * 60 * 24 * 3],
 	["7day",	"dscovr_7day_plots/%Y/",	"%Y%m%d-7day", 	0,			1000 * 60 * 60 * 24 * 7],
@@ -166,11 +166,17 @@ def main():
 						current_get_millis += 1000 * 60 * 60 * 24 	#increment by millisec in a day
 
 				dataset = nc.MFDataset( file_paths )
+
+
 				time = dataset.variables[ 'time' ][:] 					# type is np.ndarray, pull time from nc file
-				time = [ datetime.datetime.utcfromtimestamp( x/1000 ) for x in time ]	# convert to datetime
-				stroke.append( time ) 							# plug it into the config, see pop in the make_plot function
 				data = dataset.variables[ stroke[1] ][:]				# pull out the data
-				stroke.append(data)							# put it into the config as well, this is what second pop in make_plot is for
+				
+				## filtering to make sure data in range, this is only necessary for 6hr plots			
+				finaldata = [ x for i,x in enumerate(data) if time[i] > start_millis and time[i] < end_millis ]
+				finaltime = [ datetime.datetime.utcfromtimestamp( x/1000 ) for x in time if x > start_millis and x < end_millis ]	# convert to datetimee
+
+				stroke.append( finaltime ) 							# plug it into the config, see pop in the make_plot function
+				stroke.append( finaldata )							# put it into the config as well, this is what second pop in make_plot is for
 		
 		##format path and filename, verify path exists
 		plot_path = dscovr_plot_output_base + date_to_plot.strftime( frame_size[1] )
