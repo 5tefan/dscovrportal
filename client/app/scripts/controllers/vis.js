@@ -29,7 +29,8 @@ angular.module('dscovrDataApp')
 	//= summary_file_date_formatter
 	$scope.summary_frame_info = {
 		"6h": {
-			dt: 1000 * 60 * 60 * 6,
+			//dt is going to be 24 for 6h since 6h is going to place 4 plots on the screen
+			dt: 1000 * 60 * 60 * 24,
 			src: "/dscovr_6hr_plots/{{year}}/{{month}}/{{year}}{{month}}{{day}}{{hour}}-6hr.png"
 		},
 		"1d": {
@@ -122,6 +123,8 @@ angular.module('dscovrDataApp')
 				}
 				//divide by 10000 to slim down url params, last bit always going to be 00000
 				//set the end date of the frame, parameter for next frame
+				$scope.summary_file_date_prev = moment.utc($scope.summary_file_date)
+					.subtract( $scope.summary_frame_info[$scope.frame_size].dt, "ms");
 				$scope.summary_file_date_end = moment.utc($scope.summary_file_date)
 					.add( $scope.summary_frame_info[$scope.frame_size].dt, "ms");
 				$scope.summary_file_date_next = moment.utc($scope.summary_file_date)
@@ -173,6 +176,19 @@ angular.module('dscovrDataApp')
 		src = src.split("{{year}}").join( $scope.summary_file_date.format("YYYY") )
 		src = src.split("{{month}}").join( $scope.summary_file_date.format("MM") )
 		src = src.split("{{day}}").join( $scope.summary_file_date.format("DD") )
+		return src;
+	}
+	$scope.get_plotsrc_6h = function(hour) {
+		console.log( $scope.summary_file_date );
+		var src = $scope.summary_frame_info[$scope.frame_size].src;
+		src = src.split("{{year}}").join( $scope.summary_file_date.format("YYYY") )
+		src = src.split("{{month}}").join( $scope.summary_file_date.format("MM") )
+		src = src.split("{{day}}").join( $scope.summary_file_date.format("DD") )
+		if (hour < 10) {
+			src = src.split("{{hour}}").join( "0" + hour );
+		} else {
+			src = src.split("{{hour}}").join( hour );
+		}
 		return src;
 	}
 });
