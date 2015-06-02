@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 
-""" Imports """
-# Python provided libraries
 import datetime
 import warnings
 import numpy as np
@@ -107,10 +105,11 @@ def make_plot(output_path): ##can only be called after dscovr_ts_pane_config has
 		plt.legend( prop={'size':7}, loc='upper left' )
 		plt.ylabel( pane_config[0] )
 		plt.grid( True )
+		plt.locator_params(axis = 'y', nbins = 4)
 		
 		#title at top of figure
 		if dscovr_ts_pane_i == 1: 
-			plt.title( "DSCOVR test plot" )
+			plt.title( "DSCOVR : %s - %s" % (dscovr_ts_domain[0], dscovr_ts_domain[1]) )
 	
 		use_storm_scale = False
 
