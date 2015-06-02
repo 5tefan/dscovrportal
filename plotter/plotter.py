@@ -149,9 +149,8 @@ def make_plot(output_path): ##can only be called after dscovr_ts_pane_config has
 
 	plt.savefig( output_path, bbox_inches='tight' )
 
-def main():
-	testdate = datetime.datetime(2015, 03, 19)
-	date_to_plot = testdate
+def main(date):
+	date_to_plot = date
 
 	for frame_size in dscovr_ts_frame_sizes:							# loop over frame sizes defined
 		print( "getting data for: %s" % frame_size[0] )
@@ -213,5 +212,10 @@ def main():
 		make_plot( out )
 
 #get rid of some annoying warnings
-warnings.filterwarnings("ignore")
-main()
+if __name__ == "__main__":
+	warnings.filterwarnings("ignore")
+	try:
+		date = datetime.datetime.strptime( str( sys.argv[1] ), "%Y%m%d")
+		main(date)
+	except ValueError:
+		print( "Usage: python plotter.py <YYYYmmdd>" )
