@@ -217,5 +217,5 @@ if __name__ == "__main__":
 	try:
 		date = datetime.datetime.strptime( str( sys.argv[1] ), "%Y%m%d")
 		main(date)
-	except ValueError:
+	except (ValueError, IndexError):
 		print( "Usage: python plotter.py <YYYYmmdd>" )
