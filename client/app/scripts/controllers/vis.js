@@ -31,23 +31,23 @@ angular.module('dscovrDataApp')
 		"6h": {
 			//dt is going to be 24 for 6h since 6h is going to place 4 plots on the screen
 			dt: 1000 * 60 * 60 * 24,
-			src: "/dscovr_6hr_plots/{{year}}/{{month}}/{{year}}{{month}}{{day}}{{hour}}-6hr.png"
+			src: "dscovr_6hr_plots/{{year}}/{{month}}/{{year}}{{month}}{{day}}{{hour}}-6hr.png"
 		},
 		"1d": {
 			dt: 1000 * 60 * 60 * 24,
-			src: "/dscovr_1day_plots/{{year}}/{{month}}/{{year}}{{month}}{{day}}-day.png"
+			src: "dscovr_1day_plots/{{year}}/{{month}}/{{year}}{{month}}{{day}}-day.png"
 		},
 		"3d": {
 			dt: 1000 * 60 * 60 * 24 * 3,
-			src: "/dscovr_3day_plots/{{year}}/{{year}}{{month}}{{day}}-3day.png"
+			src: "dscovr_3day_plots/{{year}}/{{year}}{{month}}{{day}}-3day.png"
 		},
 		"7d": {
 			dt: 1000 * 60 * 60 * 24 * 7,
-			src: "/dscovr_7day_plots/{{year}}/{{year}}{{month}}{{day}}-7day.png"
+			src: "dscovr_7day_plots/{{year}}/{{year}}{{month}}{{day}}-7day.png"
 		},
 		"1m": {
 			dt: 1000 * 60 * 60 * 24 * 28,
-			src: "/dscovr_month_plots/{{year}}/{{year}}{{month}}-month.png"
+			src: "dscovr_month_plots/{{year}}/{{year}}{{month}}-month.png"
 		}
 	};
 
