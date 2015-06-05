@@ -16,8 +16,8 @@ import matplotlib.pyplot as plt
 
 
 ############## config ####################
-dscovr_mission_start = datetime.datetime(2015, 02, 15)
-dscovr_file_base = '/nfs/dscovr_private/'
+dscovr_mission_start = datetime.datetime(2015, 03, 02)  #march 2
+dscovr_file_base = '/nfs/dscovr_private/data/'
 dscovr_plot_output_base = '/nfs/dscovr_private/plots/'
 
 dscovr_ts_width = 14 	#inches
@@ -40,13 +40,13 @@ dscovr_ts_pane_config = [
 				#if max data point is above	# datatype corresponds to what is in the netcdf file
 				#quiet scale, max, it will 	# label is what will show up in the legend
 				#switch and use storm scale	# leave label empty "" for no legend
-	["Pressure\n [nPa]",	[ [0,5], [0,10] ], 		[["m1m", "bz_gsm", "", "b-"]] ],
-	["Mag\n [nT]",		[ [-20, 20], [-50,50] ], 	[["m1m", "bx_gsm", "Bx(gsm)", "r-"], ["m1m", "by_gsm", "By(gsm)", "g-"], ["m1m", "bz_gsm", "Bz(gsm)", "k-"]] ],
-	["Mag\n [nT]",		[ [-20, 20], [-50,50] ], 	[["m1m", "bx_gsm", "Bx(gsm)", "r-"], ["m1m", "by_gsm", "By(gsm)", "g-"], ["m1m", "bz_gsm", "Bz(gsm)", "k-"]] ],
-	["Speed\n [km/s]",	[ [200, 800], [200, 800] ], 	[["f1m", "alpha_speed", "Vsw DSCOVR", "b-"], ["f1m", "alpha_speed", "Vsw Bow", "k-"]] ],
+	["Mag\n [nT]",		[ [-10, 10], [-50,50] ], 	[["m1m", "bx_gsm", "Bx(gsm)", "r-"], ["m1m", "by_gsm", "By(gsm)", "g-"], ["m1m", "bz_gsm", "Bz(gsm)", "b-"], ["m1m", "bt", "B tot", "k-"] ] ],
+	["Speed\n [km/s]",	[ [200, 500], [200, 1300] ], 	[["f1m", "alpha_speed", "Vsw DSCOVR", "b-"], ["f1m", "alpha_speed", "Vsw Bow", "k-"]] ],
+	["Pressure\n [nPa]",	[ [0,10], [0,100] ], 		[["m1m", "bz_gsm", "", "b-"]] ],
+	["Mag bow\n [nT]",	[ [-10, 10], [-50,50] ], 	[["m1m", "bx_gsm", "Bx(gsm) bow", "r-"], ["m1m", "by_gsm", "By(gsm) bow", "g-"], ["m1m", "bz_gsm", "Bz(gsm) bow", "b-"], ["m1m", "bt", "B tot bow", "k-"] ] ],
 	["Prop Time\n [min]",	[ [20, 100], [20, 100] ], 	[["f1m", "alpha_speed", "", "k-"]] ],
 	["Temperature\n [K]",	[ [10e4, 10e6], [10e4, 10e6] ],	[["f1m", "alpha_temperature", "Temp DSCOVR", "k-"]] ], ##note temperature is hardcoded as semilogy scale
-	["Density\n [cc]",	[ [0, 90], [0,90] ], 		[["f1m", "alpha_density", "Dens DSCOVR", "b-"], ["f1m", "alpha_density", "Dens Bow", "k-"]] ]
+	["Density\n [cc]",	[ [0, 10], [0,90] ], 		[["f1m", "alpha_density", "Dens DSCOVR", "b-"], ["f1m", "alpha_density", "Dens Bow", "k-"]] ]
 ]
 
 dscovr_ts_panes = len( dscovr_ts_pane_config )	#number of panes
@@ -102,7 +102,6 @@ def make_plot(output_path): ##can only be called after dscovr_ts_pane_config has
 		#print pane_config[2][0][4]
 		dscovr_ts_domain = [ pane_config[2][0][4][:][0], pane_config[2][0][4][:][-1] ] ## <- crazy array accessor, gets beginning and end of time dimention
 		plt.xlim( dscovr_ts_domain )
-		plt.legend( prop={'size':7}, loc='upper left' )
 		plt.ylabel( pane_config[0] )
 		plt.grid( True )
 		plt.locator_params(axis = 'y', nbins = 4)
@@ -118,8 +117,10 @@ def make_plot(output_path): ##can only be called after dscovr_ts_pane_config has
 
 			#print "running plt.plot(%s, %s, %s, label=%s)" % (stroke[4], stroke[5], stroke[3], stroke[2])
 			if pane_config[0] == "Temperature\n [K]":
-				#plt.semilogy( stroke[4], stroke[5], stroke[3], label=stroke[2] ) ##TODO: uncomment this when the correct data is coming, complaining about log scale with no positive values right now
-				pass
+				try:
+					plt.semilogy( stroke[4], stroke[5], stroke[3], label=stroke[2] ) ##TODO: uncomment this when the correct data is coming, complaining about log scale with no positive values right now
+				except ValueError:
+					pass
 			else:
 				plt.plot( stroke[4], stroke[5], stroke[3], label=stroke[2] )			#plot x, y, format
 
@@ -128,6 +129,7 @@ def make_plot(output_path): ##can only be called after dscovr_ts_pane_config has
 					use_storm_scale = True
 			except ValueError: # handle no data here, just pass leaving use_storm_scale False
 				pass
+
 			stroke.pop(), stroke.pop() ##get rid of the time and data from the end of the stroke config (IMPORTANT/hacky so that next frame size iteration works)
 		
 		if use_storm_scale == False:
@@ -144,6 +146,7 @@ def make_plot(output_path): ##can only be called after dscovr_ts_pane_config has
 			#ax.xaxis.set_major_formatter( mpl.dates.DateFormatter( '%H' ) )
 			#ax.set_ylim( bottom=0 )
 			
+		plt.legend( prop={'size':7}, loc='upper left' )
 		dscovr_ts_pane_i += 1
 
 	plt.savefig( output_path, bbox_inches='tight' )
@@ -188,10 +191,19 @@ def main(date):
 					time = dataset.variables[ 'time' ][:] 					# type is np.ndarray, pull time from nc file
 					data = dataset.variables[ stroke[1] ][:]				# pull out the data
 					
-					
-					## filtering to make sure data in range, this is only necessary for 6hr plots			
-					finaldata = [ x for i,x in enumerate(data) if time[i] > start_millis and time[i] < end_millis ]
-					finaltime = [ datetime.datetime.utcfromtimestamp( x/1000 ) for x in time if x > start_millis and x < end_millis ]	# convert to datetimee
+					## filtering to make sure data in correct range for desired plot and inserting nan so that missing data arent connected with a line			
+					#finaldata = [ x for i,x in enumerate(data) if time[i] > start_millis and time[i] < end_millis ]
+					#finaltime = [ datetime.datetime.utcfromtimestamp( x/1000 ) for x in time if x > start_millis and x < end_millis ]	# convert to datetimee
+					finaldata = []
+					finaltime = []
+					for i, x in enumerate(data): ##time and data have same dim so this is ok to iterate over both
+						if time[i] > start_millis and time[i] < end_millis:
+							finaldata.append( x )
+							finaltime.append( datetime.datetime.utcfromtimestamp( time[i]/1000 ) )
+						if i + 1 < len( data ): #if still inside data array
+							if time[i+1] - time[i] > 1000 * 60 * 60: ##more than 1 hour until next time element
+								finaldata.append( np.nan )
+								finaltime.append( datetime.datetime.utcfromtimestamp( (time[i] + 1000 * 60)/1000 ) )
 
 					stroke.append( finaltime ) 							# plug it into the config, see pop in the make_plot function
 					stroke.append( finaldata )							# put it into the config as well, this is what second pop in make_plot is for
@@ -215,6 +227,6 @@ if __name__ == "__main__":
 	warnings.filterwarnings("ignore")
 	try:
 		date = datetime.datetime.strptime( str( sys.argv[1] ), "%Y%m%d")
-		main(date)
 	except (ValueError, IndexError):
 		print( "Usage: python plotter.py <YYYYmmdd>" )
+
