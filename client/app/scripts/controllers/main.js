@@ -14,3 +14,4 @@ angular.module('dscovrDataApp')
 			$anchorScroll();
 		}
 	});
+
