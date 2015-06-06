@@ -35,27 +35,29 @@
 				</div>
 			</div>
 		</div>
-		<div ng-class="{hidden : selectmode != 0}" id="vis-plot" class="row">
-			<div class="col-xs-2">
-				<p> {{summary_file_date.format("YYYY-MM-DD")}} </p>
-					<a class="btn btn-default" ng-href="#/vis/summary/{{frame_size}}/{{ make_urldate(summary_file_date_prev) }}">&lt;&lt;--</a>
-			</div>
-			<div class="col-xs-8" ng-switch="frame_size">
-				<div ng-switch-when="6h">
-					<img class="img-responsive" ng-src="{{ get_plotsrc_6h(0) }}"></img>
-			{{get_plotsrc_6h(0)}} {{get_plotsrc_6h(12)}}
-					<img class="img-responsive" ng-src="{{ get_plotsrc_6h(6) }}"></img>
-					<img class="img-responsive" ng-src="{{ get_plotsrc_6h(12) }}"></img>
-					<img class="img-responsive" ng-src="{{ get_plotsrc_6h(18) }}"></img>
-					
+		<div ng-class="{hidden : selectmode != 0}" id="vis-plot">
+			<div class="row">
+				<div class="col-xs-2">
+					<p> {{summary_file_date_prev.format("YYYY-MM-DD")}} </p>
+						<a class="btn btn-default" ng-href="#/vis/summary/{{frame_size}}/{{ make_urldate(summary_file_date_prev) }}">&lt;&lt;--</a>
 				</div>
-				<img ng-switch-default class="img-responsive" ng-src="{{ get_plotsrc() }}"></img>
-				{{get_plotsrc()}}
-
-			</div>
-			<div class="col-xs-2">
-				<p> {{summary_file_date_end.format("YYYY-MM-DD")}} </p>
+				<div class="col-xs-2 col-xs-offset-8">
+					<p> {{summary_file_date_end.format("YYYY-MM-DD")}} </p>
 					<a class="btn btn-default" ng-href="#/vis/summary/{{frame_size}}/{{ make_urldate(summary_file_date_end) }}">--&gt;&gt;</a>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12" ng-switch="frame_size">
+					<div ng-switch-when="6h">
+						<img class="img-responsive" ng-src="{{ get_plotsrc_6h(0) }}"></img>
+						<img class="img-responsive" ng-src="{{ get_plotsrc_6h(6) }}"></img>
+						<img class="img-responsive" ng-src="{{ get_plotsrc_6h(12) }}"></img>
+						<img class="img-responsive" ng-src="{{ get_plotsrc_6h(18) }}"></img>
+						
+					</div>
+					<img ng-switch-default class="img-responsive" ng-src="{{ get_plotsrc() }}"></img>
+
+				</div>
 			</div>
 		</div>
 		<div ng-class="{hidden : selectmode != 0}" id="vis-plot" class="row">

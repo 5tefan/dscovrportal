@@ -10,7 +10,7 @@
 angular.module('dscovrDataApp')
   .controller('DownloadCtrl', function ($scope, $routeParams, $cookieStore, $location, $http) {
 
-	$scope.mission_start = moment.utc("12-12-1995", "DD-MM-YYYY");
+	$scope.mission_start = moment.utc("02-03-2015", "DD-MM-YYYY");
 	$scope.mission_end = moment.utc("12-12-2015", "DD-MM-YYYY");
 	var mission_range = moment.range($scope.mission_start, $scope.mission_end);
 	var file_catalog = "http://gis.ngdc.noaa.gov/dscovr-file-catalog/files";
