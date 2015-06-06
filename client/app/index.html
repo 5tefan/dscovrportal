@@ -95,7 +95,8 @@
         <!-- site or application content here -->
         <div class="container">
             <div class="header" data-ng-controller="NavCtrl">
-                <img id ="banner" src="images/dscovr_banner.png"></img>
+				<img data-ng-class="{hidden : isActive('')}" id="banner" src="images/dscovr_banner_small.png"></img>
+                <img data-ng-class="{hidden : !isActive('')}" id="banner" src="images/dscovr_banner.png"></img>
                 <ul class="nav nav-tabs nav-justified">
                     <li data-ng-class="{active : isActive('')}"><a data-ng-href="#/">Mission</a></li>
                     <li data-ng-class="{active : isActive('vis')}"><a data-ng-href="#/vis">Visualize Data</a></li>
