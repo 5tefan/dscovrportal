@@ -46,7 +46,7 @@ angular.module('dscovrDataApp')
 			src: "plots/dscovr_7day_plots/{{year}}/{{year}}{{month}}{{day}}-7day.png"
 		},
 		"1m": {
-			dt: 1000 * 60 * 60 * 24 * 28,
+			dt: 1000 * 60 * 60 * 24 * 32,
 			src: "plots/dscovr_month_plots/{{year}}/{{year}}{{month}}-month.png"
 		}
 	};
