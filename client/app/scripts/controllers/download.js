@@ -99,7 +99,8 @@ angular.module('dscovrDataApp')
 					var index = $scope.download_data_type_lookaside[ link_type ];
 					//console.log("i: " + index + ", v:" + link_type);
 					if (index && $scope.download_data_type[ index ].selected == true) {
-						to_return.push( $scope.files[ each ][ link_type ] );
+						//to_return.push( $scope.files[ each ][ link_type ] ); //without gz correction
+						to_return.push( $scope.files[ each ][ link_type ].substring(0, $scope.files[each][link_type].length-3) );
 					}
 				}
 				/* old way, optimized above
