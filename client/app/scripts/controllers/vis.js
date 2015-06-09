@@ -171,7 +171,7 @@ angular.module('dscovrDataApp')
 	//formats the summary_frame_info url string to the current user
 	//selected date
 	$scope.get_plotsrc = function() {
-		console.log( $scope.summary_file_date );
+		//console.log( $scope.summary_file_date );
 		var src = $scope.summary_frame_info[$scope.frame_size].src;
 		src = src.split("{{year}}").join( $scope.summary_file_date.format("YYYY") )
 		src = src.split("{{month}}").join( $scope.summary_file_date.format("MM") )
@@ -179,7 +179,7 @@ angular.module('dscovrDataApp')
 		return src;
 	}
 	$scope.get_plotsrc_6h = function(hour) {
-		console.log( $scope.summary_file_date );
+		//console.log( $scope.summary_file_date );
 		var src = $scope.summary_frame_info[$scope.frame_size].src;
 		src = src.split("{{year}}").join( $scope.summary_file_date.format("YYYY") )
 		src = src.split("{{month}}").join( $scope.summary_file_date.format("MM") )
