@@ -15,21 +15,6 @@ angular.module('dscovrDataApp')
 	var mission_range = moment.range($scope.mission_start, $scope.mission_end);
 	var file_catalog = "http://gis.ngdc.noaa.gov/dscovr-file-catalog/files";
 
-$scope.testData = {
-    "20150401": {
-        "att": "http://www.ngdc.noaa.gov/dscovr/files/2015/04/it_vc0_dscovr_s20150401000000_e20150401235959_p20150402000010_pub.nc.gz"
-    },
-    "20150402": {
-        "att": "http://www.ngdc.noaa.gov/dscovr/files/2015/04/it_vc1_dscovr_s20150402000000_e20150402235959_p20150403000010_pub.nc.gz",
-        "f1m": "http://www.ngdc.noaa.gov/dscovr/files/2015/04/it_vc0_dscovr_s20150402000000_e20150402235959_p20150403000010_pub.nc.gz"
-    },
-    "20150403": {
-        "att": "http://www.ngdc.noaa.gov/dscovr/files/2015/04/it_vc0_dscovr_s20150403000000_e20150403235959_p20150404000059_pub.nc.gz",
-        "f1m": "http://www.ngdc.noaa.gov/dscovr/files/2015/04/it_vc1_dscovr_s20150403000000_e20150403235959_p20150404000059_pub.nc.gz"
-    }
-}
-
-
 	//info icon to do desc
 	$scope.download_data_type = [
 		{type: "mg1", selected: true, desc: "Magnetometer L1 data full res"},

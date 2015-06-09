@@ -7,7 +7,7 @@
  * # autoScroll
  */
 angular.module('dscovrDataApp')
-	.directive('autoScroll', function () {
+	.directive('autoScroll', function ($document, $timeout, $location) {
 		return {
 			restrict: 'A',
 			link: function (scope, element, attrs) {

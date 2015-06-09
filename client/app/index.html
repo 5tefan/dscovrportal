@@ -42,59 +42,10 @@
         <![endif]-->
 
 
-        <!-- skip navigation link for 508 compliance -->
-        <a href="#skip_navigation"><img src="//ngdc.noaa.gov/image/onepixel.gif" class="skipnav" alt="skip navigation link" /></a>
-
-        <!-- BEGIN NGDC HEADER -->
-        <div id="header">
-                <div id="ngdcheader">
-                        <a href="/" target="_top" title="go to the National Centers for Environmental Information (formerly the National Geophysical Data Center) home">
-                                <img src="//www.ngdc.noaa.gov/image/nesdisngdcleft.gif" alt="NCEI (formerly NGDC)" height="50" width="440" border="0"/>
-                        </a> 
-                </div>
-                <div id="imageright">
-                        <form method="get" action="//search.usa.gov/search" class="sitesearch">
-                                <input type="hidden" name="affiliate" value="ngdc.noaa.gov" />
-                                <input type="hidden" name="v:project" value="firstgov" />
-                                <input type="text" name="query" id="query-field" placeholder="Search..." />
-                                <input type="image" src="//ngdc.noaa.gov/image/search-icon.png" alt="Go" title="Go" />
-                        </form>
-                </div>
-        </div>
-        <!-- END NGDC HEADER -->
-
-        <!-- BEGIN NGDC NAV -->
-        <table border="0" summary="layout table" width="100%" cellspacing="0" cellpadding="0" align="center">
-                <tbody>
-                        <tr>
-                                <td class="topnav" align="left">&nbsp;</td>
-                                <td class="topnav" align="right">
-                                        <div class="topnav">
-                                                <a class="topnav" title="go to privacy, disclaimer, &amp; copyright notices" href="/ngdcinfo/privacy.html">copyright, disclaimer, and privacy notices</a>
-                                        </div>
-                                </td>
-                        </tr>
-                </tbody>
-        </table>
-        <table border="0" summary="layout table" width="100%" cellspacing="0" cellpadding="0" align="center">
-                <tbody>
-                        <tr align="center">
-                                <td class="navlink"><a class="navlink" title="go to home" href="/ngdc.html"><strong>Home</strong></a></td>
-                                <td class="navlink"><a class="navlink" title="go to about us" href="/ngdcinfo/aboutngdc.html"><strong>About Us</strong></a></td>
-                                <td class="navlink"><a class="navlink" title="go to all data and information" href="/ngdcinfo/onlineaccess.html"><strong>Data &amp; Information</strong></a></td>
-                                <td class="navlink"><a class="navlink" title="go to educational resources" href="/education/education.html"><strong>Educational Resources</strong></a></td>
-                                <td class="navlink"><a class="navlink" title="go to news and features" href="/products/ngdc_news.html"><strong>News &amp; Features</strong></a></td>
-                        </tr>
-                </tbody>
-        </table>
-        <!-- END NGDC NAV -->
-
-        <!-- skip NGDC navigation link for 508 compliance -->
-        <a name="skip_navigation"></a>
-
         <!-- site or application content here -->
         <div class="container">
             <div class="header" data-ng-controller="NavCtrl">
+				<a href="https://www.ngdc.noaa.gov"><img src="//www.ngdc.noaa.gov/image/nesdisngdcleft.gif" alt="NCEI (formerly NGDC)"/></a>
 				<img data-ng-class="{hidden : isActive('')}" id="banner" src="images/dscovr_banner_small.png"></img>
                 <img data-ng-class="{hidden : !isActive('')}" id="banner" src="images/dscovr_banner.png"></img>
                 <ul class="nav nav-tabs nav-justified">
@@ -110,20 +61,21 @@
 
             <div data-ng-view=""></div>
 
+			<!-- BEGIN CALL TO NGDC FOOTER, EDIT NOSCRIPT IF NECESSARY -->
+			<div align="center" class="footltbg">
+				<script type="text/javascript" src="//www.ngdc.noaa.gov/bin/ngdcmetafooter.js"></script>
+				<noscript>
+					<div align="center">
+						<a href="/ngdc.html">Home</a> | <a href="/ngdcinfo/privacy.html">disclaimers</a> | <a href="mailto:ngdc.info@noaa.gov">questions</a>
+						<hr>
+						Website of the US Dept of Commerce/NOAA/NESDIS/NCEI
+					</div>
+				</noscript>
+			</div>
+			<!-- END CALL TO NGDC FOOTER -->
+
         </div>
 
-        <!-- BEGIN CALL TO NGDC FOOTER, EDIT NOSCRIPT IF NECESSARY -->
-        <div align="center" class="footltbg">
-            <script type="text/javascript" src="//www.ngdc.noaa.gov/bin/ngdcmetafooter.js"></script>
-            <noscript>
-                <div align="center">
-                    <a href="/ngdc.html">Home</a> | <a href="/ngdcinfo/privacy.html">disclaimers</a> | <a href="mailto:ngdc.info@noaa.gov">questions</a>
-                    <hr>
-                    Website of the US Dept of Commerce/NOAA/NESDIS/NCEI
-                </div>
-            </noscript>
-        </div>
-        <!-- END CALL TO NGDC FOOTER -->
 
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
