@@ -17,7 +17,7 @@ angular.module('dscovrDataApp')
 
 				$document.bind('scroll', function () {
 					if (scope.okSaveScroll) {
-					scope.scrollPos[$location.path()] = $(window).scrollTop();
+					scope.scrollPos[$location.path().split("/")[0]] = $(window).scrollTop();
 					}
 				});
 
@@ -27,7 +27,7 @@ angular.module('dscovrDataApp')
 
 				scope.$on('$locationChangeSuccess', function (route) {
 					$timeout(function () {
-						$(window).scrollTop(scope.scrollPos[$location.path()] ? scope.scrollPos[$location.path()] : 0);
+						$(window).scrollTop(scope.scrollPos[$location.path().split("/")[0]] ? scope.scrollPos[$location.path().split("/")[0]] : 0);
 						scope.okSaveScroll = true;
 					}, 0);
 				});
