@@ -17,18 +17,19 @@ import matplotlib.pyplot as plt
 
 ############## config ####################
 dscovr_mission_start = datetime.datetime(2015, 03, 02)  #march 2
-dscovr_file_base = '/nfs/dscovr_private/data/'
+dscovr_file_base = '/nfs/dscovr_private/data/' #code assumes files organized under this by YEAR/MONTH
 dscovr_plot_output_base = '/nfs/dscovr_private/plots/'
+dscovr_files_gzipped = True
 
 dscovr_ts_width = 14 	#inches
 dscovr_ts_height = 10 	#inches
 dscovr_ts_frame_sizes = [
 	#name		#path				#filename	#startms		#finishms
-	["6hour1",	"dscovr_6hr_plots/%Y/%m",	"%Y%m%d00-6hr", 0,			1000 * 60 * 60 * 6],
-	["6hour2",	"dscovr_6hr_plots/%Y/%m",	"%Y%m%d06-6hr", 1000 * 60 * 60 * 6, 	1000 * 60 * 60 * 12],
-	["6hour3",	"dscovr_6hr_plots/%Y/%m",	"%Y%m%d12-6hr", 1000 * 60 * 60 * 12, 	1000 * 60 * 60 * 18],
-	["6hour4",	"dscovr_6hr_plots/%Y/%m",	"%Y%m%d18-6hr", 1000 * 60 * 60 * 18, 	1000 * 60 * 60 * 24],
-	["1day",	"dscovr_1day_plots/%Y/%m",	"%Y%m%d-day", 	0,			1000 * 60 * 60 * 24],
+#	["6hour1",	"dscovr_6hr_plots/%Y/%m",	"%Y%m%d00-6hr", 0,			1000 * 60 * 60 * 6],
+#	["6hour2",	"dscovr_6hr_plots/%Y/%m",	"%Y%m%d06-6hr", 1000 * 60 * 60 * 6, 	1000 * 60 * 60 * 12],
+#	["6hour3",	"dscovr_6hr_plots/%Y/%m",	"%Y%m%d12-6hr", 1000 * 60 * 60 * 12, 	1000 * 60 * 60 * 18],
+#	["6hour4",	"dscovr_6hr_plots/%Y/%m",	"%Y%m%d18-6hr", 1000 * 60 * 60 * 18, 	1000 * 60 * 60 * 24],
+#	["1day",	"dscovr_1day_plots/%Y/%m",	"%Y%m%d-day", 	0,			1000 * 60 * 60 * 24],
 	["3day",	"dscovr_3day_plots/%Y/",	"%Y%m%d-3day", 	0,			1000 * 60 * 60 * 24 * 3],
 	["7day",	"dscovr_7day_plots/%Y/",	"%Y%m%d-7day", 	0,			1000 * 60 * 60 * 24 * 7],
 	["1month",	"dscovr_month_plots/%Y/",	"%Y%m-month", 	0,			0] #month is going to to take a custom range, months not all same length
@@ -48,9 +49,13 @@ dscovr_ts_pane_config = [
 	["Temperature\n [K]",	[ [10e4, 10e6], [10e4, 10e6] ],	[["f1m", "alpha_temperature", "Temp DSCOVR", "k-"]] ], ##note temperature is hardcoded as semilogy scale
 	["Density\n [cc]",	[ [0, 10], [0,90] ], 		[["f1m", "alpha_density", "Dens DSCOVR", "b-"], ["f1m", "alpha_density", "Dens Bow", "k-"]] ]
 ]
+##########################################
 
 dscovr_ts_panes = len( dscovr_ts_pane_config )	#number of panes
-##########################################
+if dscovr_files_gzipped == True:
+	import tempfile
+	import gzip
+	import shutil
 
 
 def find_file(dt, type):
@@ -59,11 +64,38 @@ def find_file(dt, type):
 	to fill in the processing date p*"""
 	seek_path_piece = dscovr_file_base + dt.strftime("%Y/%m/")					##path under file base to look in
 	seek_path_full = os.path.join( dscovr_file_base, seek_path_piece )
-	seek_filename = dt.strftime("it_%%s_dscovr_s%Y%m%d000000_e%Y%m%d235959_p*_emb.nc") % type	##file name with * instead of processing date
+	seek_filename = dt.strftime("it_%%s_dscovr_s%Y%m%d000000_e%Y%m%d235959_p*") % type	##file name with * instead of processing date
 	for root, dirs, files in os.walk( seek_path_full ):
 		for name in files:
 			if fnmatch.fnmatch( name, seek_filename ):
 				return os.path.join( root, name )
+
+def find_files_for_month(dt, type):
+	"""Since the processing time is unknown, use the type and the date to
+	make a string like it_m1m_dscovr_s(date)_e(date)_p*_pub.nc and pattern match
+	to fill in the processing date p*"""
+	results = []
+	seek_path_piece = dscovr_file_base + dt.strftime("%Y/%m/")					##path under file base to look in
+	seek_path_full = os.path.join( dscovr_file_base, seek_path_piece )
+	seek_filename = "it_%s_dscovr_*" % type					##file name with * instead of processing date
+	for root, dirs, files in os.walk( seek_path_full ):
+		for name in files:
+			if fnmatch.fnmatch( name, seek_filename ):
+				results.append( os.path.join( root, name ) )
+	return results
+
+def gunzip_files_to_tmp(files):
+	degz_files = []
+	for file in files:
+		tmp_path = tempfile.NamedTemporaryFile(mode="w+b", delete=False)
+		shutil.copyfileobj( gzip.open( file ), tmp_path )
+		degz_files.append( tmp_path.name )
+	return degz_files
+
+def rm_gunzip_tmp_files(files):
+	for file in files:
+		os.remove(file)	
+	
 
 def unix_time_millis(dt):
 	epoch = datetime.datetime.utcfromtimestamp(0)
@@ -155,21 +187,27 @@ def main(date):
 	date_to_plot = date
 
 	for frame_size in dscovr_ts_frame_sizes:							# loop over frame sizes defined
-		print( "getting data for: %s" % frame_size[0] )
+		#print( "getting data for: %s" % frame_size[0] )
 		frame_beginning = startof_frame( date_to_plot, frame_size[0] )				# only used if not 1month frame size
 
 		for pane_config in dscovr_ts_pane_config:
-			print( "\tpane: %s" % pane_config[0].split('\n')[0] )
+			#print( "\tpane: %s" % pane_config[0].split('\n')[0] )
 
 			for stroke in pane_config[2]:
 				#for multiple strokes on same pane, eg bz, bx, and by
 				
+				start_millis = 0
+				end_millis = 0
 				file_paths = []
 				if frame_size[0] == "1month":
 					##treated specially because nc.MFDataset can take * wildcard and files are stored
 					## in the directories by month, so format the proper wildcard string for the datatype
-					path_part = os.path.join( dscovr_file_base, date_to_plot.strftime("%Y/%m") )
-					file_paths = path_part + "/it_" + stroke[0] + "_dscovr_*.nc" 
+					if dscovr_files_gzipped:
+						file_paths = find_files_for_month( current_get, stroke[0] )
+					else:
+						path_part = os.path.join( dscovr_file_base, date_to_plot.strftime("%Y/%m") )
+						file_paths = path_part + "/it_" + stroke[0] + "_dscovr_*.nc" 
+					
 				else:
 					##otherwise have to iterate by date to get the filenames containing the data for the period
 					frame_beginning_millis = unix_time_millis( frame_beginning )
@@ -185,6 +223,10 @@ def main(date):
 						if path: 					#because nc.MFDataset can't handle a None
 							file_paths.append( path )
 						current_get_millis += 1000 * 60 * 60 * 24 	#increment by millisec in a day
+				
+				if dscovr_files_gzipped:
+					file_paths = gunzip_files_to_tmp( file_paths )
+				
 				try:
 					dataset = nc.MFDataset( file_paths )
 
@@ -197,9 +239,13 @@ def main(date):
 					finaldata = []
 					finaltime = []
 					for i, x in enumerate(data): ##time and data have same dim so this is ok to iterate over both
-						if time[i] > start_millis and time[i] < end_millis:
+						if time[i] >= start_millis and time[i] <= end_millis:
 							finaldata.append( x )
 							finaltime.append( datetime.datetime.utcfromtimestamp( time[i]/1000 ) )
+						elif start_millis == 0 and end_millis == 0:
+							finaldata.append( x )
+							finaltime.append( datetime.datetime.utcfromtimestamp( time[i]/1000 ) )
+
 						if i + 1 < len( data ): #if still inside data array
 							if time[i+1] - time[i] > 1000 * 60 * 60: ##more than 1 hour until next time element
 								finaldata.append( np.nan )
@@ -210,6 +256,9 @@ def main(date):
 				except IndexError: ##handle the case when all the data is missing
 					stroke.append( [[]] ) # we might want to do something different, but for now this will keep the program running 
 					stroke.append( [[]] ) # and produce a blank plot
+
+				if dscovr_files_gzipped:
+					rm_gunzip_tmp_files( file_paths )
 		
 		##format path and filename, verify path exists
 		plot_path = dscovr_plot_output_base + frame_beginning.strftime( frame_size[1] )
@@ -230,3 +279,13 @@ if __name__ == "__main__":
 	except (ValueError, IndexError):
 		print( "Usage: python plotter.py <YYYYmmdd>" )
 
+	main(date)
+	
+"""
+	date = dscovr_mission_start
+	delta = datetime.timedelta(days=1)
+	while date < datetime.datetime(2015, 06, 03):
+		print date.strftime("%Y-%m-%d")
+		date += delta
+
+"""
