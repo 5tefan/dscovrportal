@@ -8,7 +8,7 @@
 						<a href="" ng-click="selectmode = 0">Summary plots</a>
 					</li>
 					<li ng-class="{active : selectmode == 1}">
-						<a href="" ng-click="selectmode = 1">Interactive explorer</a>
+						<a href="" ng-click="selectmode = 1">Advanced</a>
 					</li>
 				</ul>
 			</div>
@@ -31,7 +31,6 @@
 					<a class="btn btn-default" ng-class="{active:frame_size=='1m'}" ng-href="#/vis/summary/1m/{{timestring}}">1 month</a>
 				</div>
 				<div ng-class="{hidden : selectmode != 1}" id="vis-visnav">
-					<p> coming soon </p>
 				</div>
 			</div>
 		</div>
@@ -57,7 +56,72 @@
 						
 					</div>
 					<img ng-switch-default class="img-responsive" ng-src="{{ get_plotsrc() }}"></img>
-
+				</div>
+			</div>
+		</div>
+		<div ng-class="{hidden : selectmode != 1}">
+			<div class="row">
+				<div class="col-xs-4">
+					<h2> Select Parameters </h2>
+				</div>
+			</div>
+			<div class="row">
+				<form class="form-inline">
+					<div class="form-group">
+						<label for="y"> Y </label>
+						<input type="text" class="form-control">
+					</div>
+					<div class="form-group">
+						<label for="y"> X </label>
+						<input type="text" class="form-control">
+					</div>
+				</form>
+			</div>
+			<div class="row">
+				<div class="col-xs-4">
+					<h2> Select Conditions </h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-2">
+					<select class="form-control">
+						<option> bx </option>
+						<option> by </option>
+						<option> bz </option>
+						<option> bt </option>
+					</select>
+				</div>
+				<div class="col-xs-2">
+					<select class="form-control">
+						<option> &gt; </option>
+						<option> &lt; </option>
+						<option> = </option>
+					</select>
+				</div>
+				<div class="col-xs-1">
+					<form class="form-inline">
+						<div class="form-group">
+							<input type="text" class="form-control">
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-4">
+					<h2> Time condition </h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-2">
+					<p> Bz </p>
+				</div>
+				<div class="col-xs-10">
+					<svg height="10px" width="100%"></svg>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-2">
+					<a class="btn btn-default" role="button"> Plot </a>
 				</div>
 			</div>
 		</div>
