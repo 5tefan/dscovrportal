@@ -30,7 +30,10 @@
 					<a class="btn btn-default" ng-class="{active:frame_size=='7d'}" ng-href="#/vis/summary/7d/{{timestring}}">7 days</a>
 					<a class="btn btn-default" ng-class="{active:frame_size=='1m'}" ng-href="#/vis/summary/1m/{{timestring}}">1 month</a>
 				</div>
-				<div ng-class="{hidden : selectmode != 1}" id="vis-visnav">
+				<div ng-class="{hidden : selectmode != 1}" class="col-xs-3" id="vis-visnav">
+					<p> Select type </p>
+					<a class="btn btn-default"> Time series </a>
+					<a class="btn btn-default"> Scatter </a>
 				</div>
 			</div>
 		</div>
@@ -60,9 +63,9 @@
 			</div>
 		</div>
 		<div ng-class="{hidden : selectmode != 1}">
-			<div class="row">
+			<div class="row" style="margin-top: 20px; margin-bottom: 20px;">
 				<div class="col-xs-4">
-					<h2> Select Parameters </h2>
+					<h2 style="margin: 0; padding: 0;"> Select Parameters </h2>
 				</div>
 				<div class="col-xs-2">
 					<a class="btn btn-default"> + add plot </a>
@@ -92,9 +95,9 @@
 					</form>
 				</div>
 			</div>
-			<div class="row">
+			<div class="row" style="margin-top: 20px; margin-bottom: 20px;">
 				<div class="col-xs-4">
-					<h2> Select Conditions </h2>
+					<h2 style="margin: 0; padding: 0;"> Select Conditions </h2>
 				</div>
 				<div class="col-xs-2">
 					<a class="btn btn-default"> + add condition </a>
@@ -123,16 +126,36 @@
 						</div>
 					</form>
 				</div>
-				<div class="col-xs-1">
-					<p> --&gt; </p>
-				</div>
-				<div class="cos-xs-5">
-					<svg height="20px"></svg>
-				</div>
 			</div>
 			<div class="row">
 				<div class="col-xs-4">
 					<h2> Time condition </h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="cos-xs-5">
+					<svg height="200px"></svg>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-1">
+					<p> Start </p>
+				</div>
+				<div class="col-xs-3">
+					<p class="input-group">
+						<input type="text" class="form-control" datepicker-popup ng-model="selected_date" is-open="datepicker_opened" min-date="mission_start" max-date="mission_end" close-text="Close" ng-change="dateselect_onchange()" ng-blur="dateselect_locationchange()"></input>
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default" ng-click="datepicker_open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+						</span>
+					</p>
+				</div>
+				<div class="col-xs-3">
+					<p class="input-group">
+						<input type="text" class="form-control" datepicker-popup ng-model="selected_date" is-open="datepicker_opened" min-date="mission_start" max-date="mission_end" close-text="Close" ng-change="dateselect_onchange()" ng-blur="dateselect_locationchange()"></input>
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default" ng-click="datepicker_open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+						</span>
+					</p>
 				</div>
 			</div>
 			<div class="row">
