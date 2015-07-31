@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc function
- * @name dscovrDataApp.controller:VisCtrl
+ * @name dscovrDataApp.controller:VisSummaryCtrl
  * @description
- * # VisCtrl
+ * # VisSummaryCtrl
  * Controller of the dscovrDataApp
  */
 angular.module('dscovrDataApp')
-  .controller('VisCtrl', function ($scope, $routeParams, $cookieStore, $location) {
+  .controller('VisSummaryCtrl', function ($scope, $routeParams, $cookieStore, $location) {
 
 	$scope.mission_start = moment.utc("02-03-2015", "DD-MM-YYYY");
 	$scope.mission_end = moment.utc("12-12-2015", "DD-MM-YYYY");
@@ -74,11 +74,6 @@ angular.module('dscovrDataApp')
 
 */
 
-	if ($routeParams.type == "interactive") {
-		$scope.selectmode = 1; //1 is for dynamic plot
-		//todo: parse the frame for browse type plot
-	} else if ($routeParams.type == "summary") {
-		$scope.selectmode = 0; //0 for summaries
 		//initialize on the three day summary
 		//a frame size must have a corresponding
 		//summary_config option to be valid
@@ -136,11 +131,6 @@ angular.module('dscovrDataApp')
 				$location.url("/vis/summary/7d");
 				return; //do not go on after location change
 		}
-	} else {
-		//if incorrect type parameter, default to:
-		$location.url("/vis/summary/7d");
-		return; //do not go on after location change
-	}
 
 	//calculate the difference between userselectdate and mission_start, divide by frame_size in ms to get number
 	//of frames from the beginning, then construct date by adding beginning + frame_size * number of frames. An image
@@ -157,7 +147,7 @@ angular.module('dscovrDataApp')
 			var ensure_date = moment($scope.selected_date);
 			$location.url("/vis/summary/" + $routeParams.arg + "/" + $scope.make_urldate( ensure_date ));
 		} else {
-			//TODO: warn about incorrect date
+			//TODO: warn about incorrect date?
 		}
 	}
 
@@ -191,4 +181,5 @@ angular.module('dscovrDataApp')
 		}
 		return src;
 	}
+
 });

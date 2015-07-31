@@ -1,0 +1,125 @@
+<div class="view">
+	<h2 class="text-center"> Custom Plot </h2>
+	<div class="container-fluid">
+		<div id="vis-controls" class="row">
+			<div id="vis-typeselect" class="col-xs-2">
+				<ul class="nav nav-pills nav-stacked">
+					<li>
+						<a href="#/vis/summary">Summary plots</a>
+					</li>
+					<li class="active">
+						<a href="#/vis/advanced">Advanced plots</a>
+					</li>
+				</ul>
+			</div>
+			<div id="vis-selectarea" class="col-xs-10">
+
+
+			<div class="row" style="margin-top: 20px; margin-bottom: 20px;">
+				<div class="col-xs-4">
+					<h2 style="margin: 0; padding: 0;"> Select Parameters </h2>
+				</div>
+				<div class="col-xs-2">
+					<a class="btn btn-default"> + add plot </a>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-4">
+					<form class="form-inline">
+						<div class="form-group">
+							<label for="y"> Y </label>
+							<select class="form-control">
+								<option> bx </option>
+								<option> by </option>
+								<option> bz </option>
+								<option> bt </option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="y"> &nbsp; &nbsp; X </label>
+							<select class="form-control">
+								<option> bx </option>
+								<option> by </option>
+								<option> bz </option>
+								<option> bt </option>
+							</select>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="row" style="margin-top: 20px; margin-bottom: 20px;">
+				<div class="col-xs-4">
+					<h2 style="margin: 0; padding: 0;"> Select Conditions </h2>
+				</div>
+				<div class="col-xs-2">
+					<a class="btn btn-default"> + add condition </a>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-2">
+					<select class="form-control">
+						<option> bx </option>
+						<option> by </option>
+						<option> bz </option>
+						<option> bt </option>
+					</select>
+				</div>
+				<div class="col-xs-2">
+					<select class="form-control">
+						<option> &gt; </option>
+						<option> &lt; </option>
+						<option> = </option>
+					</select>
+				</div>
+				<div class="col-xs-2">
+					<form class="form-inline">
+						<div class="form-group">
+							<input type="text" class="form-control">
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-4">
+					<h2> Time condition </h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="cos-xs-5">
+					<svg height="200px"></svg>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-1">
+					<p> Start </p>
+				</div>
+				<div class="col-xs-3">
+					<p class="input-group">
+						<input type="text" class="form-control" datepicker-popup ng-model="selected_date" is-open="datepicker_opened" min-date="mission_start" max-date="mission_end" close-text="Close" ng-change="dateselect_onchange()" ng-blur="dateselect_locationchange()"></input>
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default" ng-click="datepicker_open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+						</span>
+					</p>
+				</div>
+				<div class="col-xs-3">
+					<p class="input-group">
+						<input type="text" class="form-control" datepicker-popup ng-model="selected_date" is-open="datepicker_opened" min-date="mission_start" max-date="mission_end" close-text="Close" ng-change="dateselect_onchange()" ng-blur="dateselect_locationchange()"></input>
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default" ng-click="datepicker_open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+						</span>
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-2">
+					<a class="btn btn-default" role="button"> Plot </a>
+				</div>
+			</div>
+
+
+			</div>
+		</div>
+		<div id="vis-plot">
+		</div>
+	</div>
+</div>

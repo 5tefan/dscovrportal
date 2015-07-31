@@ -31,9 +31,16 @@ angular
 		//and argg is the date selected
 		//if type is interactive then arg is
 		// start of frame and argg is end of frame
-      .when('/vis/:type?/:arg?/:argg?', {
-        templateUrl: 'views/vis.html',
-        controller: 'VisCtrl'
+      .when('/vis/summary/:arg?/:argg?', {
+        templateUrl: 'views/vis/summary.html',
+        controller: 'VisSummaryCtrl'
+      })
+      .when('/vis/advanced/:arg?/:argg?/:arggg?', {
+        templateUrl: 'views/vis/advanced.html',
+        controller: 'VisAdvancedCtrl'
+      })
+      .when('/vis', {
+        redirectTo: '/vis/summary'
       })
       .when('/download/:type?/:arg?/:argg?', {
         templateUrl: 'views/download.html',
