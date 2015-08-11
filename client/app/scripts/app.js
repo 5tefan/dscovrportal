@@ -46,6 +46,10 @@ angular
         templateUrl: 'views/download.html',
         controller: 'DownloadCtrl'
       })
+      .when('/vis/event', {
+        templateUrl: 'views/vis/event.html',
+        controller: 'VisEventCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
