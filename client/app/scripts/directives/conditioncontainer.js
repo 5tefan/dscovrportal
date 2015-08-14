@@ -42,20 +42,20 @@ angular.module('dscovrDataApp')
 				}
 
 				scope.evalConditions = function() {
-					var condition_str;
-					if (scope.default_condition_str.construct) {
-						condition_str = scope.default_condition_str.construct + ";";
+					var condition_str = "";
+					if (scope.default_condition.construct) {
+						condition_str = scope.default_condition.construct + ";";
 					} 
-					for (var each in scope.condition_strs) {
-						if (scope.condition_strs[each].construct) {
-							condition_str += scope.condition_strs[each].construct + ";";
+					for (var each in scope.conditions) {
+						if (scope.conditions[each].construct) {
+							condition_str += scope.conditions[each].construct + ";";
 						}
 					}
 					return condition_str;
 				}
 
-				//listen for evalClikced event, broadcast from parent when
-				//when the parent needs the conditions to be evaluated.
+				// listen for evalClikced event, broadcast from parent when
+				// when the parent needs the conditions to be evaluated.
 				scope.$on('evalConditions', function(e, cb) {
 					cb(scope.evalConditions());
 				});
