@@ -14,16 +14,13 @@ angular.module('dscovrDataApp')
 					};
 		$scope.where = "";
 
-		// on eval clicked, broadcast this message, 
-		// the condition-container will react by evaluating the conditions
-		// and through the two way binding with $scope.where here, we will
-		// have the result. NOTE: $broadcast is async so see the binding 
-		// below for evalClickedCallback which condition container boradcasts
-		// a trigger for when it is done evaluating.
+		//when we need to get the conditions from the condition container
+		// will broadcast evalConditions and give a callback which utilizes
+		// the generated condition string.
 		$scope.evalConditions = function() {
-			$scope.$broadcast("evalConditions", function(where) {
-				if (where) {
-					console.log(where); //TODO replace with request
+			$scope.$broadcast("evalConditions", function(condition_str) {
+				if (condition_str) {
+					console.log(condition_str); //TODO replace with request
 				} else {
 					// flash an error message if none of the conditions are valid
 					$scope.error = "please enter at least 1 valid condition!";
