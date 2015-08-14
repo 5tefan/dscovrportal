@@ -23,19 +23,10 @@ angular.module('dscovrDataApp')
 				'</div>'+
 				'<div class="row conditionEdit" ng-repeat="condition in conditions">'+
 						'<div condition-edit params="params" condition="condition" removable="true" rm-condition="rmCondition($index)"></div>'+
-				'</div>'+
-				'<div class="row">'+
-					'<div class="col-xs-2">'+
-						'<a class="btn btn-default" role="button" ng-click="evalConditions()"> Search </a>'+
-					'</div>'+
-					'<div class="col-xs-5">'+
-						'<p> {{ error }} </p>'+
-					'</div>'+
 				'</div>',
 			restrict: 'A',
 			scope: {
 				params : '=',
-				where: '='
 			},
 			link: function postLink(scope, element, attrs) {
 				//the default condition that you can't delete
@@ -49,26 +40,25 @@ angular.module('dscovrDataApp')
 				scope.rmCondition = function(i) {
 					scope.conditions.splice(i, 1);
 				}
+
 				scope.evalConditions = function() {
-					var where;
-					if (scope.default_condition.construct) {
-						where = scope.default_condition.construct + ";";
+					var condition_str;
+					if (scope.default_condition_str.construct) {
+						condition_str = scope.default_condition_str.construct + ";";
 					} 
-					for (var each in scope.conditions) {
-						if (scope.conditions[each].construct) {
-							where += scope.conditions[each].construct + ";";
+					for (var each in scope.condition_strs) {
+						if (scope.condition_strs[each].construct) {
+							condition_str += scope.condition_strs[each].construct + ";";
 						}
 					}
-					if (where) {
-						console.log(where); //TODO replace with request
-					} else {
-						// flash an error message if none of the conditions are valid
-						scope.error = "please enter at least 1 valid condition!";
-						$timeout(function() {
-							scope.error = "";
-						}, 5000);
-					}
+					return condition_str;
 				}
+
+				//listen for evalClikced event, broadcast from parent when
+				//when the parent needs the conditions to be evaluated.
+				scope.$on('evalConditions', function(e, cb) {
+					cb(scope.evalConditions());
+				});
 			}
 		};
 	});
