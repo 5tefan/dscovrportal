@@ -50,6 +50,18 @@ angular
         templateUrl: 'views/vis/event.html',
         controller: 'VisEventCtrl'
       })
+      .when('/vis/ts', {
+        templateUrl: 'views/vis/ts.html',
+        controller: 'VisTsCtrl'
+      })
+      .when('/vis/sp', {
+        templateUrl: 'views/vis/sp.html',
+        controller: 'VisSpCtrl'
+      })
+      .when('/vis/scatter', {
+        templateUrl: 'views/vis/scatter.html',
+        controller: 'VisScatterCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

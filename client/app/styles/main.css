@@ -4,6 +4,10 @@ body {
   padding-bottom: 20px;
 }
 
+input, form {
+	max-width: 100%;
+}
+
 .header,
 .view,
 .footer {
@@ -39,6 +43,9 @@ body {
 #vis-plot {
 	clear: both;
 	margin: 10px 0 10px 0;
+}
+.conditionEdit {
+	margin-bottom: 10px;
 }
 .download-day-selection {
 	height: 200px;
