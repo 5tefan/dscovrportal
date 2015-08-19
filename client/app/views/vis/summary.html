@@ -19,14 +19,9 @@
 				</ul>
 			</div>
 			<div id="vis-selectarea" class="col-xs-10">
-				<div id="vis-summaryselect" class="col-xs-6">
+				<div id="vis-summaryselect" class="col-xs-3">
 					<p> select date </p>
-					<p class="input-group">
-						<input type="text" class="form-control" datepicker-popup ng-model="selected_date" is-open="datepicker_opened" min-date="mission_start" max-date="mission_end" close-text="Close" ng-change="dateselect_onchange()" ng-blur="dateselect_locationchange()"></input>
-						<span class="input-group-btn">
-							<button type="button" class="btn btn-default" ng-click="datepicker_open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-						</span>
-					</p>
+					<quick-datepicker ng-model="selected_date" on-change="dateselect_onchange()" icon-class="glyphicon glyphicon-calendar" disable-timepicker="true" timezone="UTC"></quick-datepicker>
 				</div>
 				<div id="vis-summaryselect" class="col-xs-6">
 					<p> Select plot width: </p>

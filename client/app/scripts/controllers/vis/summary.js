@@ -97,6 +97,9 @@ angular.module('dscovrDataApp')
 				//this is the date the picker will be initialized to
 				$scope.selected_date = $scope.summary_date.format("YYYY-MM-DD");
 
+	//calculate the difference between userselectdate and mission_start, divide by frame_size in ms to get number
+	//of frames from the beginning, then construct date by adding beginning + frame_size * number of frames. An 
+	//image should exist for the specified time.
 				//the following seciton calculates the date for the file that the user requested date is plotted within
 				//ie depends on frame size and user requested date
 				if ($scope.frame_size == "3d" || $scope.frame_size == "7d") {
@@ -132,15 +135,6 @@ angular.module('dscovrDataApp')
 				return; //do not go on after location change
 		}
 
-	//calculate the difference between userselectdate and mission_start, divide by frame_size in ms to get number
-	//of frames from the beginning, then construct date by adding beginning + frame_size * number of frames. An image
-	//should exist for the specified time.
-
-	$scope.dateselect_onchange = function() {
-		if ($scope.datepicker_opened == true) {
-			$scope.dateselect_locationchange();
-		}
-	}
 
 	$scope.dateselect_locationchange = function() {
 		if ($scope.selected_date) {
@@ -150,13 +144,6 @@ angular.module('dscovrDataApp')
 			//TODO: warn about incorrect date?
 		}
 	}
-
-	//this function required for datepicker
-	$scope.datepicker_open = function($event) {
-		$event.preventDefault();
-		$event.stopPropagation();
-		$scope.datepicker_opened = true;
-	};
 
 	//formats the summary_frame_info url string to the current user
 	//selected date

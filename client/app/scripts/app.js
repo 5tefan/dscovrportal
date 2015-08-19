@@ -16,9 +16,9 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-	'ui.bootstrap'
+	'ngQuickDate',
   ])
-  .config(function ($routeProvider) {
+  .config(function ($routeProvider, ngQuickDateDefaultsProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
@@ -65,4 +65,12 @@ angular
       .otherwise({
         redirectTo: '/'
       });
+
+	//Update these when the mission ends
+	var mission_start = moment.utc("02-03-2015", "DD-MM-YYYY");
+	var mission_end = moment.utc("12-13-2015", "DD-MM-YYYY");
+	ngQuickDateDefaultsProvider.set('dateFilter', function(d) {
+		d = moment(d);
+		return d.isAfter(mission_start) && d.isBefore(mission_end);
+	});
   });
