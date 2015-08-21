@@ -10,9 +10,9 @@ angular.module('dscovrDataApp')
 	.directive('tsParamPane', function () {
 		return {
 			template: 
-				'<div class="row" style="margin-top: 20px; margin-bottom: 20px;">'+
+				'<div class="row">'+
 					'<div class="col-xs-4">'+
-						'<h3 style="margin: 0; padding: 0;"> Pane {{$index}}</h3>'+
+						'<h4> Pane {{position}}</h4>'+
 					'</div>'+
 					'<div class="col-xs-2">'+
 						'<a class="btn btn-default" ng-click=addSelection()> + add parameter </a>'+
@@ -22,16 +22,17 @@ angular.module('dscovrDataApp')
 					'</div>'+
 				'</div>'+
 				'<div class="row paneEdit">'+
-					'<div ts-param-edit params="params" selection="default_selection" removable="false"></div>'+
+					'<div param-edit params="params" selection="default_selection" removable="false"></div>'+
 				'</div>'+
 				'<div class="row paneEdit" ng-repeat="selection in selections">'+
-						'<div ts-param-edit params="params" selection="selection" removable="true" rm-selection="rmSelection($index)"></div>'+
+						'<div param-edit params="params" selection="selection" removable="true" rm-selection="rmSelection($index)"></div>'+
 				'</div>',
 			restrict: 'A',
 			scope: {
 				params : '=',
 				pane : '=',
 				rmPane : '&',
+				position : '=',
 			},
 			link: function postLink(scope, element, attrs) {
 

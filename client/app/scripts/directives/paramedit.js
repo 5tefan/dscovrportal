@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc directive
- * @name dscovrDataApp.directive:tsParamEdit
+ * @name dscovrDataApp.directive:paramEdit
  * @description
- * # tsParamEdit
+ * # paramEdit
  */
 angular.module('dscovrDataApp')
-	.directive('tsParamEdit', function () {
+	.directive('paramEdit', function () {
 		return {
 			template: 
 					'<div class="col-xs-2">'+

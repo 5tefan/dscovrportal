@@ -1,5 +1,5 @@
 <div class="view">
-	<h2 class="text-center"> Find events </h2>
+	<h2 class="text-center"> Time Series Plot </h2>
 	<div class="container-fluid">
 		<div id="vis-controls" class="row">
 			<div id="vis-typeselect" class="col-xs-2">
@@ -20,7 +20,7 @@
 			</div>
 			<div id="vis-selectarea" class="col-xs-10">
 				<div ts-param-container params='param_test'></div>
-				<div time-range range="range"></div>
+				<div time-range construct="timerange_construct"></div>
 				<div class="row">
 					<div class="col-xs-2">
 						<a class="btn btn-default" role="button" ng-click="evalSelections()"> Plot </a>

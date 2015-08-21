@@ -12,6 +12,7 @@ angular.module('dscovrDataApp')
 		$scope.param_test = { 	"m1m" : { "bz": "nt", "by": "nt"},
 							"f1m" : { "pr": "pr", "et": "tc"}
 					};
+		$scope.timerange_construct = "";
 
 		// evaluate the selections from the main controller
 		$scope.evalSelections = function() {
@@ -36,6 +37,8 @@ angular.module('dscovrDataApp')
 						// alert that we didnt get what we needed
 						if ($scope.selection_strs) {
 							console.log($scope.selection_strs);
+							//now get the construct from time range
+							console.log($scope.timerange_construct);
 						} else {
 							// flash an error message if none of the panes are valid
 							$scope.error = "please enter at least 1 valid pane";

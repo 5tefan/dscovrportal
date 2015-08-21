@@ -10,9 +10,9 @@ angular.module('dscovrDataApp')
 	.directive('tsParamContainer', function () {
 		return {
 			template: 
-				'<div class="row" style="margin-top: 20px; margin-bottom: 20px;">'+
+				'<div class="row">'+
 					'<div class="col-xs-4">'+
-						'<h2 style="margin: 0; padding: 0;"> Configure Panes </h2>'+
+						'<h3> Configure Panes </h3>'+
 					'</div>'+
 					'<div class="col-xs-2">'+
 						'<a class="btn btn-default" ng-click=addPane()> + add pane </a>'+
@@ -20,12 +20,12 @@ angular.module('dscovrDataApp')
 				'</div>'+
 				'<div class="row paneEdit">'+
 					'<div class="col-xs-12">'+
-						'<div ts-param-pane params="params" pane="default_pane" removable="false"></div>'+
+						'<div ts-param-pane params="params" pane="default_pane" removable="false" position="0"></div>'+
 					'</div>'+
 				'</div>'+
 				'<div class="row pnaeEdit" ng-repeat="pane in panes">'+
 					'<div class="col-xs-12">'+
-						'<div ts-param-pane params="params" pane="pane" removable="true" rm-pane="rmPane($index)"></div>'+
+						'<div ts-param-pane params="params" pane="pane" removable="true" rm-pane="rmPane($index)" position="getPosition(pane)"></div>'+
 					'</div>'+
 				'</div>',
 			restrict: 'A',
@@ -42,6 +42,13 @@ angular.module('dscovrDataApp')
 				scope.addPane = function() {
 					var pane = {};
 					scope.panes.push(pane);
+				};
+				scope.getPosition = function(ofPane) {
+					if (ofPane == scope.default_pane) {
+						return 0;
+					} else {
+						return scope.panes.indexOf(ofPane) + 1;
+					}
 				};
 
 				scope.rmPane = function(i) {

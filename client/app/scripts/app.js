@@ -35,16 +35,8 @@ angular
         templateUrl: 'views/vis/summary.html',
         controller: 'VisSummaryCtrl'
       })
-      .when('/vis/advanced/:arg?/:argg?/:arggg?', {
-        templateUrl: 'views/vis/advanced.html',
-        controller: 'VisAdvancedCtrl'
-      })
       .when('/vis', {
         redirectTo: '/vis/summary'
-      })
-      .when('/download/:type?/:arg?/:argg?', {
-        templateUrl: 'views/download.html',
-        controller: 'DownloadCtrl'
       })
       .when('/vis/event', {
         templateUrl: 'views/vis/event.html',
@@ -54,13 +46,13 @@ angular
         templateUrl: 'views/vis/ts.html',
         controller: 'VisTsCtrl'
       })
-      .when('/vis/sp', {
-        templateUrl: 'views/vis/sp.html',
-        controller: 'VisSpCtrl'
-      })
       .when('/vis/scatter', {
         templateUrl: 'views/vis/scatter.html',
         controller: 'VisScatterCtrl'
+      })
+      .when('/download/:type?/:arg?/:argg?', {
+        templateUrl: 'views/download.html',
+        controller: 'DownloadCtrl'
       })
       .otherwise({
         redirectTo: '/'
@@ -73,4 +65,5 @@ angular
 		d = moment(d);
 		return d.isAfter(mission_start) && d.isBefore(mission_end);
 	});
+	ngQuickDateDefaultsProvider.set('placeholder', '---------------');
   });

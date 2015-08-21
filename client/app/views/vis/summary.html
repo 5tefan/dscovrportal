@@ -20,11 +20,11 @@
 			</div>
 			<div id="vis-selectarea" class="col-xs-10">
 				<div id="vis-summaryselect" class="col-xs-3">
-					<p> select date </p>
+					<h4> Select date </h4>
 					<quick-datepicker ng-model="selected_date" on-change="dateselect_onchange()" icon-class="glyphicon glyphicon-calendar" disable-timepicker="true" timezone="UTC"></quick-datepicker>
 				</div>
 				<div id="vis-summaryselect" class="col-xs-6">
-					<p> Select plot width: </p>
+					<h4> Select plot width: </h4>
 					<a class="btn btn-default" ng-class="{active:frame_size=='6h'}" ng-href="#/vis/summary/6h/{{timestring}}">6 hour</a>
 					<a class="btn btn-default" ng-class="{active:frame_size=='1d'}" ng-href="#/vis/summary/1d/{{timestring}}">1 day</a>
 					<a class="btn btn-default" ng-class="{active:frame_size=='3d'}" ng-href="#/vis/summary/3d/{{timestring}}">3 days</a>

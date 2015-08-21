@@ -12,7 +12,7 @@ angular.module('dscovrDataApp')
 			template: 
 				'<div class="row" style="margin-top: 20px; margin-bottom: 20px;">'+
 					'<div class="col-xs-4">'+
-						'<h2 style="margin: 0; padding: 0;"> Select Conditions </h2>'+
+						'<h3> Select Conditions </h3>'+
 					'</div>'+
 					'<div class="col-xs-2">'+
 						'<a class="btn btn-default" ng-click=addCondition()> + add condition </a>'+

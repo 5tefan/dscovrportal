@@ -1,5 +1,5 @@
 <div class="view">
-	<h2 class="text-center"> Find events </h2>
+	<h2 class="text-center"> Scatter Plot </h2>
 	<div class="container-fluid">
 		<div id="vis-controls" class="row">
 			<div id="vis-typeselect" class="col-xs-2">
@@ -19,7 +19,17 @@
 				</ul>
 			</div>
 			<div id="vis-selectarea" class="col-xs-10">
-				<div condition-container params='param_test' where="where"></div>
+				<div scatter-param-pane params='param_test'></div>
+				<div condition-container params='param_test'></div>
+				<div time-range construct="timerange_construct"></div>
+				<div class="row">
+					<div class="col-xs-2">
+						<a class="btn btn-default" role="button" ng-click="evalSelections()"> Plot </a>
+					</div>
+					<div class="col-xs-5">
+						<p> {{ error }} </p>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div>
