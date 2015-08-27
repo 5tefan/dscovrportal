@@ -8,11 +8,46 @@
  * Controller of the dscovrDataApp
  */
 angular.module('dscovrDataApp')
-	.controller('VisTsCtrl', function ($scope, $timeout) {
-		$scope.param_test = { 	"m1m" : { "bz": "nt", "by": "nt"},
-							"f1m" : { "pr": "pr", "et": "tc"}
-					};
+	.controller('VisTsCtrl', function ($scope, $timeout, dscovrDataAccess) {
 		$scope.timerange_construct = "";
+		dscovrDataAccess.getParameters().then( function(data) {
+			$scope.params = data;
+		});
+
+		var make_plot = function() {
+			var params = $scope.selection_strs.split(";;").join(";");
+			var selection = $scope.selection_strs;
+			var time = $scope.timerange_construct;
+			dscovrDataAccess.getValues(params, $scope.timerange_construct).then( function( data ) {
+				//iterate through panes
+				var step = selection.split(";;").map( function(pane) {
+					var ret = "";
+					pane.split(";").map( function(line) {
+						if (line) {
+							ret += line.split(":")[1] + ",";
+						}
+					})
+					return ret;
+				});
+				data = data.map( function(d) {
+					d.time = new Date(+d.time);
+					return d;
+				});
+				$scope.plots = [];
+				step.map( function(plot) {
+					if (plot) {
+						var title = plot.split(",").join(", ").slice(0,-2) + " from " + time.split(";").map( function(d) {
+							var a = new Date( Number( d.split(":")[3] ) );
+							return a.toISOString();
+						}).join(" to ");
+						var plot = {	y_accessor: plot.split(","),
+										data: data,
+										title: title };
+						$scope.plots.push(plot);
+					}
+				});
+			});
+		};
 
 		// evaluate the selections from the main controller
 		$scope.evalSelections = function() {
@@ -37,8 +72,8 @@ angular.module('dscovrDataApp')
 						// alert that we didnt get what we needed
 						if ($scope.selection_strs) {
 							console.log($scope.selection_strs);
-							//now get the construct from time range
 							console.log($scope.timerange_construct);
+							make_plot();
 						} else {
 							// flash an error message if none of the panes are valid
 							$scope.error = "please enter at least 1 valid pane";

@@ -8,11 +8,11 @@
  * Controller of the dscovrDataApp
  */
 angular.module('dscovrDataApp')
-	.controller('VisEventCtrl', function ($scope, $timeout) {
-		$scope.param_test = { 	"m1m" : { "bz": "nt", "by": "nt"},
-							"f1m" : { "pr": "pr", "et": "tc"}
-					};
+	.controller('VisEventCtrl', function ($scope, $timeout, dscovrDataAccess) {
 		$scope.where = "";
+		dscovrDataAccess.getParameters().then( function(data) {
+			$scope.params = data;
+		});
 
 		//when we need to get the conditions from the condition container
 		// will broadcast evalConditions and give a callback which utilizes

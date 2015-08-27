@@ -41,7 +41,7 @@ angular.module('dscovrDataApp')
 						selection_str = scope.selection_y.construct + ";";
 					}
 					if (scope.selection_x.construct) {
-						selection_str = scope.selection_x.construct;
+						selection_str += scope.selection_x.construct;
 					}
 					return selection_str;
 				}

@@ -19,8 +19,8 @@
 				</ul>
 			</div>
 			<div id="vis-selectarea" class="col-xs-10">
-				<div scatter-param-pane params='param_test'></div>
-				<div condition-container params='param_test'></div>
+				<div scatter-param-pane params='params'></div>
+				<div condition-container params='params'></div>
 				<div time-range construct="timerange_construct"></div>
 				<div class="row">
 					<div class="col-xs-2">
@@ -33,7 +33,8 @@
 			</div>
 		</div>
 		<div>
-			<div class="row">
+			<div class="row" ng-repeat="plot in plots">
+				<div scatter-plot plot="plot"></div>
 			</div>
 		</div>
 	</div>

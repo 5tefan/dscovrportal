@@ -53,12 +53,13 @@ angular.module('dscovrDataApp')
 
 				// when this executes, the condition is not yet bound to
 				// the scope, so have to watch for when it becomes defined
-				scope.$watch('condition', function(new_val, old_val, scope) {
-					if (new_val) {
+				var unwatch = scope.$watchCollection('[params, condition]', function(new_val, old_val, scope) {
+					if (new_val[0] && new_val[1]) {
 						//initialize the values for the select model
 						scope.condition.prod = Object.keys(scope.params)[0];
 						scope.condition.param = Object.keys(scope.params[scope.condition.prod])[0];
 						scope.condition.relation = "gt";
+						unwatch();
 					}
 				})
 
@@ -81,7 +82,11 @@ angular.module('dscovrDataApp')
 				}
 
 				scope.isConditionValid = function() {
-					return !!(scope.params[scope.condition.prod] && scope.condition.value);
+					if (scope.params && scope.condition) {
+						return (scope.params[scope.condition.prod] && (typeof scope.condition.value === 'number'));
+					} else {
+						return false;
+					};
 				}
 
 				scope.$watch('condition.value', function() {
