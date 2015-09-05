@@ -20,11 +20,13 @@ angular.module('dscovrDataApp')
 			var criteria = $scope.condition_str + time;
 			dscovrDataAccess.getValues(selection, criteria).then( function( data ) {
 				$scope.plots = [];
+				var ysel = selection.split(";")[0].split(":")[1];
+				var xsel = selection.split(";")[1].split(":")[1];
 				var plot = {
 					data: data,
-					title: "hey",
-					y_accessor: selection.split(";")[0].split(":")[1],
-					x_accessor: selection.split(";")[1].split(":")[1],
+					title: ysel + " vs " + xsel,
+					y_accessor: ysel,
+					x_accessor: xsel,
 				}
 				console.log(data);
 				$scope.plots.push(plot);

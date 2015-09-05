@@ -20,6 +20,7 @@
 			</div>
 			<div id="vis-selectarea" class="col-xs-10">
 				<div condition-container params='params'></div>
+				<div time-range construct="timerange_construct"></div>
 				<div class="row">
 					<div class="col-xs-2">
 						<a class="btn btn-default" role="button" ng-click="evalConditions()"> Search </a>
@@ -31,7 +32,8 @@
 			</div>
 		</div>
 		<div>
-			<div class="row">
+			<div class="row" ng-repeat="plot in plots">
+				<div event-plot plot="plot"></div>
 			</div>
 		</div>
 	</div>
