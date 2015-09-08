@@ -43,6 +43,18 @@ angular.module('dscovrDataApp')
 						scope.selection.prod = Object.keys(scope.params)[0];
 						scope.selection.param = Object.keys(scope.params[scope.selection.prod])[0];
 						unwatch();
+						// watch the selection.param and selection.prod which are the model for the
+						// drop down selection. Update selection.construct based on what the user selects
+						scope.$watchGroup(['selection.param', 'selection.prod'], function() {
+							if (scope.selection.param && scope.selection.prod) {
+								scope.selection.construct = [
+									scope.selection.prod,
+									scope.selection.param,
+								].join(":");
+							} else {
+								scope.selection.construct = "";
+							}
+						});
 					}
 				})
 
@@ -52,18 +64,6 @@ angular.module('dscovrDataApp')
 					//validate just in case they select --prod--
 					if (scope.selection.prod && scope.params[scope.selection.prod]) {
 						scope.selection.param = Object.keys(scope.params[scope.selection.prod])[0];
-					}
-				});
-				// watch the selection.param and selection.prod which are the model for the
-				// drop down selection. Update selection.construct based on what the user selects
-				scope.$watchGroup(['selection.param', 'selection.prod'], function() {
-					if (scope.selection.param && scope.selection.prod) {
-						scope.selection.construct = [
-							scope.selection.prod,
-							scope.selection.param,
-						].join(":");
-					} else {
-						scope.selection.construct = "";
 					}
 				});
 

@@ -30,7 +30,7 @@ angular.module('dscovrDataApp')
 				construct : '=',
 			},
 			link: function postLink(scope, element, attrs) {
-				scope.selected_begin = moment().subtract(2, 'days').toDate();
+				scope.selected_begin = moment(1425429635000).toDate();//moment().subtract(2, 'days').toDate();
 				scope.selected_end = moment().subtract(1, 'days').toDate();
 				scope.construct = "";
 				scope.construct += "m1m:time:ge:" + scope.selected_begin.getTime() + ";";

@@ -35,7 +35,7 @@ angular.module('dscovrDataApp')
 					//filter out fill values (-9999) which are strings at this point
 					Object.keys(d).map( function(k) {
 						if (+d[k] == -9999) {
-//							d[k] = null;
+							d[k] = null;
 						}
 					});
 					return d;
