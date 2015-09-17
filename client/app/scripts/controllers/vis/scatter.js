@@ -42,14 +42,15 @@ angular.module('dscovrDataApp')
 					$scope.$broadcast("evalConditions", function(condition_str) {
 						if (condition_str) {
 							$scope.condition_str = condition_str;
-							make_plot();
 						} else {
 							// flash an error message if none of the conditions are valid
-							$scope.error = "No valid conditions found!";
+							$scope.condition_str = "";
+							$scope.error = "Using no conditions";
 							$timeout(function() {
 								$scope.error = "";
 							}, 5000);
 						}
+						make_plot();
 					})
 				} else {
 					// flash an error message if none of the panes are valid
