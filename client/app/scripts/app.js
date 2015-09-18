@@ -24,31 +24,31 @@ angular
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
-		//getting lazy here but arg is arg1
-		//argg is arg2, 
-		//depending on type, if type is summary
+      .when('/vis', {
+        redirectTo: '/vis/summary'
+      })
 		//arg is the frame size h6, d1, d3 etc
-		//and argg is the date selected
-		//if type is interactive then arg is
-		// start of frame and argg is end of frame
+		//argg is the date selected
       .when('/vis/summary/:arg?/:argg?', {
         templateUrl: 'views/vis/summary.html',
         controller: 'VisSummaryCtrl'
       })
-      .when('/vis', {
-        redirectTo: '/vis/summary'
-      })
-      .when('/vis/event', {
-        templateUrl: 'views/vis/event.html',
-        controller: 'VisEventCtrl'
-      })
-      .when('/vis/ts', {
+		//arg is start:end
+		//argg is prod:param;prod:param;;prod:param etc
+      .when('/vis/ts/:arg?/:argg?', {
         templateUrl: 'views/vis/ts.html',
         controller: 'VisTsCtrl'
       })
-      .when('/vis/scatter', {
+		//arg is prod:param;prod:param to plot
+		//argg is the condition string
+      .when('/vis/scatter/:arg?/:argg?', {
         templateUrl: 'views/vis/scatter.html',
         controller: 'VisScatterCtrl'
+      })
+		//arg is the condition string
+      .when('/vis/event/:arg?', {
+        templateUrl: 'views/vis/event.html',
+        controller: 'VisEventCtrl'
       })
       .when('/download/:type?/:arg?/:argg?', {
         templateUrl: 'views/download.html',
