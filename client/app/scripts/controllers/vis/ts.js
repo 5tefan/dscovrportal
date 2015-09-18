@@ -15,6 +15,38 @@ angular.module('dscovrDataApp')
 		});
 
 		var make_plot = function() {
+			$scope.plots = [];
+			var time = $scope.timerange_construct;
+			$scope.selection_strs.split(";;").map( function(selection) {
+				var lines = selection.split(";");
+				//inside this loop we will complete a single pane
+				//specifically the pane with parameters described in selection
+				dscovrDataAccess.getValues(selection, time).then( function(data) {
+					//now we have the data in data. Need to filter
+					var i = 0;
+					while (i < data.length) {
+						//null fill values and decide if we have a 
+						//sequence of nulls we can get rid of
+						var nulls = 0;
+						Object.keys(data[i]).map( function(k) {
+							if (+data[i][k] == -9999) {
+								nulls++;
+								data[i][k] = null;
+							};
+						});
+						var bad = Boolean(nulls == lines.length);
+						if (bad && i>=1 && data[i-1].bad) {
+								data.splice(i, 1);
+						} else {
+							data[i].time = new Date(+data[i].time);
+							data[i].bad = bad;
+							i++;
+						}
+					}
+					console.log(data);
+				});
+			});
+/*
 			var params = $scope.selection_strs.split(";;").join(";");
 			var selection = $scope.selection_strs;
 			var time = $scope.timerange_construct;
@@ -29,7 +61,28 @@ angular.module('dscovrDataApp')
 					})
 					return ret;
 				});
-				data = data.map( function(d) {
+				var cleandata = [];
+				for (var dt in data) {
+					var dirty = [];
+					Object.keys(data[dt]).map( function(k) {
+						if (+d[k] == -9999) {
+							dirty.push(true);
+							data[dt][k] = null;
+						} else {
+							dirty.push(false);
+						}
+					});
+					var has_null = Boolean(dirty.reduce(function(a, b) {return a+b})-1)
+					if (dirty.reduce(function(a, b) {return a+b}) > 1 && dt >= 1) {
+						if (cleandata[dt-1].dirty = true) {
+							//dont add dt to clean then
+						
+					}
+					cleandata.push( {
+						time: new Date(+data[dt].time),
+						
+				}
+				data = data.filter( function(d) {
 					//parse the date from ms to date object
 					d.time = new Date(+d.time);
 					//filter out fill values (-9999) which are strings at this point
@@ -40,6 +93,7 @@ angular.module('dscovrDataApp')
 					});
 					return d;
 				});
+				console.log(data);
 				$scope.plots = [];
 				step.map( function(plot) {
 					if (plot) {
@@ -54,6 +108,7 @@ angular.module('dscovrDataApp')
 					}
 				});
 			});
+*/
 		};
 
 		// evaluate the selections from the main controller
