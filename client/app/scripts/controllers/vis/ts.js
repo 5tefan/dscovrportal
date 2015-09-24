@@ -17,98 +17,61 @@ angular.module('dscovrDataApp')
 		var make_plot = function() {
 			$scope.plots = [];
 			var time = $scope.timerange_construct;
+			// iterate through panes
+			console.log($scope.selection_strs);
 			$scope.selection_strs.split(";;").map( function(selection) {
-				var lines = selection.split(";");
-				//inside this loop we will complete a single pane
-				//specifically the pane with parameters described in selection
-				dscovrDataAccess.getValues(selection, time).then( function(data) {
-					//now we have the data in data. Need to filter
-					var i = 0;
-					while (i < data.length) {
-						//null fill values and decide if we have a 
-						//sequence of nulls we can get rid of
-						var nulls = 0;
-						Object.keys(data[i]).map( function(k) {
-							if (+data[i][k] == -9999) {
-								nulls++;
-								data[i][k] = null;
-							};
-						});
-						var bad = Boolean(nulls == lines.length);
-						if (bad && i>=1 && data[i-1].bad) {
-								data.splice(i, 1);
-						} else {
-							data[i].time = new Date(+data[i].time);
-							data[i].bad = bad;
-							i++;
-						}
-					}
-					console.log(data);
-				});
-			});
-/*
-			var params = $scope.selection_strs.split(";;").join(";");
-			var selection = $scope.selection_strs;
-			var time = $scope.timerange_construct;
-			dscovrDataAccess.getValues(params, $scope.timerange_construct).then( function( data ) {
-				//iterate through panes
-				var step = selection.split(";;").map( function(pane) {
-					var ret = "";
-					pane.split(";").map( function(line) {
-						if (line) {
-							ret += line.split(":")[1] + ",";
-						}
-					})
-					return ret;
-				});
-				var cleandata = [];
-				for (var dt in data) {
-					var dirty = [];
-					Object.keys(data[dt]).map( function(k) {
-						if (+d[k] == -9999) {
-							dirty.push(true);
-							data[dt][k] = null;
-						} else {
-							dirty.push(false);
-						}
+				if (selection) {
+					var lines = selection.split(";").map(function(d) {
+						return d.split(":")[1]
 					});
-					var has_null = Boolean(dirty.reduce(function(a, b) {return a+b})-1)
-					if (dirty.reduce(function(a, b) {return a+b}) > 1 && dt >= 1) {
-						if (cleandata[dt-1].dirty = true) {
-							//dont add dt to clean then
-						
-					}
-					cleandata.push( {
-						time: new Date(+data[dt].time),
-						
-				}
-				data = data.filter( function(d) {
-					//parse the date from ms to date object
-					d.time = new Date(+d.time);
-					//filter out fill values (-9999) which are strings at this point
-					Object.keys(d).map( function(k) {
-						if (+d[k] == -9999) {
-							d[k] = null;
+					//inside this loop we will complete a single pane
+					//specifically the pane with parameters described in selection
+					dscovrDataAccess.getValues(selection, time).then( function(data) {
+						//now we have the data in data. Need to filter
+						var i = 0;
+						var bad = false;
+						var badprev = false;
+						while (i < data.length) {
+							//null fill values and decide if we have a 
+							//sequence of nulls we can get rid of
+							var nulls = 0;
+							Object.keys(data[i]).map( function(k) {
+								if (+data[i][k] == -9999) {
+									nulls++;
+									data[i][k] = null;
+								};
+							});
+							// we declare this time step bad if all the data
+							// values are null
+							bad = Boolean(nulls == lines.length);
+							// if its bad and the one before it is bad, remove it
+							if (bad && badprev) {
+									data.splice(i, 1);
+							} else {
+								// otherwise this is the first bad one, we need
+								// to keep it so that the line will not interpolate
+								// but need to set bad so that the next ones will be
+								//removed
+								data[i].time = new Date(+data[i].time);
+								badprev = bad;
+								i++;
+							}
 						}
-					});
-					return d;
-				});
-				console.log(data);
-				$scope.plots = [];
-				step.map( function(plot) {
-					if (plot) {
-						var title = plot.split(",").join(", ").slice(0,-2) + " from " + time.split(";").map( function(d) {
-							var a = new Date( Number( d.split(":")[3] ) );
-							return a.toISOString();
+
+						//data is clean, just stuff we need to make the plot
+						var title = selection + " from " + time.split(";").map( function(d) {
+							return new Date( Number( d.split(":")[3] ) ).toISOString();
 						}).join(" to ");
-						var plot = {	y_accessor: plot.split(","),
-										data: data,
-										title: title };
-						$scope.plots.push(plot);
-					}
-				});
-			});
-*/
+						$scope.plots.push( {
+							y_accessor: lines,
+							data: data,
+							title: title
+						});
+
+						
+					}); //end dscovrDataAccess.getValues(selection, time).then( function(data) {
+				} //end if (selection) {
+			}); //end $scope.selection_strs.split(";;").map( function(selection) {
 		};
 
 		// evaluate the selections from the main controller
