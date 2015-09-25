@@ -11,21 +11,25 @@ angular.module('dscovrDataApp')
 		return {
 			template: 
 				'<div class="row">'+
-					'<div class="col-xs-4">'+
-						'<h3> Configure Panes </h3>'+
-					'</div>'+
-					'<div class="col-xs-2">'+
-						'<a class="btn btn-default" ng-click=addPane()> + add pane </a>'+
+					'<div class="col-xs-6">'+
+						'<div class="row">'+
+							'<div class="col-xs-5">'+
+								'<h3> Panel config </h3>'+
+							'</div>'+
+							'<div class="col-xs-2">'+
+								'<a class="btn btn-default" ng-click=addPane()> + panel </a>'+
+							'</div>'+
+						'</div>'+
 					'</div>'+
 				'</div>'+
 				'<div class="row paneEdit">'+
 					'<div class="col-xs-12">'+
-						'<div ts-param-pane params="params" pane="default_pane" removable="false" position="0"></div>'+
+						'<div ts-param-pane class="ts-param-pane" params="params" pane="default_pane" removable="false" position="0"></div>'+
 					'</div>'+
 				'</div>'+
 				'<div class="row pnaeEdit" ng-repeat="pane in panes">'+
 					'<div class="col-xs-12">'+
-						'<div ts-param-pane params="params" pane="pane" removable="true" rm-pane="rmPane($index)" position="getPosition(pane)"></div>'+
+						'<div ts-param-pane class="ts-param-pane" params="params" pane="pane" removable="true" rm-pane="rmPane($index)" position="getPosition(pane)"></div>'+
 					'</div>'+
 				'</div>',
 			restrict: 'A',

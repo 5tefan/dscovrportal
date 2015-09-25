@@ -10,18 +10,16 @@ angular.module('dscovrDataApp')
 	.directive('paramEdit', function () {
 		return {
 			template: 
-					'<div class="col-xs-2">'+
-						'<select class="form-control" ng-model="selection.prod" ng-options="prod for prod in keys(params)">'+
+					'<div class="col-xs-8">'+
+						'<select class="form-control param-edit-select" ng-model="selection.prod" ng-options="prod for prod in keys(params)">'+
 							'<option value="">-- product --</option>'+
 						'</select>'+
-					'</div>'+
-					'<div class="col-xs-2">'+
-						'<select class="form-control" ng-model="selection.param" ng-options="param for param in keys(params[selection.prod])">'+
+						'<select class="form-control param-edit-select" ng-model="selection.param" ng-options="param for param in keys(params[selection.prod])">'+
 							'<option value="">-- parameter --</option>'+
 						'</select>'+
 					'</div>'+
-					'<div class="col-xs-2 col-xs-offset-2" ng-if="removable">'+
-						'<a class="btn btn-default" ng-click=rmSelection()> - remove parameter </a>'+
+					'<div class="col-xs-4" ng-if="removable">'+
+						'<a class="btn btn-default" ng-click=rmSelection()> - param </a>'+
 					'</div>',
 			restrict: 'A',
 			scope: {

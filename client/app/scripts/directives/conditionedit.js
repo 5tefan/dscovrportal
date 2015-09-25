@@ -10,27 +10,23 @@ angular.module('dscovrDataApp')
 	.directive('conditionEdit', function () {
 		return {
 			template: 
-					'<div class="col-xs-2">'+
-						'<select class="form-control" ng-model="condition.prod" ng-options="prod for prod in keys(params)">'+
+					'<div class="no-padding-right col-xs-5">'+
+						'<select class="form-control condition-edit-select" ng-model="condition.prod" ng-options="prod for prod in keys(params)">'+
 							'<option value="">-- product --</option>'+
 						'</select>'+
-					'</div>'+
-					'<div class="col-xs-2">'+
-						'<select class="form-control" ng-model="condition.param" ng-options="param for param in keys(params[condition.prod])">'+
+						'<select class="form-control condition-edit-select" ng-model="condition.param" ng-options="param for param in keys(params[condition.prod])">'+
 							'<option value="">-- parameter --</option>'+
 						'</select>'+
-					'</div>'+
-					'<div class="col-xs-2">'+
-						'<select class="form-control" ng-model="condition.relation">'+
+						'<select class="form-control condition-edit-select" ng-model="condition.relation">'+
 							'<option value="gt"> &gt; </option>'+
 							'<option value="lt"> &lt; </option>'+
 							'<option value="eq"> = </option>'+
-							'<option value="gte"> &gt;= </option>'+
-							'<option value="lte"> &lt;= </option>'+
+							'<option value="ge"> &gt;= </option>'+
+							'<option value="le"> &lt;= </option>'+
 						'</select>'+
 					'</div>'+
-					'<div class="col-xs-3">'+
-						'<form class="form-inline">'+
+					'<div class="no-padding-left col-xs-2">'+
+						'<form class="form">'+
 							'<div class="form-group">'+
 								'<input type="number" class="form-control" placeholder="value" ng-model="condition.value" ng-required>'+
 							'</div>'+

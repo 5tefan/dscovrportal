@@ -19,6 +19,13 @@ input, form {
 	display: none;
 }
 
+.no-padding-right {
+	padding-right: 0;
+	width: auto;
+}
+.no-padding-left {
+	padding-left: 0;
+}
 /* Extra small devices (phones, less than 768px) */
 /* No media query since this is the default in Bootstrap */
 #banner {
@@ -43,6 +50,27 @@ input, form {
 #vis-plot {
 	clear: both;
 	margin: 10px 0 10px 0;
+}
+.ts-param-pane {
+	margin: 10px 0 0 0;
+	padding: 0 0 10px 0;
+	border-bottom: 1px solid #000;
+}
+.pane-edit {
+	margin: 0 0 5px 0;
+}
+.param-edit-select{
+	width: 48%;
+	margin-right: 2px;
+	display: inline;
+}
+.condition-edit-select  {
+	width: 32%;
+	margin-right: 1%;
+	display: inline;
+}
+.condition-edit-value {
+	width: 90%;
 }
 .conditionEdit {
 	margin-bottom: 10px;
