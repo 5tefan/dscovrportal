@@ -44,7 +44,7 @@ angular.module('dscovrDataApp')
 							'</form>'+
 						'</div>'+
 						'<div class="row">'+
-							'<div ts-condition-container></div>'+
+							'<div ts-condition-container params="params"></div>'+
 						'</div>'+
 					'</div>'+
 				'</div>',
@@ -89,7 +89,14 @@ angular.module('dscovrDataApp')
 				// listen for evalClikced event, broadcast from parent when
 				// when the parent needs the conditions to be evaluated.
 				scope.$on('evalSelections', function(e, cb) {
-					cb(scope.evalSelections());
+					scope.$broadcast('evalConditions', function(condition_str) {
+						console.log(condition_str)
+						if (condition_str) {
+							cb(scope.evalSelections()+"$$"+condition_str);
+						} else {
+							cb(scope.evalSelections());
+						}
+					});
 				});
 			}
 		};
