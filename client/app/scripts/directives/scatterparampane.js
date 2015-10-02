@@ -28,12 +28,24 @@ angular.module('dscovrDataApp')
 			restrict: 'A',
 			scope: {
 				params : '=',
+				predef : '=',
 			},
 			link: function postLink(scope, element, attrs) {
 
 				scope.selection_y = {};
 				scope.selection_x = {};
 
+				var unwatch_predef = scope.$watch('predef', function() {
+					if (scope.predef) {
+						var selx = scope.predef[0].split(":");
+						var sely = scope.predef[1].split(":");
+						scope.selection_x.prod = selx[0];
+						scope.selection_x.param = selx[1];
+						scope.selection_y.prod = sely[0];
+						scope.selection_y.param = sely[1];
+						unwatch_predef();
+					}
+				});
 
 				scope.evalSelections = function() {
 					var selection_str = "";

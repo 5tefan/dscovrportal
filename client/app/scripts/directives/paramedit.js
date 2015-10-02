@@ -11,11 +11,11 @@ angular.module('dscovrDataApp')
 		return {
 			template: 
 					'<div class="col-xs-8">'+
-						'<select class="form-control param-edit-select" ng-model="selection.prod" ng-options="prod for prod in keys(params)">'+
-							'<option value="">-- product --</option>'+
+						'<select class="form-control param-edit-select" ng-model="prod" ng-options="prod for prod in keys(params)">'+
+							'<option value="" disabled selected>-- product --</option>'+
 						'</select>'+
-						'<select class="form-control param-edit-select" ng-model="selection.param" ng-options="param for param in keys(params[selection.prod])">'+
-							'<option value="">-- parameter --</option>'+
+						'<select class="form-control param-edit-select" ng-model="param" ng-options="param for param in keys(params[prod])">'+
+							'<option value="" disabled selected>-- parameter --</option>'+
 						'</select>'+
 					'</div>'+
 					'<div class="col-xs-4" ng-if="removable">'+
@@ -29,39 +29,41 @@ angular.module('dscovrDataApp')
 			},
 			link: function postLink(scope, element, attrs) {
 
-				scope.$watch('removable', function() {
+				var unwatch_removable = scope.$watch('removable', function() {
 					scope.removable = scope.$eval(attrs.removable);
+					unwatch_removable();
 				});
 
-				// when this executes, the selection is not yet bound to
-				// the scope, so have to watch for when it becomes defined
-				var unwatch = scope.$watchCollection('[params, selection]', function(new_val, old_val, scope) {
-					if (new_val[0] && new_val[1]) {
-						//initialize the values for the select model
-						scope.selection.prod = Object.keys(scope.params)[0];
-						scope.selection.param = Object.keys(scope.params[scope.selection.prod])[0];
-						unwatch();
-						// watch the selection.param and selection.prod which are the model for the
-						// drop down selection. Update selection.construct based on what the user selects
-						scope.$watchGroup(['selection.param', 'selection.prod'], function() {
-							if (scope.selection.param && scope.selection.prod) {
-								scope.selection.construct = [
-									scope.selection.prod,
-									scope.selection.param,
-								].join(":");
-							} else {
-								scope.selection.construct = "";
-							}
-						});
+				var set_pp_from_selection = function() {
+					scope.prod = scope.selection.prod;
+					scope.param = scope.selection.param;
+				};
+
+				var unwatch_params = scope.$watch('params', function() {
+					if (scope.params) {
+						if (scope.selection) {
+							console.log(scope.selection);
+							set_pp_from_selection();
+						} else {
+							var unwatch_selection = scope.$watch('selection', function() {
+								if (scope.selection) {
+									set_pp_from_selection();
+									unwatch_selection();
+								}
+							});
+						}
+						unwatch_params();
 					}
 				})
 
-				// have to listen to selected_prod change to update the initial model
-				// value for selected_param
-				scope.$watch('selection.prod', function() {
-					//validate just in case they select --prod--
-					if (scope.selection.prod && scope.params[scope.selection.prod]) {
-						scope.selection.param = Object.keys(scope.params[scope.selection.prod])[0];
+				scope.$watchGroup(['prod', 'param'], function() {
+					if (scope.param && scope.prod) {
+						scope.selection.construct = [
+							scope.prod,
+							scope.param,
+						].join(":");
+					} else {
+						scope.selection.construct = "";
 					}
 				});
 

@@ -39,7 +39,7 @@ angular
         templateUrl: 'views/vis/ts.html',
         controller: 'VisTsCtrl'
       })
-		//arg is prod:param;prod:param to plot
+		//arg is prod:param;prod:param to plot x;y
 		//argg is the condition string
       .when('/vis/scatter/:arg?/:argg?', {
         templateUrl: 'views/vis/scatter.html',

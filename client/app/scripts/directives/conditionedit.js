@@ -11,13 +11,13 @@ angular.module('dscovrDataApp')
 		return {
 			template: 
 					'<div class="no-padding-right col-xs-5">'+
-						'<select class="form-control condition-edit-select" ng-model="condition.prod" ng-options="prod for prod in keys(params)">'+
-							'<option value="">-- product --</option>'+
+						'<select class="form-control condition-edit-select" ng-model="prod" ng-options="prod for prod in keys(params)">'+
+							'<option value="" disabled selected>-- product --</option>'+
 						'</select>'+
-						'<select class="form-control condition-edit-select" ng-model="condition.param" ng-options="param for param in keys(params[condition.prod])">'+
-							'<option value="">-- parameter --</option>'+
+						'<select class="form-control condition-edit-select" ng-model="param" ng-options="param for param in keys(params[prod])">'+
+							'<option value="" disabled selected>-- parameter --</option>'+
 						'</select>'+
-						'<select class="form-control condition-edit-select" ng-model="condition.relation">'+
+						'<select class="form-control condition-edit-select" ng-model="relation">'+
 							'<option value="gt"> &gt; </option>'+
 							'<option value="lt"> &lt; </option>'+
 							'<option value="eq"> = </option>'+
@@ -28,7 +28,7 @@ angular.module('dscovrDataApp')
 					'<div class="no-padding-left col-xs-2">'+
 						'<form class="form">'+
 							'<div class="form-group">'+
-								'<input type="number" class="form-control" placeholder="value" ng-model="condition.value" ng-required>'+
+								'<input type="number" class="form-control" placeholder="value" ng-model="value" ng-required>'+
 							'</div>'+
 						'</form>'+
 					'</div>'+
@@ -48,39 +48,30 @@ angular.module('dscovrDataApp')
 					unwatch_removable();
 				});
 
-				// when this executes, the condition is not yet bound to
-				// the scope, so have to watch for when it becomes defined
-				var unwatch_paramscondition = scope.$watchCollection('[params, condition]', function(new_val, old_val, scope) {
-					if (new_val[0] && new_val[1]) {
-						//initialize the values for the select model
-						scope.condition.prod = Object.keys(scope.params)[0];
-						scope.condition.param = Object.keys(scope.params[scope.condition.prod])[0];
-						scope.condition.relation = "gt";
-						unwatch_paramscondition() //unbind this watch 
-						//put a watch on the components of the condition and update the condition string any time these change
-						scope.$watchGroup(['condition.prod', 'condition.param', 'condition.relation', 'condition.value'], function() {
-							if (scope.isConditionValid()) {
-								scope.condition.construct = [
-									scope.condition.prod,
-									scope.condition.param,
-									scope.condition.relation,
-									scope.condition.value,
-								].join(":");
-							} else {
-								scope.condition.construct = "";
-							}
-						})
+				var set_pprv_from_condition = function() {
+					scope.prod = scope.condition.prod
+					scope.param = scope.condition.param
+					scope.relation = scope.condition.relation
+					scope.value = scope.condition.value
+				}
+					
+			
+				var unwatch_params = scope.$watch('params', function() {
+					if (scope.params) {
+						if (scope.condition) {
+							set_pprv_from_condition();
+						} else {
+							var unwatch_condition = scope.$watch('condition', function() {
+								if (scope.condition) {
+									set_pprv_from_condition();
+									unwatch_condition();
+								}
+							});
+						}
+						unwatch_params();
 					}
 				})
-
-				//watch condition.prod for changes and onchange update the condition.param to be the first
-				//thing selected in the list
-				scope.$watch('condition.prod', function() {
-					//validate just in case they select --prod--
-					if (scope.condition.prod && scope.params[scope.condition.prod]) {
-						scope.condition.param = Object.keys(scope.params[scope.condition.prod])[0];
-					}
-				})
+	
 
 				//wrapper on Object.keys to be available in scope
 				scope.keys = function( obj ) {
@@ -93,11 +84,25 @@ angular.module('dscovrDataApp')
 
 				scope.isConditionValid = function() {
 					if (scope.params && scope.condition) {
-						return (scope.params[scope.condition.prod] && (typeof scope.condition.value === 'number'));
+						return (scope.params[scope.prod] && (typeof scope.value === 'number'));
 					} else {
 						return false;
 					};
 				}
+
+				//watch on pprv and update condition construct
+				scope.$watchGroup(['prod', 'param', 'relation', 'value'], function() {
+					if (scope.isConditionValid()) {
+						scope.condition.construct = [
+							scope.prod,
+							scope.param,
+							scope.relation,
+							scope.value,
+						].join(":");
+					} else {
+						scope.condition.construct = "";
+					}
+				})
 
 			}
 		};

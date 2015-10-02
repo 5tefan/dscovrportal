@@ -27,12 +27,34 @@ angular.module('dscovrDataApp')
 			restrict: 'A',
 			scope: {
 				params : '=',
+				predef : '=',
 			},
 			link: function postLink(scope, element, attrs) {
 				//the default condition that you can't delete
 				scope.default_condition = {};
 				//arry for any more conditions added with the + button
 				scope.conditions = [];
+
+				//handle predef conditions
+				var unwatch_predef = scope.$watch('predef', function() {
+					if (scope.predef) {
+						for (var i in scope.predef) {
+							var condition = {
+								prod: scope.predef[i][0],
+								param: scope.predef[i][1],
+								relation: scope.predef[i][2],
+								value: Number(scope.predef[i][3]),
+							}
+							if (i == 0) {
+								scope.default_condition = condition;
+							} else {
+								scope.conditions.push(condition);
+							}
+						}
+						unwatch_predef();
+					}
+				});
+
 				scope.addCondition = function() {
 					var condition = {};
 					scope.conditions.push(condition);

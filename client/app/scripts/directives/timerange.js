@@ -28,10 +28,20 @@ angular.module('dscovrDataApp')
 			restrict: 'A',
 			scope: {
 				construct : '=',
+				predef : '=',
 			},
 			link: function postLink(scope, element, attrs) {
 				scope.selected_begin = moment(1425429635000).toDate();//moment().subtract(2, 'days').toDate();
 				scope.selected_end = moment().subtract(1, 'days').toDate();
+
+				var unwatch_predef = scope.$watch('predef', function() {
+					if (scope.predef) {
+						scope.selected_begin = new Date(+scope.predef[0]);
+						scope.selected_end = new Date(+scope.predef[1]);
+						unwatch_predef();
+					}
+				});
+
 				scope.construct = "";
 				scope.construct += "m1m:time:ge:" + scope.selected_begin.getTime() + ";";
 				scope.construct += "m1m:time:le:" + scope.selected_end.getTime();
