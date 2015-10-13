@@ -68,7 +68,8 @@ angular.module('dscovrDataApp')
 					var highlight = _[1];
 					console.log(selection);
 					console.log(highlight);
-					var lines = selection.slice(0, -1).split(";").map(function(d) {
+					if (selection.charAt(selection.length-1) == ";") { selection.slice(0, -1); }
+					var lines = selection.split(";").map(function(d) {
 						return d.split(":")[1]
 					});
 					//inside this loop we will complete a single pane
@@ -168,7 +169,7 @@ angular.module('dscovrDataApp')
 								//sequence of nulls we can get rid of
 								var nulls = 0;
 								Object.keys(data[i]).map( function(k) {
-									if (+data[i][k] == -9999) {
+									if (+data[i][k] == -9999 | +data[i][k] == -999) {
 										nulls++;
 										data[i][k] = null;
 									};

@@ -31,8 +31,9 @@ angular.module('dscovrDataApp')
 				predef : '=',
 			},
 			link: function postLink(scope, element, attrs) {
-				scope.selected_begin = moment(1425429635000).toDate();//moment().subtract(2, 'days').toDate();
-				scope.selected_end = moment().subtract(1, 'days').toDate();
+				scope.selected_begin = moment(1438927200000).toDate();
+				scope.selected_end = moment(1440050400000).toDate();//moment().subtract(2, 'days').toDate();
+				//scope.selected_end = moment().subtract(1, 'days').toDate();
 
 				var unwatch_predef = scope.$watch('predef', function() {
 					if (scope.predef) {
