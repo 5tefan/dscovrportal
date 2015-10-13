@@ -61,7 +61,9 @@ angular.module('dscovrDataApp')
 					scope.removable = scope.$eval(attrs.removable);
 				});
 
-				scope.adv = {};
+				scope.adv = {
+					log: false
+				};
 				scope.default_selection = {};
 				scope.selections = [];
 				scope.addSelection = function() {
@@ -90,12 +92,10 @@ angular.module('dscovrDataApp')
 				// when the parent needs the conditions to be evaluated.
 				scope.$on('evalSelections', function(e, cb) {
 					scope.$broadcast('evalConditions', function(condition_str) {
-						console.log(condition_str)
-						if (condition_str) {
-							cb(scope.evalSelections()+"$$"+condition_str);
-						} else {
-							cb(scope.evalSelections());
-						}
+						var return_string = scope.evalSelections();
+						return_string += "$$" + condition_str;
+						return_string += "*" + scope.adv.log
+						cb(return_string);
 					});
 				});
 			}

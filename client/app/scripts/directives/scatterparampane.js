@@ -17,13 +17,19 @@ angular.module('dscovrDataApp')
 				'</div>'+
 				'<div class="row paneEdit">'+
 					'<div class="col-xs-1">'+
-						'<h5> y-axis: </h5>'+
-					'</div>'+
-					'<div param-edit params="params" selection="selection_y" removable="false"></div>'+
-					'<div class="col-xs-1">'+
 						'<h5> x-axis: </h5>'+
 					'</div>'+
-					'<div param-edit params="params" selection="selection_x" removable="false"</div>'+
+					'<div class="col-xs-4">'+
+						'<div param-edit params="params" selection="selection_x" removable="false"></div>'+
+					'</div>'+
+				'</div>'+
+				'<div class="row paneEdit">'+
+					'<div class="col-xs-1">'+
+						'<h5> y-axis: </h5>'+
+					'</div>'+
+					'<div class="col-xs-4">'+
+						'<div param-edit params="params" selection="selection_y" removable="false"></div>'+
+					'</div>'+
 				'</div>',
 			restrict: 'A',
 			scope: {
@@ -49,11 +55,11 @@ angular.module('dscovrDataApp')
 
 				scope.evalSelections = function() {
 					var selection_str = "";
-					if (scope.selection_y.construct) {
-						selection_str = scope.selection_y.construct + ";";
-					}
 					if (scope.selection_x.construct) {
-						selection_str += scope.selection_x.construct;
+						selection_str = scope.selection_x.construct + ";";
+					}
+					if (scope.selection_y.construct) {
+						selection_str += scope.selection_y.construct;
 					}
 					return selection_str;
 				}

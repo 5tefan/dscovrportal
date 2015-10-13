@@ -49,8 +49,31 @@ angular.module('dscovrDataApp')
 			var criteria = $scope.condition_str + time;
 			dscovrDataAccess.getValues(selection, criteria).then( function( data ) {
 				$scope.plots = [];
-				var ysel = selection.split(";")[0].split(":")[1];
-				var xsel = selection.split(";")[1].split(":")[1];
+				var xsel = selection.split(";")[0].split(":")[1];
+				var ysel = selection.split(";")[1].split(":")[1];
+
+				// filter the data for nulls
+				var i = 0;
+				var bad = false;
+				while (i < data.length) {
+					//null fill values and decide if we have a 
+					//sequence of nulls we can get rid of
+					var nulls = 0;
+					Object.keys(data[i]).map( function(k) {
+						if (+data[i][k] == -9999 | +data[i][k] == -999) {
+							nulls++;
+							data[i][k] = null;
+						};
+					});
+					// we declare this time step bad if all the data
+					// values are null
+					if (nulls) {
+						data.splice(i, 1);
+					} else {
+						data[i].time = new Date(+data[i].time);
+						i++;
+					}
+				}
 				var plot = {
 					data: data,
 					title: ysel + " vs " + xsel,
