@@ -8,11 +8,52 @@
  * Controller of the dscovrDataApp
  */
 angular.module('dscovrDataApp')
-	.controller('VisTsCtrl', function ($scope, $timeout, dscovrDataAccess) {
-		$scope.timerange_construct = "";
-		dscovrDataAccess.getParameters().then( function(data) {
-			$scope.params = data;
-		});
+	.controller('VisTsCtrl', function ($scope, $timeout, dscovrDataAccess, $routeParams, $location) {
+
+		$scope.can_plot = false;
+
+		// evaluate the selections from the main controller
+		var evalSelections = function(cb) {
+			//initialize the string we will be building, will look like
+			// m1m:bx_gse;m1m:by_gse;;f1m:alpha_density where ; separate
+			// parameters in the same plot and ;; separate different panes
+			//  note: for formatting for the dscovr-data-access api do .split(";;").join(";")
+			$scope.selection_strs = "";
+			//ask the tsPaneContainer to tell us how many panes are in it so we
+			// know how many to expect and when we are done evaluating.
+			$scope.$broadcast('evalPanes', function(num_panes) {
+				var num_pane_responses = 0;
+				//as the tsPaneEdit directives to send back their strings, we
+				// put them all together and figure out when we have gotten them all
+				$scope.$broadcast('evalSelections', function(selection_str) {
+					++num_pane_responses;
+					if (selection_str) {
+						$scope.selection_strs += selection_str + ";;";
+					}
+					if (num_pane_responses == num_panes) {
+						//after all panes respond, we will make request here, otherwise 
+						// alert that we didnt get what we needed
+						if ($scope.selection_strs) {
+							console.log($scope.selection_strs);
+							console.log($scope.timerange_construct);
+							//make_plot();
+							console.log("hello");
+							if (cb) { cb() };
+							$scope.can_plot = true;
+						} else {
+							// flash an error message if none of the panes are valid
+							$scope.error = "please enter at least 1 valid pane";
+							$timeout(function() {
+								$scope.error = "";
+							}, 5000);
+						}
+					
+					};
+				});
+			});
+				
+		}
+
 
 		var make_plot = function() {
 			$scope.plots = [];
@@ -29,7 +70,7 @@ angular.module('dscovrDataApp')
 						var highlight = [];
 						var exclude = [];
 						condition.split(";").map( function(d) {
-							var splitted = d.split("%");
+							var splitted = d.split("_");
 							if (splitted[1] == 0) {
 								exclude.push(splitted[0]);
 							} else {
@@ -317,42 +358,41 @@ angular.module('dscovrDataApp')
 			}); //end $scope.selection_strs.split(";;").map( function(selection) {
 		};
 
-		// evaluate the selections from the main controller
-		$scope.evalSelections = function() {
-			//initialize the string we will be building, will look like
-			// m1m:bx_gse;m1m:by_gse;;f1m:alpha_density where ; separate
-			// parameters in the same plot and ;; separate different panes
-			//  note: for formatting for the dscovr-data-access api do .split(";;").join(";")
-			$scope.selection_strs = "";
-			//ask the tsPaneContainer to tell us how many panes are in it so we
-			// know how many to expect and when we are done evaluating.
-			$scope.$broadcast('evalPanes', function(num_panes) {
-				var num_pane_responses = 0;
-				//as the tsPaneEdit directives to send back their strings, we
-				// put them all together and figure out when we have gotten them all
-				$scope.$broadcast('evalSelections', function(selection_str) {
-					++num_pane_responses;
-					if (selection_str) {
-						$scope.selection_strs += selection_str + ";";
-					}
-					if (num_pane_responses == num_panes) {
-						//after all panes respond, we will make request here, otherwise 
-						// alert that we didnt get what we needed
-						if ($scope.selection_strs) {
-							console.log($scope.selection_strs);
-							console.log($scope.timerange_construct);
-							make_plot();
-						} else {
-							// flash an error message if none of the panes are valid
-							$scope.error = "please enter at least 1 valid pane";
-							$timeout(function() {
-								$scope.error = "";
-							}, 5000);
-						}
-					
-					};
-				});
+		$scope.go = function() {
+			evalSelections();
+			if ($scope.can_plot) {
+				console.log("/vis/ts/" + $scope.selection_strs + $scope.timerange_construct);
+				$location.url("/vis/ts/" + $scope.selection_strs + 
+					"/" + $scope.timerange_construct);
+			}
+		};
+
+		if ($routeParams.arg) {
+			$scope.predef_cond = []
+			$routeParams.arg.split(";;").map( function(d) {
+				if (d) {$scope.predef_cond.push(d);}
 			});
-				
+			console.log($scope.predef_cond);
+			$scope.predef_time = [0, 0];
+			//find the time in the first one
+			$routeParams.argg.split(";").map( function(t) {
+				t = t.split(":");
+				if (t[1] == "time") {
+					if (t[2] == "ge") {
+						$scope.predef_time[0] = t[3];
+					} else {
+						$scope.predef_time[1] = t[3];
+					}
+				}
+			});
+			evalSelections(make_plot);
+			//$timeout(make_plot, 1000);
 		}
+
+		$scope.timerange_construct = "";
+
+		dscovrDataAccess.getParameters().then( function(data) {
+			$scope.params = data;
+		});
+
 	});

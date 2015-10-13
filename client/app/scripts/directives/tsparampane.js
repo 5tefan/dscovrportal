@@ -44,7 +44,7 @@ angular.module('dscovrDataApp')
 							'</form>'+
 						'</div>'+
 						'<div class="row">'+
-							'<div ts-condition-container params="params"></div>'+
+							'<div ts-condition-container params="params" predef="predef_cond"></div>'+
 						'</div>'+
 					'</div>'+
 				'</div>',
@@ -57,15 +57,46 @@ angular.module('dscovrDataApp')
 			},
 			link: function postLink(scope, element, attrs) {
 
+				scope.default_selection = {};
+				scope.selections = [];
+				scope.adv = {
+					log: false
+				};
+
 				scope.$watch('removable', function() {
 					scope.removable = scope.$eval(attrs.removable);
 				});
 
-				scope.adv = {
-					log: false
-				};
-				scope.default_selection = {};
-				scope.selections = [];
+				scope.$watch('pane', function() {
+					console.log(scope.pane);
+					if (scope.pane.predef) {
+						//parse the log scale setting
+						var is_log = scope.pane.predef.split('*')[1];
+						if (is_log.charAt( is_log.length - 1 ) == ";" ) { is_log = is_log.slice(0, -1); }
+						scope.adv.log = ( is_log == 'true' );
+						//parse the parameters to plot
+						var params = scope.pane.predef.split('$$')[0].split(';');
+						for (var i in params) {
+							if (params[i]) {
+								var prodparam = params[i].split(':');
+								var selection = {
+									prod: prodparam[0],
+									param: prodparam[1]
+								}
+								if (i == 0) {
+									scope.default_selection = selection;
+								} else {
+									scope.selections.push(selection);
+								}
+				
+							}
+						}
+						//parse the exclude and highlight conditions
+						var conds = scope.pane.predef.split('$$')[1].split('*')[0];
+						scope.predef_cond = conds.split(';');
+					}
+				});
+
 				scope.addSelection = function() {
 					var selection = {};
 					scope.selections.push(selection);

@@ -35,6 +35,7 @@ angular.module('dscovrDataApp')
 			restrict: 'A',
 			scope: {
 				params : '=',
+				predef : '=',
 			},
 			link: function postLink(scope, element, attrs) {
 				
@@ -43,6 +44,22 @@ angular.module('dscovrDataApp')
 				// their own parameters
 				scope.default_pane = {};
 				scope.panes = [];
+
+				var unwatch_predef = scope.$watch('predef', function() {
+					console.log(scope.predef);
+					if (scope.predef) {
+						for (var i in scope.predef) {
+							var pane = { predef: scope.predef[i] } 
+							if (i == 0) {
+								scope.default_pane = pane;
+							} else {
+								scope.panes.push(pane);
+							}
+						}
+						unwatch_predef();
+					}
+				});
+	
 				scope.addPane = function() {
 					var pane = {};
 					scope.panes.push(pane);

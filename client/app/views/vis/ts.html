@@ -19,11 +19,11 @@
 				</ul>
 			</div>
 			<div id="vis-selectarea" class="col-xs-10">
-				<div ts-param-container params='params'></div>
-				<div time-range construct="timerange_construct"></div>
+				<div ts-param-container params='params' predef="predef_cond"></div>
+				<div time-range construct="timerange_construct" predef="predef_time"></div>
 				<div class="row">
 					<div class="col-xs-2">
-						<a class="btn btn-default" role="button" ng-click="evalSelections()"> Plot </a>
+						<a class="btn btn-default" role="button" ng-click="go()"> Plot </a>
 					</div>
 					<div class="col-xs-5">
 						<p> {{ error }} </p>

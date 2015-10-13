@@ -41,12 +41,56 @@ angular.module('dscovrDataApp')
 			restrict: 'A',
 			scope: {
 				params : '=',
+				predef : '=',
 			},
 			link: function postLink(scope, element, attrs) {
 				//the default highlight that you can't delete
 				scope.default_highlight = {};
 				//arry for any more highlights added with the + button
 				scope.highlights = [];
+				scope.default_exclude = {};
+				scope.excludes = [];
+
+
+				//handle predef conditions
+				var unwatch_predef = scope.$watch('predef', function() {
+					if (scope.predef) {
+						console.log(scope.predef);
+						var first_ex = true;
+						var first_hi = true;
+						for (var i in scope.predef) {
+							if (scope.predef[i]) {
+								var cond = scope.predef[i].split('_')[0].split(':');
+								var type = scope.predef[i].split('_')[1];
+								var condition = {
+									prod: cond[0],
+									param: cond[1],
+									relation: cond[2],
+									value: Number(cond[3]),
+								}
+								if (+type == 0) {
+									if (first_ex) {
+										scope.default_exclude = condition;
+										first_ex = false;
+									} else {
+										scope.excludes.push(condition);
+									}
+								} else {
+									if (first_hi) {
+										scope.default_highlight = condition;
+										first_hi = false;
+									} else {
+										scope.highlights.push(condition);
+									}
+
+								}
+							}
+						}
+						unwatch_predef();
+					}
+				});
+
+
 				scope.addHighlight = function() {
 					var highlight = {};
 					scope.highlights.push(highlight);
@@ -55,8 +99,6 @@ angular.module('dscovrDataApp')
 					scope.highlights.splice(i, 1);
 				};
 
-				scope.default_exclude = {};
-				scope.excludes = [];
 				scope.addExclude = function() {
 					var exclude = {};
 					scope.excludes.push(exclude);
@@ -68,19 +110,19 @@ angular.module('dscovrDataApp')
 				scope.evalString = function() {
 					var return_str = "";
 					if (scope.default_exclude.construct) {
-						return_str = scope.default_exclude.construct + "%0;";
+						return_str = scope.default_exclude.construct + "_0;";
 					} 
 					for (var each in scope.excludes) {
 						if (scope.excludes[each].construct) {
-							return_str += scope.excludes[each].construct + "%0;";
+							return_str += scope.excludes[each].construct + "_0;";
 						}
 					}
 					if (scope.default_highlight.construct) {
-						return_str += scope.default_highlight.construct + "%1;";
+						return_str += scope.default_highlight.construct + "_1;";
 					} 
 					for (var each in scope.highlights) {
 						if (scope.highlights[each].construct) {
-							return_str += scope.highlights[each].construct + "%1;";
+							return_str += scope.highlights[each].construct + "_1;";
 						}
 					}
 					return return_str;
