@@ -16,30 +16,54 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-	'ui.bootstrap'
+	'ngQuickDate',
   ])
-  .config(function ($routeProvider) {
+  .config(function ($routeProvider, ngQuickDateDefaultsProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
-		//getting lazy here but arg is arg1
-		//argg is arg2, 
-		//depending on type, if type is summary
-		//arg is the frame size h6, d1, d3 etc
-		//and argg is the date selected
-		//if type is interactive then arg is
-		// start of frame and argg is end of frame
-      .when('/vis/:type?/:arg?/:argg?', {
-        templateUrl: 'views/vis.html',
-        controller: 'VisCtrl'
+      .when('/vis', {
+        redirectTo: '/vis/summary'
       })
-      .when('/download/:type?/:arg?/:argg?', {
+		//arg is the frame size h6, d1, d3 etc
+		//argg is the date selected
+      .when('/vis/summary/:arg?/:argg?', {
+        templateUrl: 'views/vis/summary.html',
+        controller: 'VisSummaryCtrl'
+      })
+		//arg is start:end
+		//argg is prod:param;prod:param;;prod:param etc
+      .when('/vis/ts/:arg?/:argg?', {
+        templateUrl: 'views/vis/ts.html',
+        controller: 'VisTsCtrl'
+      })
+		//arg is prod:param;prod:param to plot x;y
+		//argg is the condition string
+      .when('/vis/scatter/:arg?/:argg?', {
+        templateUrl: 'views/vis/scatter.html',
+        controller: 'VisScatterCtrl'
+      })
+		//arg is the condition string
+      .when('/vis/event/:arg?', {
+        templateUrl: 'views/vis/event.html',
+        controller: 'VisEventCtrl'
+      })
+      .when('/download/:arg?/:argg?', {
         templateUrl: 'views/download.html',
         controller: 'DownloadCtrl'
       })
       .otherwise({
         redirectTo: '/'
       });
+
+	//Update these when the mission ends
+	var mission_start = moment.utc("02-03-2015", "DD-MM-YYYY");
+	var mission_end = moment.utc("12-13-2015", "DD-MM-YYYY");
+	ngQuickDateDefaultsProvider.set('dateFilter', function(d) {
+		d = moment(d);
+		return d.isAfter(mission_start) && d.isBefore(mission_end);
+	});
+	ngQuickDateDefaultsProvider.set('placeholder', '---------------');
   });

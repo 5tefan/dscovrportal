@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html data-ng-app='ngQuickDateDemo'>
+  <head>
+    <title>ngQuickDate Demo</title>
+    <link rel="stylesheet" type="text/css" href="dist/ng-quick-date-plus-default-theme.css" media="all" />
+    <style type="text/css">
+      form.ng-dirty .ng-invalid .quickdate-button {
+        border: solid 1px red;
+      }
+    </style>
+  </head>
+  <body>
+    <div ng-controller='DemoCtrl'>
+      <form name='date_form' novalidate>
+        <p>
+          <label>Selected Date</label>
+          <input type='text' name='myDateText' ng-model='myDate' required />
+        </p>
+        <p>
+          <label>Selected Date in UTC: </label>
+          <code>{{myDate.toISOString()}}</code>
+        </p>
+        <p>
+          <label><strong>My Date</strong></label>
+          <quick-datepicker name='myDate' ng-model='myDate' required
+                            disable-timepicker="setting.disableTimepicker"
+                            timezone="setting.timezone"
+                            disable-clear-button='setting.disableClearButton'>
+          </quick-datepicker>
+        </p>
+        <p>
+          <label>Disable Time Picker</label>
+          <input type='checkbox' name='disableTimepicker' ng-model='setting.disableTimepicker' />
+        </p>
+        <p>
+          <label>Disable Clear Button</label>
+          <input type='checkbox' name='disableClearButton' ng-model='setting.disableClearButton' />
+        </p>
+        <p>
+          <label>UTC Time Zone</label>
+          <input type='checkbox' name='utcTimezone' ng-model='setting.utcTimezone'
+                ng-change="setting.timezone = setting.utcTimezone?'UTC':null" />
+        </p>
+      </form>
+      <br/>
+      <br/>
+      <a href='' ng-click='setToToday()'>Set Date to Today</a>
+    </div>
+    <script type="text/javascript" src="bower_components/angular/angular.js"></script>
+    <!-- <script type='text/javascript' src='vendor/sugar.js' /> -->
+    <!-- <script type='text/javascript' src='vendor/date.js' /> -->
+    <!-- <script type='text/javascript' src='bower_components/jquery/jquery.js' /> -->
+    <script type="text/javascript" src="dist/ng-quick-date.js"></script>
+    <script type='text/javascript'>
+      var app = angular.module("ngQuickDateDemo", ["ngQuickDate"]);
+      app.config(function(ngQuickDateDefaultsProvider) {
+        return ngQuickDateDefaultsProvider.set({
+          debug: true
+        });
+      });
+      app.controller("DemoCtrl", function($scope) {
+        $scope.myDate = null
+        $scope.setting = {
+          utcTimezone: false,
+          disableTimepicker: false,
+          disableClearButton: false
+        }
+        $scope.setToToday = function() { $scope.myDate = new Date(); }
+      });
+    </script>
+  </body>
+</html>

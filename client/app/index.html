@@ -30,13 +30,16 @@
         <!-- build:css(.) styles/vendor.css -->
         <!-- bower:css -->
         <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="bower_components/gildorwang-ng-quick-date/dist/ng-quick-date.css" />
+        <link rel="stylesheet" href="bower_components/gildorwang-ng-quick-date/dist/ng-quick-date-default-theme.css" />
+        <link rel="stylesheet" href="bower_components/metrics-graphics/dist/metricsgraphics.css" />
         <!-- endbower -->
         <!-- endbuild -->
         <!-- build:css(.tmp) styles/main.css -->
         <link rel="stylesheet" href="styles/main.css">
         <!-- endbuild -->
     </head>
-    <body data-ng-app="dscovrDataApp" data-auto-scroll>
+    <body data-ng-app="dscovrDataApp">
         <!--[if lt IE 7]>
           <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -112,7 +115,9 @@
         <script src="bower_components/angular-touch/angular-touch.js"></script>
         <script src="bower_components/moment/moment.js"></script>
         <script src="bower_components/moment-range/lib/moment-range.js"></script>
-        <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+        <script src="bower_components/gildorwang-ng-quick-date/dist/ng-quick-date.js"></script>
+        <script src="bower_components/d3/d3.js"></script>
+        <script src="bower_components/metrics-graphics/dist/metricsgraphics.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
 
@@ -120,10 +125,25 @@
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/nav.js"></script>
-        <script src="scripts/directives/dscovr-browsedate.js"></script>
-        <script src="scripts/controllers/vis.js"></script>
         <script src="scripts/controllers/download.js"></script>
-        <script src="scripts/directives/autoscroll.js"></script>
+        <script src="scripts/controllers/vis/advanced.js"></script>
+        <script src="scripts/controllers/vis/summary.js"></script>
+        <script src="scripts/controllers/vis/event.js"></script>
+        <script src="scripts/directives/conditioncontainer.js"></script>
+        <script src="scripts/directives/conditionedit.js"></script>
+        <script src="scripts/controllers/vis/ts.js"></script>
+        <script src="scripts/controllers/vis/scatter.js"></script>
+        <script src="scripts/directives/tsparamcontainer.js"></script>
+        <script src="scripts/directives/timerange.js"></script>
+        <script src="scripts/directives/tsparampane.js"></script>
+        <script src="scripts/directives/paramedit.js"></script>
+        <script src="scripts/directives/scatterparampane.js"></script>
+        <script src="scripts/services/dscovrdataaccess.js"></script>
+        <script src="scripts/directives/tsplot.js"></script>
+        <script src="scripts/directives/scatterplot.js"></script>
+        <script src="scripts/directives/eventplot.js"></script>
+        <script src="scripts/directives/tsconditioncontainer.js"></script>
+        <script src="scripts/directives/downloadtimerange.js"></script>
         <!-- endbuild -->
 
     </body>
