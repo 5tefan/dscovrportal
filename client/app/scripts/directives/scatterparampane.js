@@ -19,7 +19,7 @@ angular.module('dscovrDataApp')
 					'<div class="col-xs-1">'+
 						'<h5> x-axis: </h5>'+
 					'</div>'+
-					'<div class="col-xs-4">'+
+					'<div class="col-xs-6">'+
 						'<div param-edit params="params" selection="selection_x" removable="false"></div>'+
 					'</div>'+
 				'</div>'+
@@ -27,7 +27,7 @@ angular.module('dscovrDataApp')
 					'<div class="col-xs-1">'+
 						'<h5> y-axis: </h5>'+
 					'</div>'+
-					'<div class="col-xs-4">'+
+					'<div class="col-xs-6">'+
 						'<div param-edit params="params" selection="selection_y" removable="false"></div>'+
 					'</div>'+
 				'</div>',

@@ -22,11 +22,13 @@ angular.module('dscovrDataApp')
 			//ask the tsPaneContainer to tell us how many panes are in it so we
 			// know how many to expect and when we are done evaluating.
 			$scope.$broadcast('evalPanes', function(num_panes) {
+				console.log(num_panes);
 				var num_pane_responses = 0;
 				//as the tsPaneEdit directives to send back their strings, we
 				// put them all together and figure out when we have gotten them all
 				$scope.$broadcast('evalSelections', function(selection_str) {
 					++num_pane_responses;
+					console.log(num_pane_responses);
 					if (selection_str) {
 						$scope.selection_strs += selection_str + ";;";
 					}
@@ -37,8 +39,10 @@ angular.module('dscovrDataApp')
 							console.log($scope.selection_strs);
 							console.log($scope.timerange_construct);
 							//make_plot();
+							if (cb) { 
 							console.log("hello");
-							if (cb) { cb() };
+								cb()
+							 };
 							$scope.can_plot = true;
 						} else {
 							// flash an error message if none of the panes are valid
@@ -51,7 +55,6 @@ angular.module('dscovrDataApp')
 					};
 				});
 			});
-				
 		}
 
 
@@ -385,7 +388,14 @@ angular.module('dscovrDataApp')
 					}
 				}
 			});
-			evalSelections(make_plot);
+			//this timeout is needed becuase otherwise
+			//eval selections sends the broadcast before the
+			//child directives are linked and so they don't hear.
+			//This delays but TODO: make the deepest child emit
+			// a message and catch it here that it is loaded.
+			$timeout( function() {
+				evalSelections(make_plot);
+			}, 1000);
 			//$timeout(make_plot, 1000);
 		}
 

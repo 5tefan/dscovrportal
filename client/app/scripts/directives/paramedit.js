@@ -12,10 +12,10 @@ angular.module('dscovrDataApp')
 			template: 
 					'<div class="col-xs-8">'+
 						'<select class="form-control param-edit-select" ng-model="prod" ng-options="prod for prod in keys(params)">'+
-							'<option value="" disabled selected>-- product --</option>'+
+							'<option value="" disabled selected>-product-</option>'+
 						'</select>'+
 						'<select class="form-control param-edit-select" ng-model="param" ng-options="param for param in keys(params[prod])">'+
-							'<option value="" disabled selected>-- parameter --</option>'+
+							'<option value="" disabled selected>-variable-</option>'+
 						'</select>'+
 					'</div>'+
 					'<div class="col-xs-4" ng-if="removable">'+

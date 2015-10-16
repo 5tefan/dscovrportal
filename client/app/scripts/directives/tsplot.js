@@ -28,7 +28,6 @@ angular.module('dscovrDataApp')
 							y_accessor: scope.plot.y_accessor,
 							legend: scope.plot.y_accessor,
 							utc_time: true,
-							full_width: true,
 							area: false,
 
 						})

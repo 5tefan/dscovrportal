@@ -50,7 +50,7 @@ angular
         templateUrl: 'views/vis/event.html',
         controller: 'VisEventCtrl'
       })
-      .when('/download/:type?/:arg?/:argg?', {
+      .when('/download/:arg?/:argg?', {
         templateUrl: 'views/download.html',
         controller: 'DownloadCtrl'
       })

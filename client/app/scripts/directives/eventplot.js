@@ -31,7 +31,6 @@ angular.module('dscovrDataApp')
 							target: element[0],
 							x_accessor: 'time',
 							y_accessor: 'val',
-							full_width: true,
 						})
 					}
 				});

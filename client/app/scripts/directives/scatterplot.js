@@ -27,7 +27,6 @@ angular.module('dscovrDataApp')
 							target: element[0],
 							x_accessor: scope.plot.x_accessor,
 							y_accessor: scope.plot.y_accessor,
-							full_width: true,
 						})
 					}
 				});

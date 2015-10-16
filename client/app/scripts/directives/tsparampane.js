@@ -122,7 +122,9 @@ angular.module('dscovrDataApp')
 				// listen for evalClikced event, broadcast from parent when
 				// when the parent needs the conditions to be evaluated.
 				scope.$on('evalSelections', function(e, cb) {
+					console.log("evalSelections cb");
 					scope.$broadcast('evalConditions', function(condition_str) {
+						console.log("evalConditions cb");
 						var return_string = scope.evalSelections();
 						return_string += "$$" + condition_str;
 						return_string += "*" + scope.adv.log

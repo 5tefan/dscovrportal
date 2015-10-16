@@ -12,7 +12,7 @@ angular.module('dscovrDataApp')
 			template: 
 				'<div class="row" style="margin-top: 20px; margin-bottom: 20px;">'+
 					'<div class="col-xs-4">'+
-						'<h5>Exclude where:</h5>'+
+						'<h5>Filter where:</h5>'+
 					'</div>'+
 					'<div class="col-xs-2">'+
 						'<a class="btn btn-default" ng-click=addExclude()> + condition </a>'+
@@ -131,6 +131,7 @@ angular.module('dscovrDataApp')
 				// listen for evalClikced event, broadcast from parent when
 				// when the parent needs the highlights to be evaluated.
 				scope.$on('evalConditions', function(e, cb) {
+					console.log("evalConditions");
 					cb(scope.evalString());
 				});
 			}
