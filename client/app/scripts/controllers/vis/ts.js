@@ -102,7 +102,6 @@ angular.module('dscovrDataApp')
 					var i = 0;
 					var bad = false;
 					var badprev = false;
-					var data;
 					dscovrDataAccess.getValues(selection, time).then( function(data) {
 						if (highlight) { //if we have data to highlight specified in the advanced options
 							dscovrDataAccess.getValues(selection, highlight+time).then( function(hdata) {
@@ -110,7 +109,9 @@ angular.module('dscovrDataApp')
 								for (var h in hdata) {
 									hdata_lookup.push(hdata[h].time);
 								}
+								var inhighlight = false;
 								if (exclude) {
+									// this is the case highlight AND exclude
 									dscovrDataAccess.getValues(selection, exclude+time).then( function(edata) {
 										var edata_lookup = [];
 										for (var e in edata) {
@@ -119,8 +120,23 @@ angular.module('dscovrDataApp')
 										while (i < data.length) {
 											//null fill values and decide if we have a 
 											//sequence of nulls we can get rid of
-											if (edata_lookup.indexOf(data[i].time) != -1) {
-												data.splice(i, 1);
+											var edata_index = edata_lookup.indexOf(data[i].time);
+											if (edata_index != -1) {
+												if (badprev) {
+													//if prev was bad then just splice
+													data.splice(i, 1);
+													edata_lookup.splice(edata_index, 1);
+												} else {
+													//otherwise insert a null so that we get a gap
+													Object.keys(data[i]).map( function(k) {
+														if (k != "time") {
+															data[i][k] = null;
+														};
+													});
+													edata_lookup.splice(edata_index, 1);
+													badprev = true;
+												}
+													
 											} else {
 												var nulls = 0;
 												Object.keys(data[i]).map( function(k) {
@@ -134,30 +150,27 @@ angular.module('dscovrDataApp')
 												bad = Boolean(nulls == lines.length);
 												// if its bad and the one before it is bad, remove it
 												if (bad && badprev) {
-														console.log("splice!");
 														data.splice(i, 1);
 												} else {
-													var index = hdata_lookup.indexOf(data[i].time);
-													if (index > -1) {
-														Object.keys(hdata[index]).map( function(k) {
+													var hdata_index = hdata_lookup.indexOf(data[i].time);
+													if (!bad && hdata_index > -1) {
+														Object.keys(hdata[hdata_index]).map( function(k) {
 															if (k != 'time') {
-																if (+hdata[index][k] != -9999) {
-																	data[i]["condition" + k] = hdata[index][k];
+																if (+hdata[hdata_index][k] != -9999) {
+																	data[i]["condition" + k] = hdata[hdata_index][k];
 																} else {
 																	data[i]["condition" + k] = null;
 																}
 															}
 														});
-														// if this is the last highlighted value for a while, instert a null
-														// so that metricsgraphics doesnt interpolate between the poitns
-														if (i+1 < data.length && hdata_lookup.indexOf(data[i+1].time) == -1) {
-															Object.keys(hdata[index]).map( function(k) {
-																if (k != 'time') {
-																	data[i]["condition" + k] = null;
-																}
-															});
-														}
+													} else if (!bad && hdata_index == -1) {
+														Object.keys(data[i]).map( function(k) {
+															if (k != 'time') {
+																data[i]["condition" + k] = null;
+															}
+														});
 													}
+														
 													// otherwise this is the first bad one, we need
 													// to keep it so that the line will not interpolate
 													// but need to set bad so that the next ones will be
@@ -166,6 +179,7 @@ angular.module('dscovrDataApp')
 													badprev = bad;
 													i++;
 												}
+											
 											}
 										}
 
@@ -191,6 +205,7 @@ angular.module('dscovrDataApp')
 										}, 3000);
 									});
 								} else {
+									//case highlight AND no exclude
 									while (i < data.length) {
 										//null fill values and decide if we have a 
 										//sequence of nulls we can get rid of
@@ -206,32 +221,27 @@ angular.module('dscovrDataApp')
 										bad = Boolean(nulls == lines.length);
 										// if its bad and the one before it is bad, remove it
 										if (bad && badprev) {
-												console.log("splice!");
 												data.splice(i, 1);
 										} else {
-											var index = hdata_lookup.indexOf(data[i].time);
-											if (index > -1) {
-												Object.keys(hdata[index]).map( function(k) {
+											var hdata_index = hdata_lookup.indexOf(data[i].time);
+											if (!bad && hdata_index > -1) {
+												Object.keys(hdata[hdata_index]).map( function(k) {
 													if (k != 'time') {
-														if (+hdata[index][k] != -9999) {
-															data[i]["condition" + k] = hdata[index][k];
+														if (+hdata[hdata_index][k] != -9999) {
+															data[i]["condition" + k] = hdata[hdata_index][k];
 														} else {
 															data[i]["condition" + k] = null;
 														}
 													}
 												});
-												// if this is the last highlighted value for a while, instert a null
-												// so that metricsgraphics doesnt interpolate between the poitns
-												if (i+1 < data.length && hdata_lookup.indexOf(data[i+1].time) == -1) {
-													Object.keys(hdata[index]).map( function(k) {
-														if (k != 'time') {
-															data[i]["condition" + k] = null;
-														}
-													});
-												}
+											} else if (!bad && hdata_index == -1) {
+												Object.keys(data[i]).map( function(k) {
+													if (k != 'time') {
+														data[i]["condition" + k] = null;
+													}
+												});
 											}
 												
-										
 											// otherwise this is the first bad one, we need
 											// to keep it so that the line will not interpolate
 											// but need to set bad so that the next ones will be
@@ -246,8 +256,10 @@ angular.module('dscovrDataApp')
 									var title = selection + " from " + time.split(";").map( function(d) {
 										return new Date( Number( d.split(":")[3] ) ).toISOString();
 									}).join(" to ");
+									var y_acc = [];
+									lines.map( function(line) { y_acc.push(line); y_acc.push("condition"+line); });
 									$scope.plots.push( {
-										y_accessor: lines,
+										y_accessor: y_acc,
 										data: data,
 										title: title
 									});
@@ -275,9 +287,23 @@ angular.module('dscovrDataApp')
 									while (i < data.length) {
 										//null fill values and decide if we have a 
 										//sequence of nulls we can get rid of
-										if (edata_lookup.indexOf(data[i].time) != -1) {
-											data.splice(i, 1);
-											continue;
+										var edata_index = edata_lookup.indexOf(data[i].time);
+										if (edata_index != -1) {
+											if (badprev) {
+												//if prev was bad then just splice
+												data.splice(i, 1);
+												edata_lookup.splice(edata_index, 1);
+											} else {
+												//otherwise insert a null so that we get a gap
+												Object.keys(data[i]).map( function(k) {
+													if (k != "time") {
+														data[i][k] = null;
+													};
+												});
+												edata_lookup.splice(edata_index, 1);
+												badprev = true;
+											}
+												
 										} else {
 											var nulls = 0;
 											Object.keys(data[i]).map( function(k) {
