@@ -10,12 +10,13 @@ angular.module('dscovrDataApp')
 	.directive('conditionEdit', function () {
 		return {
 			template: 
-					'<div class="no-padding-right col-xs-5">'+
+					'<div class="row">' +
+					'<div class="no-padding-right col-xs-4">'+
 						'<select class="form-control condition-edit-select" ng-model="prod" ng-options="prod for prod in keys(params)">'+
-							'<option value="" disabled selected>-- product --</option>'+
+							'<option value="" disabled selected>-product-</option>'+
 						'</select>'+
 						'<select class="form-control condition-edit-select" ng-model="param" ng-options="param for param in keys(params[prod])">'+
-							'<option value="" disabled selected>-- parameter --</option>'+
+							'<option value="" disabled selected>-variable-</option>'+
 						'</select>'+
 						'<select class="form-control condition-edit-select" ng-model="relation">'+
 							'<option value="gt"> &gt; </option>'+
@@ -34,6 +35,7 @@ angular.module('dscovrDataApp')
 					'</div>'+
 					'<div class="col-xs-2" ng-if="removable">'+
 						'<a class="btn btn-default" ng-click=rmCondition($index)> - remove condition </a>'+
+					'</div>'+
 					'</div>',
 			restrict: 'A',
 			scope: {
