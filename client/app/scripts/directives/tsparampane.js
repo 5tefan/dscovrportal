@@ -39,14 +39,14 @@ angular.module('dscovrDataApp')
 								'<a ng-click="adv.show = !adv.show"><h4><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span> Advanced options </h4></a>'+
 							'</div>'+
 						'</div>'+
-						'<div class="row" ng-if="adv.show">'+
+						'<div class="row" ng-show="adv.show">'+
 							'<form>'+
 								'<div class="checkbox">'+
 									'<label><input type="checkbox" ng-model="adv.log">Log scale</label>'+
 								'</div>'+
 							'</form>'+
 						'</div>'+
-						'<div class="row" ng-if="adv.show">'+
+						'<div class="row" ng-show="adv.show">'+
 							'<div ts-condition-container params="params" predef="predef_cond"></div>'+
 						'</div>'+
 					'</div>'+
@@ -77,6 +77,7 @@ angular.module('dscovrDataApp')
 						var is_log = scope.pane.predef.split('*')[1];
 						if (is_log.charAt( is_log.length - 1 ) == ";" ) { is_log = is_log.slice(0, -1); }
 						scope.adv.log = ( is_log == 'true' );
+
 						//parse the parameters to plot
 						var params = scope.pane.predef.split('$$')[0].split(';');
 						for (var i in params) {
