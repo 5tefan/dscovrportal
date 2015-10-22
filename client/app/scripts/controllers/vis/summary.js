@@ -122,11 +122,11 @@ angular.module('dscovrDataApp')
 				//divide by 10000 to slim down url params, last bit always going to be 00000
 				//set the end date of the frame, parameter for next frame
 				$scope.summary_file_date_prev = moment.utc($scope.summary_file_date)
-					.subtract( $scope.summary_frame_info[$scope.frame_size].dt, "ms");
+					.subtract( 0.5 * $scope.summary_frame_info[$scope.frame_size].dt, "ms");
 				$scope.summary_file_date_end = moment.utc($scope.summary_file_date)
 					.add( $scope.summary_frame_info[$scope.frame_size].dt, "ms");
 				$scope.summary_file_date_next = moment.utc($scope.summary_file_date)
-					.add( 2*$scope.summary_frame_info[$scope.frame_size].dt, "ms");
+					.add( $scope.summary_frame_info[$scope.frame_size].dt, "ms");
 
 				break;
 			default:
