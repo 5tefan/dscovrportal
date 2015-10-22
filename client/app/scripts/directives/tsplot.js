@@ -22,6 +22,7 @@ angular.module('dscovrDataApp')
 							data: scope.plot.data,
 							width: element[0].clientWidth,
 							height: 400,
+							right: 100,
 							yax_format: d3.format('e'),
 							target: element[0],
 							x_accessor: 'time',
@@ -29,7 +30,7 @@ angular.module('dscovrDataApp')
 							legend: scope.plot.y_accessor,
 							utc_time: true,
 							area: false,
-
+							y_scale_type: scope.plot.y_scale_type,
 						})
 					}
 				});

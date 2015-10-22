@@ -78,9 +78,10 @@ angular.module('dscovrDataApp')
 				if (selection) {
 					var _ = selection.split("$$");
 					selection = _[0];
-
+					var y_scale_type = "linear";
 					if (_[1]) {
 						var condition = _[1].split("*")[0];
+						y_scale_type = (_[1].split("*")[1] == "true") ? "log" : "linear";
 						var highlight = [];
 						var exclude = [];
 						condition.split(";").map( function(d) {
@@ -100,8 +101,6 @@ angular.module('dscovrDataApp')
 							exclude += ";";
 						}
 					}
-					var logscale = Boolean(selection.split("*")[1]);
-					console.log(highlight);
 					if (selection.charAt(selection.length-1) == ";") { selection = selection.slice(0, -1); }
 					var lines = selection.split(";").map(function(d) {
 						return d.split(":")[1]
@@ -203,7 +202,8 @@ angular.module('dscovrDataApp')
 											$scope.plots.push( {
 												y_accessor: y_acc,
 												data: data,
-												title: title
+												title: title,
+												y_scale_type: y_scale_type,
 											});
 											//this is ugly buuuut... necessary to get the lines to highlight
 											// with metricsgraphics
@@ -275,7 +275,8 @@ angular.module('dscovrDataApp')
 										$scope.plots.push( {
 											y_accessor: y_acc,
 											data: data,
-											title: title
+											title: title,
+											y_scale_type: y_scale_type,
 										});
 										//this is ugly buuuut... necessary to get the lines to highlight
 										// with metricsgraphics
@@ -353,7 +354,8 @@ angular.module('dscovrDataApp')
 										$scope.plots.push( {
 											y_accessor: lines,
 											data: data,
-											title: title
+											title: title,
+											y_scale_type: y_scale_type,
 										});
 									}
 									return;
@@ -395,7 +397,8 @@ angular.module('dscovrDataApp')
 									$scope.plots.push( {
 										y_accessor: lines,
 										data: data,
-										title: title
+										title: title,
+										y_scale_type: y_scale_type,
 									});
 								}
 							}

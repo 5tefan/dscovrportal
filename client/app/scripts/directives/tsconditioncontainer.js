@@ -23,20 +23,20 @@ angular.module('dscovrDataApp')
 				'</div>'+
 				'<div class="row conditionEdit" ng-repeat="exclude in excludes">'+
 						'<div condition-edit params="params" condition="exclude" removable="true" rm-condition="rmExclude($index)"></div>'+
-				'</div>'+
-				'<div class="row" style="margin-top: 20px; margin-bottom: 20px;">'+
-					'<div class="col-xs-4">'+
-						'<h5>Highlight where:</h5>'+
-					'</div>'+
-					'<div class="col-xs-2">'+
-						'<a class="btn btn-default" ng-click=addHighlight()> + condition </a>'+
-					'</div>'+
-				'</div>'+
-				'<div class="row conditionEdit">'+
-					'<div condition-edit params="params" condition="default_highlight" removable="false"></div>'+
-				'</div>'+
-				'<div class="row conditionEdit" ng-repeat="highlight in highlights">'+
-						'<div condition-edit params="params" condition="highlight" removable="true" rm-condition="rmHighlight($index)"></div>'+
+	//			'</div>'+
+	//			'<div class="row" style="margin-top: 20px; margin-bottom: 20px;">'+
+	//				'<div class="col-xs-4">'+
+	//					'<h5>Highlight where:</h5>'+
+	//				'</div>'+
+	//				'<div class="col-xs-2">'+
+	//					'<a class="btn btn-default" ng-click=addHighlight()> + condition </a>'+
+	//				'</div>'+
+	//			'</div>'+
+	//			'<div class="row conditionEdit">'+
+	//				'<div condition-edit params="params" condition="default_highlight" removable="false"></div>'+
+	//			'</div>'+
+	//			'<div class="row conditionEdit" ng-repeat="highlight in highlights">'+
+	//					'<div condition-edit params="params" condition="highlight" removable="true" rm-condition="rmHighlight($index)"></div>'+
 				'</div>',
 			restrict: 'A',
 			scope: {
