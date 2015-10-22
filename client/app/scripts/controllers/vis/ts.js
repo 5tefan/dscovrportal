@@ -12,6 +12,17 @@ angular.module('dscovrDataApp')
 
 		$scope.can_plot = false;
 
+		var check_data = function(data) {
+			if (data.length <= 1) {
+				$scope.error = "No data with specified conditions";
+				$timeout(function() {
+					$scope.error = "";
+				}, 5000);
+			}
+			return data.length > 1;
+		}
+
+
 		// evaluate the selections from the main controller
 		var evalSelections = function(cb) {
 			//initialize the string we will be building, will look like
@@ -73,7 +84,7 @@ angular.module('dscovrDataApp')
 						var highlight = [];
 						var exclude = [];
 						condition.split(";").map( function(d) {
-							var splitted = d.split("_");
+							var splitted = d.split("@");
 							if (splitted[1] == 0) {
 								exclude.push(splitted[0]);
 							} else {
@@ -183,26 +194,28 @@ angular.module('dscovrDataApp')
 											}
 										}
 
-										var title = selection + " from " + time.split(";").map( function(d) {
-											return new Date( Number( d.split(":")[3] ) ).toISOString();
-										}).join(" to ");
-										var y_acc = [];
-										lines.map( function(line) { y_acc.push(line); y_acc.push("condition"+line); });
-										$scope.plots.push( {
-											y_accessor: y_acc,
-											data: data,
-											title: title
-										});
-										//this is ugly buuuut... necessary to get the lines to highlight
-										// with metricsgraphics
-										$timeout(function() { 
-											var s = 2;
-											while (s < y_acc.length+1) {
-												d3.select(".mg-line" + s + "-color")
-													.style({"stroke-width": 5});
-												s += 2;
-											}
-										}, 3000);
+										if (check_data(data)) {
+											var title = selection + " from " + time.split(";").map( function(d) {
+												return new Date( Number( d.split(":")[3] ) ).toISOString();
+											}).join(" to ");
+											var y_acc = [];
+											lines.map( function(line) { y_acc.push(line); y_acc.push("condition"+line); });
+											$scope.plots.push( {
+												y_accessor: y_acc,
+												data: data,
+												title: title
+											});
+											//this is ugly buuuut... necessary to get the lines to highlight
+											// with metricsgraphics
+											$timeout(function() { 
+												var s = 2;
+												while (s < y_acc.length+1) {
+													d3.select(".mg-line" + s + "-color")
+														.style({"stroke-width": 5});
+													s += 2;
+												}
+											}, 3000);
+										}
 									});
 								} else {
 									//case highlight AND no exclude
@@ -252,27 +265,29 @@ angular.module('dscovrDataApp')
 										}
 									}
 
-									//data is clean, just stuff we need to make the plot
-									var title = selection + " from " + time.split(";").map( function(d) {
-										return new Date( Number( d.split(":")[3] ) ).toISOString();
-									}).join(" to ");
-									var y_acc = [];
-									lines.map( function(line) { y_acc.push(line); y_acc.push("condition"+line); });
-									$scope.plots.push( {
-										y_accessor: y_acc,
-										data: data,
-										title: title
-									});
-									//this is ugly buuuut... necessary to get the lines to highlight
-									// with metricsgraphics
-									$timeout(function() { 
-										var s = 2;
-										while (s < y_acc.length+1) {
-											d3.select(".mg-line" + s + "-color")
-												.style({"stroke-width": 5});
-											s += 2;
-										}
-									}, 3000);
+									if (check_data(data)) {
+										//data is clean, just stuff we need to make the plot
+										var title = selection + " from " + time.split(";").map( function(d) {
+											return new Date( Number( d.split(":")[3] ) ).toISOString();
+										}).join(" to ");
+										var y_acc = [];
+										lines.map( function(line) { y_acc.push(line); y_acc.push("condition"+line); });
+										$scope.plots.push( {
+											y_accessor: y_acc,
+											data: data,
+											title: title
+										});
+										//this is ugly buuuut... necessary to get the lines to highlight
+										// with metricsgraphics
+										$timeout(function() { 
+											var s = 2;
+											while (s < y_acc.length+1) {
+												d3.select(".mg-line" + s + "-color")
+													.style({"stroke-width": 5});
+												s += 2;
+											}
+										}, 3000);
+									}
 								}
 
 							});
@@ -330,18 +345,21 @@ angular.module('dscovrDataApp')
 										
 										}
 									}
-									//data is clean, just stuff we need to make the plot
-									var title = selection + " from " + time.split(";").map( function(d) {
-										return new Date( Number( d.split(":")[3] ) ).toISOString();
-									}).join(" to ");
-									$scope.plots.push( {
-										y_accessor: lines,
-										data: data,
-										title: title
-									});
+									if (check_data(data)) {
+										//data is clean, just stuff we need to make the plot
+										var title = selection + " from " + time.split(";").map( function(d) {
+											return new Date( Number( d.split(":")[3] ) ).toISOString();
+										}).join(" to ");
+										$scope.plots.push( {
+											y_accessor: lines,
+											data: data,
+											title: title
+										});
+									}
 									return;
 								});
 							} else {
+								//no highlight and no exclude nhne
 								while (i < data.length) {
 									//null fill values and decide if we have a 
 									//sequence of nulls we can get rid of
@@ -368,17 +386,18 @@ angular.module('dscovrDataApp')
 										i++;
 									}
 								}
-
-								//data is clean, just stuff we need to make the plot
-								var title = selection + " from " + time.split(";").map( function(d) {
-									return new Date( Number( d.split(":")[3] ) ).toISOString();
-								}).join(" to ");
-								$scope.plots.push( {
-									y_accessor: lines,
-									data: data,
-									title: title
-								});
-
+								console.log(data);
+								if (check_data(data)) {
+									//data is clean, just stuff we need to make the plot
+									var title = selection + " from " + time.split(";").map( function(d) {
+										return new Date( Number( d.split(":")[3] ) ).toISOString();
+									}).join(" to ");
+									$scope.plots.push( {
+										y_accessor: lines,
+										data: data,
+										title: title
+									});
+								}
 							}
 						}
 
@@ -420,6 +439,7 @@ angular.module('dscovrDataApp')
 			//This delays but TODO: make the deepest child emit
 			// a message and catch it here that it is loaded.
 			$timeout( function() {
+				console.log($scope.predef_time);
 				evalSelections(make_plot);
 			}, 1000);
 			//$timeout(make_plot, 1000);

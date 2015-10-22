@@ -18,11 +18,11 @@ angular.module('dscovrDataApp')
 					'<div class="row" style="margin-bottom: 15px">'+
 						'<div class="col-xs-3">'+
 							'<h5> Begin </h5>'+
-							'<quick-datepicker ng-model="selected_begin" on-change="onchange()" icon-class="glyphicon glyphicon-calendar" timezone="UTC"></quick-datepicker>'+
+							'<quick-datepicker ng-model="selected_begin" on-change="onchange()" icon-class="glyphicon glyphicon-calendar"></quick-datepicker>'+
 						'</div>'+
 						'<div class="col-xs-3">'+
 							'<h5> End </h5>'+
-							'<quick-datepicker ng-model="selected_end" on-change="onchange()" icon-class="glyphicon glyphicon-calendar" timezone="UTC"></quick-datepicker>'+
+							'<quick-datepicker ng-model="selected_end" on-change="onchange()" icon-class="glyphicon glyphicon-calendar"></quick-datepicker>'+
 						'</div>'+
 					'</div>',
 			restrict: 'A',
@@ -39,6 +39,7 @@ angular.module('dscovrDataApp')
 					if (scope.predef) {
 						scope.selected_begin = new Date(+scope.predef[0]);
 						scope.selected_end = new Date(+scope.predef[1]);
+						scope.onchange();
 						unwatch_predef();
 					}
 				});

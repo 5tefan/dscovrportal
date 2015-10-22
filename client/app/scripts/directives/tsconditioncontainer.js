@@ -60,8 +60,8 @@ angular.module('dscovrDataApp')
 						var first_hi = true;
 						for (var i in scope.predef) {
 							if (scope.predef[i]) {
-								var cond = scope.predef[i].split('_')[0].split(':');
-								var type = scope.predef[i].split('_')[1];
+								var cond = scope.predef[i].split('@')[0].split(':');
+								var type = scope.predef[i].split('@')[1];
 								var condition = {
 									prod: cond[0],
 									param: cond[1],
@@ -110,19 +110,19 @@ angular.module('dscovrDataApp')
 				scope.evalString = function() {
 					var return_str = "";
 					if (scope.default_exclude.construct) {
-						return_str = scope.default_exclude.construct + "_0;";
+						return_str = scope.default_exclude.construct + "@0;";
 					} 
 					for (var each in scope.excludes) {
 						if (scope.excludes[each].construct) {
-							return_str += scope.excludes[each].construct + "_0;";
+							return_str += scope.excludes[each].construct + "@0;";
 						}
 					}
 					if (scope.default_highlight.construct) {
-						return_str += scope.default_highlight.construct + "_1;";
+						return_str += scope.default_highlight.construct + "@1;";
 					} 
 					for (var each in scope.highlights) {
 						if (scope.highlights[each].construct) {
-							return_str += scope.highlights[each].construct + "_1;";
+							return_str += scope.highlights[each].construct + "@1;";
 						}
 					}
 					return return_str;
