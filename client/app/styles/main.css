@@ -19,6 +19,16 @@ input, form {
 	display: none;
 }
 
+.no-padding {
+	padding: 0;
+}
+.no-margin {
+	margin: 0;
+}
+.margin-t15 {
+	margin-top: 15px;
+}
+
 .no-padding-right {
 	padding-right: 0;
 }
@@ -90,6 +100,9 @@ input, form {
 	margin-bottom: 10px;
 	padding-left: 25px;
 	overflow: scroll;
+}
+.plot-button {
+	clear: both;
 }
 /* Small devices (tablets, 768px and up) */
 @media (min-width: @screen-sm-min) { }

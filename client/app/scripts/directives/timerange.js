@@ -11,11 +11,11 @@ angular.module('dscovrDataApp')
 		return {
 			template: 
 					'<div class="row" style="margin-bottom: 15px">'+
-						'<div class="col-xs-3">'+
+						'<div class="col-xs-6">'+
 							'<h5> Begin </h5>'+
 							'<quick-datepicker ng-model="selected_begin" on-change="onchange()" icon-class="glyphicon glyphicon-calendar"></quick-datepicker>'+
 						'</div>'+
-						'<div class="col-xs-3">'+
+						'<div class="col-xs-6">'+
 							'<h5> End </h5>'+
 							'<quick-datepicker ng-model="selected_end" on-change="onchange()" icon-class="glyphicon glyphicon-calendar"></quick-datepicker>'+
 						'</div>'+

@@ -10,15 +10,15 @@ angular.module('dscovrDataApp')
 	.directive('conditionContainer', function ($timeout) {
 		return {
 			template: 
-				'<div class="row" style="margin-top: 20px; margin-bottom: 20px;">'+
-					'<div class="col-xs-4">'+
+				'<div class="row">'+
+					'<div class="col-xs-7">'+
 						'<h3> Add constraints </h3>'+
 					'</div>'+
 					'<div class="col-xs-2">'+
-						'<a class="btn btn-default" ng-click=addCondition()> + constraint </a>'+
+						'<a class="btn btn-default margin-t15" ng-click=addCondition()> + constraint </a>'+
 					'</div>'+
 				'</div>'+
-				'<div class="row conditionEdit" ng-repeat="condition in conditions">'+
+				'<div class="row condition-edit" ng-repeat="condition in conditions">'+
 						'<div condition-edit params="params" condition="condition" removable="true" rm-condition="rmCondition($index)"></div>'+
 				'</div>',
 			restrict: 'A',
