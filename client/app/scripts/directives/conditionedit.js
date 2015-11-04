@@ -10,14 +10,18 @@ angular.module('dscovrDataApp')
 	.directive('conditionEdit', function () {
 		return {
 			template: 
-					'<div class="row">' +
-					'<div class="no-padding-right col-xs-4">'+
+					//'<div class="row">' +
+					'<div class="no-padding-right col-xs-3">'+
 						'<select class="form-control condition-edit-select" ng-model="prod" ng-options="prod for prod in keys(params)">'+
 							'<option value="" disabled selected>-product-</option>'+
 						'</select>'+
+					'</div>'+
+					'<div class="no-padding-right no-padding-left col-xs-3">'+
 						'<select class="form-control condition-edit-select" ng-model="param" ng-options="param for param in keys(params[prod])">'+
 							'<option value="" disabled selected>-variable-</option>'+
 						'</select>'+
+					'</div>'+
+					'<div class="no-padding-right no-padding-left col-xs-1">'+
 						'<select class="form-control condition-edit-select" ng-model="relation">'+
 							'<option value="gt"> &gt; </option>'+
 							'<option value="lt"> &lt; </option>'+
@@ -26,15 +30,11 @@ angular.module('dscovrDataApp')
 							'<option value="le"> &lt;= </option>'+
 						'</select>'+
 					'</div>'+
-					'<div class="no-padding-left col-xs-2">'+
-						'<form class="form">'+
-							'<div class="form-group">'+
-								'<input type="number" class="form-control" placeholder="value" ng-model="value" ng-required>'+
-							'</div>'+
-						'</form>'+
+					'<div class="no-padding-right no-padding-left col-xs-2">'+
+						'<input type="number" class="form-control" placeholder="val" ng-model="value" ng-required>'+
 					'</div>'+
 					'<div class="col-xs-2" ng-if="removable">'+
-						'<a class="btn btn-default" ng-click=rmCondition($index)> - remove condition </a>'+
+						'<a class="btn btn-default" ng-click=rmCondition($index)> - constraint </a>'+
 					'</div>'+
 					'</div>',
 			restrict: 'A',

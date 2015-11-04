@@ -10,11 +10,6 @@ angular.module('dscovrDataApp')
 	.directive('timeRange', function () {
 		return {
 			template: 
-					'<div class="row">'+
-						'<div class="col-xs-4">'+
-							'<h3> Select Date Range </h3>'+
-						'</div>'+
-					'</div>'+
 					'<div class="row" style="margin-bottom: 15px">'+
 						'<div class="col-xs-3">'+
 							'<h5> Begin </h5>'+

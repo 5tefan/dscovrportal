@@ -12,14 +12,11 @@ angular.module('dscovrDataApp')
 			template: 
 				'<div class="row" style="margin-top: 20px; margin-bottom: 20px;">'+
 					'<div class="col-xs-4">'+
-						'<h3> Select Conditions </h3>'+
+						'<h3> Add constraints </h3>'+
 					'</div>'+
 					'<div class="col-xs-2">'+
-						'<a class="btn btn-default" ng-click=addCondition()> + add condition </a>'+
+						'<a class="btn btn-default" ng-click=addCondition()> + constraint </a>'+
 					'</div>'+
-				'</div>'+
-				'<div class="row conditionEdit">'+
-					'<div condition-edit params="params" condition="default_condition" removable="false"></div>'+
 				'</div>'+
 				'<div class="row conditionEdit" ng-repeat="condition in conditions">'+
 						'<div condition-edit params="params" condition="condition" removable="true" rm-condition="rmCondition($index)"></div>'+
@@ -30,9 +27,7 @@ angular.module('dscovrDataApp')
 				predef : '=',
 			},
 			link: function postLink(scope, element, attrs) {
-				//the default condition that you can't delete
-				scope.default_condition = {};
-				//arry for any more conditions added with the + button
+				//array of conditions for ng-repeat
 				scope.conditions = [];
 
 				//handle predef conditions
@@ -45,11 +40,7 @@ angular.module('dscovrDataApp')
 								relation: scope.predef[i][2],
 								value: Number(scope.predef[i][3]),
 							}
-							if (i == 0) {
-								scope.default_condition = condition;
-							} else {
-								scope.conditions.push(condition);
-							}
+							scope.conditions.push(condition);
 						}
 						unwatch_predef();
 					}
@@ -65,9 +56,6 @@ angular.module('dscovrDataApp')
 
 				scope.evalConditions = function() {
 					var condition_str = "";
-					if (scope.default_condition.construct) {
-						condition_str = scope.default_condition.construct + ";";
-					} 
 					for (var each in scope.conditions) {
 						if (scope.conditions[each].construct) {
 							condition_str += scope.conditions[each].construct + ";";

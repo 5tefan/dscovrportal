@@ -10,27 +10,14 @@ angular.module('dscovrDataApp')
 	.directive('tsParamContainer', function () {
 		return {
 			template: 
-				'<div class="row">'+
-					'<div class="col-xs-6">'+
-						'<div class="row">'+
-							'<div class="col-xs-5">'+
-								'<h3> Panel config </h3>'+
-							'</div>'+
-							'<div class="col-xs-2">'+
-								'<a class="btn btn-default" ng-click=addPane()> + panel </a>'+
-							'</div>'+
-						'</div>'+
+				'<div class="row ts-param-pane" ng-repeat="pane in panes">'+
+					'<div ts-param-pane params="params" pane="pane" rm-pane="rmPane($index)" position="getPosition(pane)"></div>'+
+					'<div class="ts-param-pane-remove-pane" class="col-xs-2">'+
+						'<a ng-if="panes.length > 1" class="btn btn-default" ng-click=rmPane($index)> - panel </a>'+
 					'</div>'+
 				'</div>'+
-				'<div class="row paneEdit">'+
-					'<div class="col-xs-12">'+
-						'<div ts-param-pane class="ts-param-pane" params="params" pane="default_pane" removable="false" position="0"></div>'+
-					'</div>'+
-				'</div>'+
-				'<div class="row pnaeEdit" ng-repeat="pane in panes">'+
-					'<div class="col-xs-12">'+
-						'<div ts-param-pane class="ts-param-pane" params="params" pane="pane" removable="true" rm-pane="rmPane($index)" position="getPosition(pane)"></div>'+
-					'</div>'+
+				'<div class="ts-param-pane-add-pane" class="col-xs-2">'+
+					'<a class="btn btn-default" ng-click=addPane()> + panel </a>'+
 				'</div>',
 			restrict: 'A',
 			scope: {
@@ -38,23 +25,15 @@ angular.module('dscovrDataApp')
 				predef : '=',
 			},
 			link: function postLink(scope, element, attrs) {
-				
-				//very basic, keep track of the panes
-				// the panes themselves will keep track of 
-				// their own parameters
-				scope.default_pane = {};
-				scope.panes = [];
+				//for ng-repeat with one element already
+				scope.panes = [{}];
 
 				var unwatch_predef = scope.$watch('predef', function() {
 					console.log(scope.predef);
 					if (scope.predef) {
 						for (var i in scope.predef) {
 							var pane = { predef: scope.predef[i] } 
-							if (i == 0) {
-								scope.default_pane = pane;
-							} else {
-								scope.panes.push(pane);
-							}
+							scope.panes.push(pane);
 						}
 						unwatch_predef();
 					}
@@ -65,11 +44,7 @@ angular.module('dscovrDataApp')
 					scope.panes.push(pane);
 				};
 				scope.getPosition = function(ofPane) {
-					if (ofPane == scope.default_pane) {
-						return 0;
-					} else {
-						return scope.panes.indexOf(ofPane) + 1;
-					}
+					return scope.panes.indexOf(ofPane) + 1;
 				};
 
 				scope.rmPane = function(i) {
@@ -81,7 +56,7 @@ angular.module('dscovrDataApp')
 				// ts plot controller
 				scope.$on('evalPanes', function(e, cb) {
 					console.log("evalPanes");
-					cb(scope.panes.length + 1);
+					cb(scope.panes.length);
 				});
 
 			}

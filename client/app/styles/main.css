@@ -21,7 +21,6 @@ input, form {
 
 .no-padding-right {
 	padding-right: 0;
-	width: auto;
 }
 .no-padding-left {
 	padding-left: 0;
@@ -53,8 +52,25 @@ input, form {
 }
 .ts-param-pane {
 	margin: 10px 0 0 0;
-	padding: 0 0 10px 0;
+	padding: 0 0 20px 0;
 	border-bottom: 1px solid #000;
+}
+.ts-param-pane-panel-title {
+	padding: 0;
+	margin: 0;
+}
+.ts-param-pane-param-edit {
+	margin-top: 10px;
+}
+.ts-param-pane-remove-pane {
+}
+.ts-param-pane-add-pane {
+	clear: both;
+	float: right;
+	margin-top: -14px;
+	box-shadow: 0px 0px 55px 40px #ffffff;
+	-moz-box-shadow: 0px 0px 55px 40px #ffffff;
+	-webkit-box-shadow: 0px 0px 55px 40px #ffffff;
 }
 .pane-edit {
 	margin: 0 0 5px 0;
@@ -64,16 +80,8 @@ input, form {
 	margin-right: 2px;
 	display: inline;
 }
-.condition-edit-select  {
-	width: 32%;
-	margin-right: 1%;
-	display: inline;
-}
-.condition-edit-value {
-	width: 90%;
-}
-.conditionEdit {
-	margin-bottom: 10px;
+.condition-edit {
+	margin-top: 5px;
 }
 .download-day-selection {
 	height: 200px;
