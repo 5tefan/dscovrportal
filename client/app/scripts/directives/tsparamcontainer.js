@@ -29,8 +29,8 @@ angular.module('dscovrDataApp')
 				scope.panes = [{}];
 
 				var unwatch_predef = scope.$watch('predef', function() {
-					console.log(scope.predef);
 					if (scope.predef) {
+						scope.panes = []; //remove the default pane if predef panes present
 						for (var i in scope.predef) {
 							var pane = { predef: scope.predef[i] } 
 							scope.panes.push(pane);
