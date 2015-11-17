@@ -1,6 +1,6 @@
 /* Space out content a bit */
 body {
-  padding-top: 20px;
+/*  padding-top: 20px;*/
   padding-bottom: 20px;
 }
 
@@ -45,9 +45,9 @@ input, form {
 	min-width: 100%;
 }
 #vis-controls, #download-controls {
-	padding: 10px 0 10px 0;
+	/*padding: 10px 0 10px 0;*/
 	margin-top: 10px;
-	border-top: 1px solid black;
+	/*border-top: 1px solid black;*/
 	border-bottom: 1px solid black;
 }
 #vis-typeselect {
@@ -103,6 +103,39 @@ input, form {
 }
 .plot-button {
 	clear: both;
+}
+.tab-area   {
+    background-color: #eee;
+    padding: 10px 20px;
+    margin: auto 15px;
+}
+
+div#ngdcheader {left: auto;}
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+    font-weight: bolder;
+    background-color: #eee;
+}
+.foot   {
+    margin: 20px 15px 0 15px;
+}
+
+/*.nav-tabs.nav-justified > .active > a,
+.nav-tabs.nav-justified > .active > a:hover,
+.nav-tabs.nav-justified > .active > a:focus {
+    border-bottom-color: #eee;
+    font-size: larger;
+}
+*/
+.nav > li > a:hover,
+.nav > li > a:focus {
+    background-color: #777;
+    color: #fff;
+}
+
+.subheading {
+    padding-top: 25px;
 }
 /* Small devices (tablets, 768px and up) */
 @media (min-width: @screen-sm-min) { }
