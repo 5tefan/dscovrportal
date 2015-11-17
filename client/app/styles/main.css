@@ -50,7 +50,8 @@ input, form {
 	/*border-top: 1px solid black;*/
 	border-bottom: 1px solid black;
 }
-#vis-typeselect {
+.vis-selectarea {
+	margin-bottom: 10px;
 }
 #vis-visnav {
 }
@@ -78,9 +79,9 @@ input, form {
 	clear: both;
 	float: right;
 	margin-top: -14px;
-	box-shadow: 0px 0px 55px 40px #ffffff;
-	-moz-box-shadow: 0px 0px 55px 40px #ffffff;
-	-webkit-box-shadow: 0px 0px 55px 40px #ffffff;
+	box-shadow: 0px 0px 55px 40px #eee;
+	-moz-box-shadow: 0px 0px 55px 40px #eee;
+	-webkit-box-shadow: 0px 0px 55px 40px #eee;
 }
 .pane-edit {
 	margin: 0 0 5px 0;
@@ -103,6 +104,7 @@ input, form {
 }
 .plot-button {
 	clear: both;
+	margin-bottom: 10px;
 }
 .tab-area   {
     background-color: #eee;
@@ -120,6 +122,7 @@ div#ngdcheader {left: auto;}
 .foot   {
     margin: 20px 15px 0 15px;
 }
+
 
 /*.nav-tabs.nav-justified > .active > a,
 .nav-tabs.nav-justified > .active > a:hover,

@@ -26,7 +26,7 @@ angular.module('dscovrDataApp')
 							'<div param-edit params="params" selection="selection" removable="true" rm-selection="rmSelection($index)"></div>'+
 					'</div>'+
 				'</div>'+
-				'<div class="col-xs-6">'+
+				'<div class="col-xs-5">'+
 					'<div class="row">'+
 						'<div class="col-xs-11 col-xs-offset-1" ng-if="adv.show">'+
 							'<a ng-click="adv.show = !adv.show"><h4><span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span> Advanced options </h4></a>'+
