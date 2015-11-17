@@ -33,6 +33,7 @@ angular.module('dscovrDataApp')
 							area: false,
 							y_scale_type: scope.plot.y_scale_type,
 							y_label: scope.plot.y_label,
+							xax_count: 10,
 						})
 					}
 				});
