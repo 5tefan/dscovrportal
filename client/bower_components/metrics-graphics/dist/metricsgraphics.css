@@ -57,6 +57,7 @@
 .mg-baselines text {
     fill: black;
     font-size: 0.9rem;
+    opacity: 0.6;
     stroke: none;
 }
 
@@ -66,7 +67,7 @@
 
 .mg-header {
     cursor: default;
-    font-size: 1.2em;
+    font-size: 1.2rem;
 }
 
 .mg-header .mg-chart-description {
@@ -122,6 +123,7 @@
 }
 
 .mg-data-table  tbody tr td.table-text {
+    opacity: 0.8;
     padding-left: 30px;
 }
 
@@ -136,6 +138,7 @@
 .mg-histogram .axis path,
 .mg-histogram .axis line {
     fill: none;
+    opacity: 0.7;
     shape-rendering: auto;
     stroke: #ccc;
 }
@@ -207,37 +210,34 @@
     fill: #5c5c5c;
 }
 
+
 .mg-line-legend text {
-    font-size: .8em;
+    font-size: 0.9rem;
     font-weight: 300;
     stroke: none;
 }
 
 .mg-line1-legend-color {
-    color: #000000;
-    fill: #000000;
-}
-.mg-line2-legend-color {
     color: #4040e8;
     fill: #4040e8;
 }
 
-.mg-line3-legend-color {
+.mg-line2-legend-color {
     color: #05b378;
     fill: #05b378;
 }
 
-.mg-line4-legend-color {
+.mg-line3-legend-color {
     color: #db4437;
     fill: #db4437;
 }
 
-.mg-line5-legend-color {
+.mg-line4-legend-color {
     color: #f8b128;
     fill: #f8b128;
 }
 
-.mg-line6-legend-color {
+.mg-line5-legend-color {
     color: #5c5c5c;
     fill: #5c5c5c;
 }
@@ -257,6 +257,7 @@
 .mg-markers text {
     fill: black;
     font-size: 0.8rem;
+    opacity: 0.6;
 }
 
 .mg-missing-text {
@@ -328,7 +329,7 @@ circle.mg-points-mono {
 .mg-y-axis line {
     opacity: 1;
     shape-rendering: auto;
-    stroke: #000;
+    stroke: #b3b2b2;
     stroke-width: 1px;
 }
 
@@ -336,15 +337,16 @@ circle.mg-points-mono {
 .mg-y-axis text,
 .mg-histogram .axis text {
     fill: black;
-    font-size: 1em;
+    font-size: 0.9rem;
+    opacity: 0.6;
 }
 
 .mg-x-axis .label,
 .mg-y-axis .label,
 .mg-axis .label {
-    font-size: 1em;
+    font-size: 0.8rem;
+    text-transform: uppercase;
     font-weight: 400;
-	margin-right:10px;
 }
 
 .mg-x-axis-small text,
@@ -363,16 +365,17 @@ circle.mg-points-mono {
 
 .mg-year-marker text {
     fill: black;
-    font-size: 1rem;
+    font-size: 0.7rem;
+    opacity: 0.6;
 }
 
 .mg-year-marker line {
     opacity: 1;
     shape-rendering: auto;
-    stroke: #000;
+    stroke: #b3b2b2;
     stroke-width: 1px;
 }
 
 .mg-year-marker-small text {
-    font-size: 1rem;
+    font-size: 0.6rem;
 }
