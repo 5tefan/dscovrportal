@@ -13,15 +13,7 @@
 					</li>
 				</ul>-->
                 
-                <div class="row" style="margin-bottom: 15px;">
-                    <div class="col-xs-6"><h5><span class="glyphicon glyphicon-calendar"></span> Begin Date</h5>
-                        <quick-datepicker ng-model="selected_begin" on-change="onchange()"></quick-datepicker>
-                    </div>
-                    <div class="col-xs-6" style="padding:0;margin:0;">
-                        <h5><span class="glyphicon glyphicon-calendar"></span> End Date</h5>
-                        <quick-datepicker ng-model="selected_end" on-change="onchange()"></quick-datepicker>
-                    </div>
-                </div>
+				<div download-time-range predef="predef_time"></div>
                 
                 <div ng-repeat="product in products">
                     <div class="row" ng-if="$index % 1 == 0">
@@ -75,7 +67,7 @@
                     <h4> {{date}} </h4>
                     <div ng-repeat="product in products | filter:{selected:true}">
                         <span style="font-size:small;">
-                            <a ng-href="{{links[product.product]}}">{{ links[product.product]}}</a>
+                            <a ng-href="{{links[product.product]}}">{{ links[product.product].split('/')[7]}}</a>
                         </span>
                     </div>
                 </div>
