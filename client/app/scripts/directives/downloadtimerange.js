@@ -10,31 +10,20 @@ angular.module('dscovrDataApp')
 	.directive('downloadTimeRange', function () {
 		return {
 			template: 
-					'<div class="row">'+
-						'<div class="col-xs-4">'+
-							'<h3> Select Date Range </h3>'+
-						'</div>'+
-					'</div>'+
-					'<div class="row" style="margin-bottom: 15px">'+
-						'<div class="col-xs-3">'+
-							'<h5> Begin </h5>'+
-							'<quick-datepicker ng-model="selected_begin" on-change="onchange()" icon-class="glyphicon glyphicon-calendar" timezone="UTC"></quick-datepicker>'+
-						'</div>'+
-						'<div class="col-xs-3">'+
-							'<h5> End </h5>'+
-							'<quick-datepicker ng-model="selected_end" on-change="onchange()" icon-class="glyphicon glyphicon-calendar" timezone="UTC"></quick-datepicker>'+
-						'</div>'+
-					'</div>',
+                '<div class="row" style="margin-bottom: 15px;">'+
+                    '<div class="col-xs-4"><h5><span class="glyphicon glyphicon-calendar"></span> Begin Date</h5>'+
+                        '<quick-datepicker ng-model="selected_begin" on-change="onchange()" disable-timepicker="true"></quick-datepicker>'+
+                    '</div>'+
+                    '<div class="col-xs-6" style="padding:0;margin:0;">'+
+                        '<h5><span class="glyphicon glyphicon-calendar"></span> End Date</h5>'+
+                        '<quick-datepicker ng-model="selected_end" on-change="onchange()" disable-timepicker="true"></quick-datepicker>'+
+                    '</div>'+
+                '</div>',
 			restrict: 'A',
 			scope: {
 				predef : '=',
 			},
 			link: function postLink(scope, element, attrs) {
-				scope.selected_begin = moment(1438927200000).toDate();
-				scope.selected_end = moment(scope.selected_begin).subtract(70, 'days').toDate();
-				//scope.selected_end = moment(1440050400000).toDate();//moment().subtract(2, 'days').toDate();
-				//scope.selected_end = moment().subtract(1, 'days').toDate();
-
 				var unwatch_predef = scope.$watch('predef', function() {
 					if (scope.predef) {
 						scope.selected_begin = new Date(+scope.predef[0]);
@@ -45,7 +34,14 @@ angular.module('dscovrDataApp')
 
 				scope.onchange = function() {
 					scope.$emit('datechange', [scope.selected_begin.getTime(), scope.selected_end.getTime()])
-				}
+				};
+
+				scope.selected_begin = moment(1438927200000).toDate();
+				scope.selected_end = moment(scope.selected_begin).add(10, 'days').toDate();
+				scope.onchange();
+				//scope.selected_end = moment(1440050400000).toDate();//moment().subtract(2, 'days').toDate();
+				//scope.selected_end = moment().subtract(1, 'days').toDate();
+
 				
 			}
 		};

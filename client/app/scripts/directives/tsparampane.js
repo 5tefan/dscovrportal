@@ -10,49 +10,45 @@ angular.module('dscovrDataApp')
 	.directive('tsParamPane', function () {
 		return {
 			template: 
-				'<div class="row">'+
-					'<div class="col-xs-5">'+
-						'<div class="row">'+
-							'<div class="col-xs-6">'+
-								'<h4> Panel {{position}}</h4>'+
-							'</div>'+
-							'<div class="col-xs-3">'+
-								'<a class="btn btn-default" ng-click=addSelection()> + param </a>'+
-							'</div>'+
-							'<div class="col-xs-2" ng-if="removable">'+
-								'<a class="btn btn-default" ng-click=rmPane()> - panel </a>'+
-							'</div>'+
+				'<div class="col-xs-5">'+
+					'<div class="row">'+
+						'<div class="col-xs-5 ts-param-pane-panel-title">'+
+							'<h4 class="ts-param-pane-panel-title"> Panel {{position}}</h4>'+
 						'</div>'+
-						'<div class="row pane-edit">'+
-							'<div param-edit params="params" selection="default_selection" removable="false"></div>'+
-						'</div>'+
-						'<div class="row pane-edit" ng-repeat="selection in selections">'+
-								'<div param-edit params="params" selection="selection" removable="true" rm-selection="rmSelection($index)"></div>'+
+						'<div class="col-xs-3">'+
+							'<a class="btn btn-default" ng-click=addSelection()> + param </a>'+
 						'</div>'+
 					'</div>'+
-					'<div class="col-xs-7">'+
-						'<div class="row">'+
-							'<div class="col-xs-5" ng-if="adv.show">'+
-								'<a ng-click="adv.show = !adv.show"><h4><span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span> Advanced options </h4></a>'+
+					'<div class="row pane-edit">'+
+						'<div param-edit class="ts-param-pane-param-edit" params="params" selection="default_selection" removable="false"></div>'+
+					'</div>'+
+					'<div class="row pane-edit" ng-repeat="selection in selections">'+
+							'<div param-edit params="params" selection="selection" removable="true" rm-selection="rmSelection($index)"></div>'+
+					'</div>'+
+				'</div>'+
+				'<div class="col-xs-5">'+
+					'<div class="row">'+
+						'<div class="col-xs-11 col-xs-offset-1" ng-if="adv.show">'+
+							'<a ng-click="adv.show = !adv.show"><h4><span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span> Advanced options </h4></a>'+
+						'</div>'+
+						'<div class="col-xs-11 col-xs-offset-1" ng-if="!adv.show">'+
+							'<a ng-click="adv.show = !adv.show"><h4><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span> Advanced options </h4></a>'+
+						'</div>'+
+					'</div>'+
+					'<div class="row" ng-show="adv.show">'+
+						'<form>'+
+							'<div class="checkbox">'+
+								'<label><input type="checkbox" ng-model="adv.log">Log scale</label>'+
 							'</div>'+
-							'<div class="col-xs-5" ng-if="!adv.show">'+
-								'<a ng-click="adv.show = !adv.show"><h4><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span> Advanced options </h4></a>'+
-							'</div>'+
-						'</div>'+
-						'<div class="row" ng-show="adv.show">'+
-							'<form>'+
-								'<div class="checkbox">'+
-									'<label><input type="checkbox" ng-model="adv.log">Log scale</label>'+
-								'</div>'+
-							'</form>'+
-						'</div>'+
-						'<div class="row" ng-show="adv.show">'+
-							'<div ts-condition-container params="params" predef="predef_cond"></div>'+
-						'</div>'+
+						'</form>'+
+					'</div>'+
+					'<div class="row" ng-show="adv.show">'+
+						'<div ts-condition-container params="params" predef="predef_cond"></div>'+
 					'</div>'+
 				'</div>',
 			restrict: 'A',
 			scope: {
+				removable : '=',
 				params : '=',
 				pane : '=',
 				rmPane : '&', //function to remove this panel
@@ -65,11 +61,6 @@ angular.module('dscovrDataApp')
 				scope.adv = {
 					log: false
 				};
-
-				scope.$watch('removable', function() {
-					scope.removable = scope.$eval(attrs.removable);
-				});
-
 				scope.$watch('pane', function() {
 					console.log(scope.pane);
 					if (scope.pane.predef) {

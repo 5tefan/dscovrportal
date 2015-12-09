@@ -1,45 +1,98 @@
 <div class="view">
-	<h1 class="text-center"> DSCOVR space weather data portal </h1>
-            <div class="container-fluid">
-                <br/>
-		<div class="row">
-			<div class="col-xs-4 well">
+    <div class="container-fluid">
+		
+        <!--<div class="row">
+			<div class="col-xs-4 col-xs-offset-1 well">
 				<h3> Contents </h3>
 				<ol>
 					<li> <a href="" ng-click="scrollTo('swi')" >Space weather instruments</a> </li>
 					<li> <a href="" ng-click="scrollTo('dd')" >Data descriptions </a> </li>
 					<li> <a href="" ng-click="scrollTo('faq')">FAQ</a> </li> 
 					<li> <a href="" ng-click="scrollTo('l')">Links</a> </li> 
-					<li> <a href="" ng-click="scrollTo('dt')" >NGDC dscovr team</a> </li>
+					<li> <a href="" ng-click="scrollTo('dt')" >NCEI dscovr team</a> </li>
 				</ol>
 			</div>
-			<div class="col-xs-2 col-xs-offset-1">
-				<img class="img-responsive" src="images/noaa_logo.png"/>
+			<div class="col-xs-6 col-xs-offset-1">
+				<h2 id="dt"> NCEI DSCOVR team </h2>
+				<dl class="dl-horizontal">
+					<dt> William Rowland </dt>
+					<dd> Data manager, project supervisor</dt>
+					<dt> Paul Lotoaniu </dt>
+					<dd> Instrument scientist </dd>
+					<dt> John Cartwright </dt>
+					<dd> Server side api </dt>
+					<dt> John LaRocque </dt>
+					<dd> DBA </dd>
+					<br>
+					<dt> Stefan Codrescu </dt>
+					<dd> Web interface, pre-generated plots </dd>
+					<dt> Margaret Tilton </dt>
+					<dd> Database construction </dt>
+					<dt> Rob Redmon </dt>
+					<dd> Contributor </dd>
+					<dt> Heather McCullough </dt>
+					<dd> Contributor </dt>
+				</dl>
+			</div>
+		</div>-->
+        
+        <div class="row" style="background-color:#fff;padding: 0 5px 10px 20px;vertical-align:middle;margin-bottom:15px;">
+            <h1 style="text-align:center;font-variant:small-caps;margin-bottom:25px;padding-bottom:7px;font-family:Verdana,Arial,sans-serif;font-weight:bold;font-size:26pt;border-bottom:thin solid #ddd;"> DSCOVR Space Weather Data </h1>
+            <div class="col-xs-4 well well-sm" style="margin-top:20px;">
+                <ol>
+                    <li> <a href="" ng-click="scrollTo('swi')">Space Weather Instruments</a> </li>
+                    <li> <a href="" ng-click="scrollTo('dd')">Data Descriptions </a> </li>
+                    <li> <a href="" ng-click="scrollTo('faq')">FAQ</a> </li>
+                    <li> <a href="" ng-click="scrollTo('l')">Links</a> </li>
+                    <li> <a href="" ng-click="scrollTo('dt')">NCEI DSCOVR Team</a> </li>
+                </ol>
+            </div>
+            <div class="col-xs-2 col-xs-offset-1">
+                <img class="img-responsive" style="margin-top:15px;" src="images/noaa_logo.png" alt="NOAA logo"/>
+            </div>
+            <div class="col-xs-3">
+                <img class="img-responsive" style="margin-top:15px;" src="images/dscovr_logo.jpg" alt="DSCOVR logo"/>
+            </div>
+            <div class="col-xs-2">
+                <img class="img-responsive" style="margin-top:25px;" src="images/nasa_logo.png" alt="NASA logo"/>
+            </div>
+        </div>
+		<!--<div class="row">
+			<div class="col-xs-2 col-xs-offset-2">
+				<img class="img-responsive" alt="NOAA Logo" src="images/noaa_logo.png"/>
 			</div>
 			<div class="col-xs-3">
-				<img class="img-responsive" src="images/dscovr_logo.jpg"/>
+				<img class="img-responsive" alt="DSCOVR
+                Logo" src="images/dscovr_logo.jpg"/>
 			</div> 
 			<div class="col-xs-2">
-				<img class="img-responsive" src="images/nasa_logo.png"/>
+				<img class="img-responsive" alt="NASA Logo" src="images/nasa_logo.png"/>
 			</div>
-		</div>
-				<h2> General </h2>
-				<p> 
-					The Deep Space Climate Observatory (DSCOVR) is replacing NASA's Advanced Composition Explorer (ACE) for monitoring space weather at L1. 
-					The data collected by DSCOVR enables forecasters to monitor space weather conditions and supports research investigations. The results
-					of these efforts will be warning and understanding of conditions that could disrupt earth based infrastructure.
-				</p>
-				<p>
-					Here, we archive, distribute, and provide basic visualization tools for magnetometer and faraday cup measurements. 
-					For realtime data, please visit our friends at the <a href="swpc.noaa.gov">Space Weather Prediction Center (SWPC).</a> 
-					For EPIC and NISTAR data, please visit NASA's <a href="https://eosweb.larc.nasa.gov"> Atmospheric Science Data Center </a>.
-				</p>
-		<h2 id="swi"> Space weather instruments</h2>
+		</div>-->
+        
+		<!--<h2> General </h2>
+		<p> 
+			The Deep Space Climate Observatory (DSCOVR) is replacing NASA's Advanced Composition Explorer (ACE) for monitoring space weather at L1. 
+			The data collected by DSCOVR enables forecasters to monitor space weather conditions and supports research investigations. The results
+			of these efforts will be warning and understanding of conditions that could disrupt earth based infrastructure.
+		</p>
+		<p>
+			Here, we archive, distribute, and provide basic visualization tools for magnetometer and faraday cup measurements. 
+			For realtime data, please visit our friends at the <a href="swpc.noaa.gov">Space Weather Prediction Center (SWPC).</a> 
+			For EPIC and NISTAR data, please visit NASA's <a href="https://eosweb.larc.nasa.gov"> Atmospheric Science Data Center </a>.
+		</p>-->
+        
+        <p>The <strong>Deep Space Climate Observatory (DSCOVR)</strong> is the replacement for the NASA
+        Advanced Composition Explorer (ACE) to monitor space weather at L1. DSCOVR data enables forecasters to observe space weather conditions and supports research investigations. The results of these efforts will be warning and understanding of conditions that could disrupt Earth-based infrastructure.</p>
+        
+        <p>Here, data are archived, distributed, and visualized for magnetometer and faraday cup measurements. For realtime data, see the <a href="//www.swpc.noaa.gov">Space Weather Prediction Center (SWPC)</a>. For EPIC and NISTAR data, see NASA's <a href="//eosweb.larc.nasa.gov"> Atmospheric Science Data Center.</a></p>
+        
+		<h2 id="swi" class="subheading"> Space Weather Instruments</h2>
 		<p> DSCOVR is carrying the following space weather monitoring instruments: </p>
 		<table class="table">
 			<thead>
 				<tr>
-					<th> Nick </th>
+					<th> Nickname </th>
 					<th> Name </th>
 					<th> Purpose </th>
 				</tr>
@@ -57,8 +110,8 @@
 				</tr>
 			</tbody>
 		</table>
-		<h2 id="dd"> Data product documentation </h2>
-		<p> The following documentation is provided for the data products hosted here. </p>
+		<h2 id="dd" class="subheading"> Data Product Documentation </h2>
+		<p> Documentation for data products hosted at this site. </p>
 		<table class="table">
 			<thead>
 				<tr>
@@ -70,103 +123,92 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td>coming soon</td>
+					<td>Coming soon</td>
 				</tr>
 			</tbody>
 		</table>
-		<h2 id="faq"> FAQ </h2>
+		<h2 id="faq" class="subheading"> Frequently Asked Questions (FAQ) </h2>
 		<div class="row">
-			<div class="panel panel-default">
-				<div class="panel-heading"> What is DSCOVR? </div>
-				<div class="panel-body"> DSCOVR is the Deep Space Climate Observatory. See <a href="http://www.nesdis.noaa.gov/DSCOVR/"> DSCOVR Home </a>. </div>
+			<div class="col-xs-6">
+				<div class="panel panel-default">
+					<div class="panel-heading"> What is DSCOVR? </div>
+					<div class="panel-body"> DSCOVR is the Deep Space Climate Observatory. See <a href="//www.nesdis.noaa.gov/DSCOVR/"> DSCOVR Home.</a> </div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading"> When was DSCOVR launched? </div>
+					<div class="panel-body"> February 11, 2015 </div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading"> What is the earliest DSCOVR space weather data I can access? </div>
+					<div class="panel-body"> Space weather data became available from DSCOVR on TBD </div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading"> Where can I access realtime solar wind data from DSCOVR? </div>
+					<div class="panel-body"> See NOAA's <a href="//swpc.noaa.gov">Space Weather Prediction Center (SWPC).</a> </div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading"> Where can I access EPIC or NISTAR data? </div>
+					<div class="panel-body"> See NASA's <a href="//eosweb.larc.nasa.gov"> Atmospheric Science Data Center.</a></div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading"> Why do the time series plots slow down my computer? </div>
+					<div class="panel-body"> The time series plots are resource intensive. A high volume of data and interactivity contribute to this.
+						We recommend reducing the number of panes, lines, or span of time you have plotted. We have not imposed any limits
+						on the number of panes you may create in the time series under the philosophy that no limit is suitable for everyone's
+						hardware capabilities.</div>
+				</div>
 			</div>
-			<div class="panel panel-default">
-				<div class="panel-heading"> When was DSCOVR launced? </div>
-				<div class="panel-body"> February 11, 2015. </div>
+			<div class="col-xs-6">
+				<div class="panel panel-default">
+					<div class="panel-heading"> How do I share my custom plot? </div>
+					<div class="panel-body"> If you created a plot, it can be uniquely identified and shared by the URL. </div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading"> How do I embed a plot I have created into a presentation? </div>
+					<div class="panel-body"> Take a screen shot of the plot if you wish to embed it in a presentation. </div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading"> How do I obtain publication quality plots? </div>
+					<div class="panel-body"> See Visualize Data. This site permits you to download the data
+						associated with any custom visualization you create, so that you can generate a relevant plot with your own software if you prefer. </div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading"> How do I find interesting events to visualize? </div>
+					<div class="panel-body"> See &quot;find events&quot; module under Visualize Data, and search the entire dataset.  </div>
+				</div>
 			</div>
-			<div class="panel panel-default">
-				<div class="panel-heading"> What is the earliest DSCOVR space weather data I can access? </div>
-				<div class="panel-body"> Space weather data became available from DSCOVR on TBD </div>
-			</div>
-			<div class="panel panel-default">
-				<div class="panel-heading"> Where can I access real time solar wind data from DSCOVR? </div>
-				<div class="panel-body"> From NOAA's <a href="swpc.noaa.gov">Space Weather Prediction Center (SWPC).</a> </div>
-			</div>
-			<div class="panel panel-default">
-				<div class="panel-heading"> Where can I access EPIC or NISTAR data? </div>
-				<div class="panel-body"> From NASA's <a href="https://eosweb.larc.nasa.gov"> Atmospheric Science Data Center </a></div>
-			</div>
-			<div class="panel panel-default">
-				<div class="panel-heading"> Why do the time series plots make my computer slow? </div>
-				<div class="panel-body"> The time series plots are resource intensive. A high volume of data and lots of interactivity contribute to this. 
-					We reccomend reducing the number of panes, lines, or span of time you have plotted. We have not imposed any limits
-					on the number of panes you may create in the time series under the philosophy that no limit is suitable for everyone's
-					hardware capabilities.</div>
-			</div>
-			<div class="panel panel-default">
-				<div class="panel-heading"> How can I share the plot I have created with someone else? </div>
-				<div class="panel-body"> Just share the URL of the page! If you have created a plot, it can be uniquely identified by the url. </div>
-			</div>
-			<div class="panel panel-default">
-				<div class="panel-heading"> How can I embed a plot I have created with these tools into a presentation? </div>
-				<div class="panel-body"> You must take a screen shot of the plot if you wish to embed the plot in a presentation. </div>
-			</div>
-			<div class="panel panel-default">
-				<div class="panel-heading"> How can I obtain a publication quality plot? </div>
-				<div class="panel-body"> You must download the relevant data and use your own plotting package to create publication quality plots. Unfortunately,
-					we do not have a way of exporting browser produced plots right now. </div>
-			</div>
-			<div class="panel panel-default">
-				<div class="panel-heading"> How do I find interesting events to visualize? </div>
-				<div class="panel-body"> We have provided the "find events" module to address this. It is easy to search the entire dataset with this tool.  </div>
-			</div>
-			<div class="panel panel-default">
-				<div class="panel-heading"> I thought of a really cool feature, could you add it? </div>
-				<div class="panel-body"> Email William Rowland and we will see what we can do! </div>
-			</div>
-			<div class="panel panel-default">
-				<div class="panel-heading"> Something is broken, help! </div>
-				<div class="panel-body"> Email William Rowland. </div>
-			</div>
-			<div class="panel panel-default">
-				<div class="panel-heading"> Help? </div>
-				<div class="panel-body"> Email William Rowland. </div>
-			</div>
-
 		</div>
-		<h2 id="l"> Links </h2>
+		<h2 id="l" class="subheading"> Links </h2>
 		<dl class="dl-horizontal">
-			<dt> <a href="http://www.ngdc.noaa.gov/docucomp/page?xml=NOAA/NESDIS/NGDC/STP/Space_Weather/iso/xml/satellite-systems_dscovr.xml&view=iso2html&title=Get%20Data%20NOAA/NESDIS/NGDC/STP/Space_Weather/iso/xml/satellite-systems_dscovr.xml">Metadata record</a> </dt>
+			<dt> <a href="//www.ngdc.noaa.gov/docucomp/page?xml=NOAA/NESDIS/NGDC/STP/Space_Weather/iso/xml/satellite-systems_dscovr.xml&view=iso2html&title=Get%20Data%20NOAA/NESDIS/NGDC/STP/Space_Weather/iso/xml/satellite-systems_dscovr.xml">Metadata record</a> </dt>
 			<dd> View NCEI's metadata for the DSCOVR archive. </dd>
-			<dt> <a href="">sample link</a> </dt>
-			<dd> A short description here? </dd>
 		</dl>
-		<h2 id="dt"> NGDC DSCOVR team </h2>
-		<div class="row">
-			<div class="col-xs-6">
-				<dl class="dl-horizontal">
-					<dt> William Rowland </dt>
-					<dd> Data manager, project supervisor</dt>
-					<dt> Paul Lotoaniu </dt>
-					<dd> Instrument scientist </dd>
-					<dt> John Cartwright </dt>
-					<dd> Server side api </dt>
-					<dt> John LaRocque </dt>
-					<dd> DBA </dd>
-				</dl>
-			</div>
-			<div class="col-xs-6">
-				<dl class="dl-horizontal">
-					<dt> Stefan Codrescu </dt>
-					<dd> Web interface, canned plots </dd>
-					<dt> Margaret Tilton </dt>
-					<dd> Database construction </dt>
-					<dt> Rob Redmon </dt>
-					<dd> Contributor </dd>
-					<dt> Heather McCullough </dt>
-					<dd> Contributor </dt>
-				</dl>
-			</div>
-		</div>
+        <h2 id="dt" class="subheading"> NCEI DSCOVR team </h2>
+        <div class="row">
+            <div class="col-xs-6">
+                <dl class="dl-horizontal">
+                    <dt> William Rowland </dt>
+                    <dd> Data manager, project supervisor </dt>
+                    <dt> Paul Lotoaniu </dt>
+                    <dd> Instrument scientist </dd>
+                    <dt> John Cartwright </dt>
+                    <dd> Server side api </dt>
+                    <dt> John LaRocque </dt>
+                    <dd> DBA </dd>
+                </dl>
+            </div>
+            <div class="col-xs-6">
+                <dl class="dl-horizontal">
+                    <dt> Stefan Codrescu </dt>
+                    <dd> Web interface, pre-generated plots </dd>
+                    <dt> Margaret Tilton </dt>
+                    <dd> Database construction </dt>
+                    <dt> Rob Redmon </dt>
+                    <dd> Contributor </dd>
+                    <dt> Heather McCullough </dt>
+                    <dd> Web interface </dt>
+                </dl>
+            </div>
+        </div>
 	</div>
 </div>

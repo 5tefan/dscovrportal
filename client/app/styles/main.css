@@ -1,6 +1,6 @@
 /* Space out content a bit */
 body {
-  padding-top: 20px;
+/*  padding-top: 20px;*/
   padding-bottom: 20px;
 }
 
@@ -19,9 +19,18 @@ input, form {
 	display: none;
 }
 
+.no-padding {
+	padding: 0;
+}
+.no-margin {
+	margin: 0;
+}
+.margin-t15 {
+	margin-top: 15px;
+}
+
 .no-padding-right {
 	padding-right: 0;
-	width: auto;
 }
 .no-padding-left {
 	padding-left: 0;
@@ -36,12 +45,13 @@ input, form {
 	min-width: 100%;
 }
 #vis-controls, #download-controls {
-	padding: 10px 0 10px 0;
+	/*padding: 10px 0 10px 0;*/
 	margin-top: 10px;
-	border-top: 1px solid black;
+	/*border-top: 1px solid black;*/
 	border-bottom: 1px solid black;
 }
-#vis-typeselect {
+.vis-selectarea {
+	margin-bottom: 10px;
 }
 #vis-visnav {
 }
@@ -53,8 +63,25 @@ input, form {
 }
 .ts-param-pane {
 	margin: 10px 0 0 0;
-	padding: 0 0 10px 0;
+	padding: 0 0 20px 0;
 	border-bottom: 1px solid #000;
+}
+.ts-param-pane-panel-title {
+	padding: 0;
+	margin: 0;
+}
+.ts-param-pane-param-edit {
+	margin-top: 10px;
+}
+.ts-param-pane-remove-pane {
+}
+.ts-param-pane-add-pane {
+	clear: both;
+	float: right;
+	margin-top: -14px;
+	box-shadow: 0px 0px 55px 40px #eee;
+	-moz-box-shadow: 0px 0px 55px 40px #eee;
+	-webkit-box-shadow: 0px 0px 55px 40px #eee;
 }
 .pane-edit {
 	margin: 0 0 5px 0;
@@ -64,16 +91,8 @@ input, form {
 	margin-right: 2px;
 	display: inline;
 }
-.condition-edit-select  {
-	width: 32%;
-	margin-right: 1%;
-	display: inline;
-}
-.condition-edit-value {
-	width: 90%;
-}
-.conditionEdit {
-	margin-bottom: 10px;
+.condition-edit {
+	margin-top: 5px;
 }
 .download-day-selection {
 	height: 200px;
@@ -82,6 +101,44 @@ input, form {
 	margin-bottom: 10px;
 	padding-left: 25px;
 	overflow: scroll;
+}
+.plot-button {
+	clear: both;
+	margin-bottom: 10px;
+}
+.tab-area   {
+    background-color: #eee;
+    padding: 10px 20px;
+    margin: auto 15px;
+}
+
+div#ngdcheader {left: auto;}
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+    font-weight: bolder;
+    background-color: #eee;
+}
+.foot   {
+    margin: 20px 15px 0 15px;
+}
+
+
+/*.nav-tabs.nav-justified > .active > a,
+.nav-tabs.nav-justified > .active > a:hover,
+.nav-tabs.nav-justified > .active > a:focus {
+    border-bottom-color: #eee;
+    font-size: larger;
+}
+*/
+.nav > li > a:hover,
+.nav > li > a:focus {
+    background-color: #777;
+    color: #fff;
+}
+
+.subheading {
+    padding-top: 25px;
 }
 /* Small devices (tablets, 768px and up) */
 @media (min-width: @screen-sm-min) { }

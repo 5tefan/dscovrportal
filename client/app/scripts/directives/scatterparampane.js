@@ -10,25 +10,20 @@ angular.module('dscovrDataApp')
 	.directive('scatterParamPane', function () {
 		return {
 			template: 
-				'<div class="row">'+
-					'<div class="col-xs-4">'+
-						'<h3> What to Plot </h3>'+
+				'<div class="row paneEdit">'+
+					'<div class="col-xs-3 no-padding-right">'+
+						'<h4> x-axis: </h4>'+
+					'</div>'+
+					'<div class="col-xs-9 no-padding-left">'+
+						'<div scatter-param-edit params="params" selection="selection_x" removable="false"></div>'+
 					'</div>'+
 				'</div>'+
 				'<div class="row paneEdit">'+
-					'<div class="col-xs-1">'+
-						'<h5> x-axis: </h5>'+
+					'<div class="col-xs-3 no-padding-right">'+
+						'<h4> y-axis: </h4>'+
 					'</div>'+
-					'<div class="col-xs-6">'+
-						'<div param-edit params="params" selection="selection_x" removable="false"></div>'+
-					'</div>'+
-				'</div>'+
-				'<div class="row paneEdit">'+
-					'<div class="col-xs-1">'+
-						'<h5> y-axis: </h5>'+
-					'</div>'+
-					'<div class="col-xs-6">'+
-						'<div param-edit params="params" selection="selection_y" removable="false"></div>'+
+					'<div class="col-xs-9 no-padding-left">'+
+						'<div scatter-param-edit params="params" selection="selection_y" removable="false"></div>'+
 					'</div>'+
 				'</div>',
 			restrict: 'A',

@@ -12,6 +12,16 @@ angular.module('dscovrDataApp')
 
 		$scope.can_plot = false;
 
+		var check_data = function(data) {
+			if (data.length <= 1) {
+				$scope.error = "No data with specified conditions";
+				$timeout(function() {
+					$scope.error = "";
+				}, 5000);
+			}
+			return data.length > 1;
+		}
+
 		var evalSelections = function() {
 			//eval from the sactterplotpane to get parameters to plot
 			$scope.$broadcast('evalSelections', function(selection_str) {
@@ -74,14 +84,15 @@ angular.module('dscovrDataApp')
 						i++;
 					}
 				}
-				var plot = {
-					data: data,
-					title: ysel + " vs " + xsel,
-					y_accessor: ysel,
-					x_accessor: xsel,
+				if (check_data(data)) {
+					var plot = {
+						data: data,
+						title: ysel + " vs " + xsel,
+						y_accessor: ysel,
+						x_accessor: xsel,
+					}
+					$scope.plots.push(plot);
 				}
-				console.log(data);
-				$scope.plots.push(plot);
 			});
 		};
 
