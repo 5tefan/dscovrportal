@@ -50,6 +50,21 @@ angular.module('dscovrDataApp')
 				return $q.reject(response.data);
 			});
 		},
+		getValues2: function(parameters, criteria) {
+			var url = _url_base + 'values?parameters=' + parameters + '&criteria=' + criteria;
+			console.log(url);
+			var deferred = $q.defer();
+			$http.get( url ).success( function( response ) {
+				if ( response.length < 1 ) {
+					deferred.reject("No data found for request");
+				} else {
+					deferred.resolve(response);
+				}
+			} ).error( function( response ) {
+					deferred.reject("Error " + response.status + " ("+response.error+") : " + response.message);
+			});
+			return deferred.promise;
+		},
 		getFiles: function(start, end) {
 			var url = _url_base + 'files?start_date=' + start + '&end_date=' + end;
 			return $http.get( url ).then( function(response) {
