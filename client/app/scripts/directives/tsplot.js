@@ -15,7 +15,7 @@ angular.module('dscovrDataApp')
 				plot : '=',
 			},
 			link: function postLink(scope, element, attrs) {
-				scope.$watch('plot', function() {
+				var unwatch = scope.$watch('plot', function() {
 					if (scope.plot.data) {
 						MG.data_graphic({
 							title: scope.plot.title,
@@ -35,7 +35,9 @@ angular.module('dscovrDataApp')
 							y_label: scope.plot.y_label,
 							xax_count: 10,
 						})
-					}
+						unwatch();
+						scope.plot.data = null;
+					} //end if scope.plot.data
 				});
 
 			}

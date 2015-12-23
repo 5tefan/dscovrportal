@@ -29,10 +29,10 @@ angular.module('dscovrDataApp')
 				'<div class="col-xs-5">'+
 					'<div class="row">'+
 						'<div class="col-xs-11 col-xs-offset-1" ng-if="adv.show">'+
-							'<a ng-click="adv.show = !adv.show"><h4><span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span> Advanced options </h4></a>'+
+							'<a ng-click="adv.show = !adv.show"><h4 class="vis-adv-h4"><span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span> Advanced options </h4></a>'+
 						'</div>'+
 						'<div class="col-xs-11 col-xs-offset-1" ng-if="!adv.show">'+
-							'<a ng-click="adv.show = !adv.show"><h4><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span> Advanced options </h4></a>'+
+							'<a ng-click="adv.show = !adv.show"><h4 class="vis-adv-h4"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span> Advanced options </h4></a>'+
 						'</div>'+
 					'</div>'+
 					'<div class="row" ng-show="adv.show">'+
