@@ -27,11 +27,36 @@
 					</div>
 					<div class="col-xs-5">
 						<p> {{ error }} </p>
+						<div message-display error="error" warning="warning" info="info"></div>
 					</div>
 				</div>
 			</div>
 			<div class="vis-selectarea col-xs-5">
-				<div condition-container params='params' predef="predef_cond"></div>
+
+					<div class="row">
+						<div class="col-xs-11 col-xs-offset-1" ng-if="adv.show">
+							<a ng-click="adv.show = !adv.show"><h4 class="vis-adv-h4"><span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span> Advanced options </h4></a>
+						</div>
+						<div class="col-xs-11 col-xs-offset-1" ng-if="!adv.show">
+							<a ng-click="adv.show = !adv.show"><h4 class="vis-adv-h4"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span> Advanced options </h4></a>
+						</div>
+					</div>
+					<div class="row" ng-show="adv.show">
+						<form class="col-xs-5">
+							<div class="checkbox">
+								<label><input type="checkbox" ng-model="adv.x_scale_type" ng-true-value="'log'" ng-false-value="'linear'">Log x scale</label>
+							</div>
+						</form>
+						<form class="col-xs-5">
+							<div class="checkbox">
+								<label><input type="checkbox" ng-model="adv.y_scale_type" ng-true-value="'log'" ng-false-value="'linear'">Log y scale</label>
+							</div>
+						</form>
+					</div>
+					<div class="row" ng-show="adv.show">
+						<div condition-container params='params' predef="predef_cond"></div>
+					</div>
+
 			</div>
 		</div>
 		<div>

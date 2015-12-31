@@ -50,6 +50,9 @@ input, form {
 	/*border-top: 1px solid black;*/
 	border-bottom: 1px solid black;
 }
+.vis-adv-h4 {
+	margin-top: 0px;
+}
 .vis-selectarea {
 	margin-bottom: 10px;
 }
