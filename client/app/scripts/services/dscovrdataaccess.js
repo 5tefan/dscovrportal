@@ -31,6 +31,7 @@ angular.module('dscovrDataApp')
 				};
 			});
 		};
+		do_request();
 		return deferred;
 	}
 	
@@ -101,6 +102,7 @@ angular.module('dscovrDataApp')
 					}
 				});
 			}
+			do_request();
 			return deferred.promise;
 		},
 		getFiles: function(start, end) {
