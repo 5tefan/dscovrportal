@@ -28,8 +28,9 @@ angular.module('dscovrDataApp')
 					do_request();
 				} else {
 					deferred.reject("Error " + response.status + " ("+response.error+") : " + response.message);
-			})
-		}
+				};
+			});
+		};
 		return deferred;
 	}
 	
