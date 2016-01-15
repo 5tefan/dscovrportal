@@ -9,7 +9,7 @@
 angular.module('dscovrDataApp')
 	.directive('statusLog', function () {
 		return {
-			template: '<p style="white-space: pre;" class="status-log-box" >{{text}}</p>',
+			template: '<p style="white-space: pre-line;" class="status-log-box" >{{text}}</p>',
 			restrict: 'A',
 			scope: {
 				text : '='
