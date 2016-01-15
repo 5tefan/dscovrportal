@@ -16,7 +16,7 @@ angular.module('dscovrDataApp')
 			},
 			link: function postLink(scope, element, attrs) {
 				var unwatch = scope.$watch('plot', function() {
-					if (scope.plot.data) {
+					if (scope.plot && scope.plot.data) {
 						MG.data_graphic({
 							title: scope.plot.title,
 							data: scope.plot.data,

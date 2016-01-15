@@ -79,6 +79,7 @@ angular.module('dscovrDataApp')
 									param: prodparam[1]
 								}
 								if (i == 0) {
+									console.log("parsed default_selection: " + selection);
 									scope.default_selection = selection;
 								} else {
 									scope.selections.push(selection);
@@ -103,14 +104,25 @@ angular.module('dscovrDataApp')
 
 				scope.evalSelections = function() {
 					var selection_str = "";
-					if (scope.default_selection.construct) {
-						selection_str = scope.default_selection.construct + ";";
+					console.log("default selection while evalSelection: " + JSON.stringify(scope.default_selection));
+					if (scope.default_selection.prod && scope.default_selection.param) {
+						console.log("default_selection.construct" + JSON.stringify(scope.default_selection));
+						// race condition in play here, sometimes construct attribute not bound when this called
+						// so falling back and using scope.default_selection.(prod|param) directly. In the future
+						// maybe implement some kind of signal at the tail of the directive chain which signals 
+						// when it is done initializing
+						//selection_str = scope.default_selection.construct + ";";
+						selection_str = scope.default_selection.prod + ":" +
+							scope.default_selection.param + ";";
 					}
 					for (var each in scope.selections) {
-						if (scope.selections[each].construct) {
-							selection_str += scope.selections[each].construct + ";";
+						if (scope.selections[each].prod && scope.selections[each].param) {
+							//selection_str += scope.selections[each].construct + ";";
+							selection_str += scope.selections[each].prod + ":" +
+								scope.selections[each].param + ";"
 						}
 					}
+					console.log("selection_str: " + selection_str);
 					return selection_str;
 				}
 
