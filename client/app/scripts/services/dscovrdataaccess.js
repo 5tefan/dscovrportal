@@ -85,7 +85,7 @@ angular.module('dscovrDataApp')
 			function do_request() {
 				$http.get( url ).success( function( response ) {
 					if ( response.length < 1 ) {
-						deferred.reject("No data found for request");
+						deferred.reject("no data matching request");
 					} else {
 						deferred.resolve(response);
 					}
