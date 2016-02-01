@@ -25,9 +25,13 @@
 					<div class="col-xs-2">
 						<a class="btn btn-default" role="button" ng-click="go()"> Plot </a>
 					</div>
-					<div class="col-xs-5">
-						<p> {{ error }} </p>
-						<div message-display error="error" warning="warning" info="info"></div>
+					<div ng-if="info" class="col-xs-5">
+						<h5> Status </h5>
+						<div status-log text="info"></div>
+					</div>
+					<div ng-if="error" class="col-xs-5">
+						<h5> Errors </h5>
+						<div status-log text="error"></div>
 					</div>
 				</div>
 			</div>
@@ -60,8 +64,11 @@
 			</div>
 		</div>
 		<div>
-			<div class="row" ng-repeat="plot in plots">
+			<div class="row">
 				<div scatter-plot plot="plot"></div>
+			</div>
+			<div ng-if="plot.download_link" class="row">
+				<a ng-href="#/download/{{plot.download_link.beginms}};{{plot.download_link.endms}}/{{plot.download_link.params}}">Download the data for this timerange</a>
 			</div>
 		</div>
 	</div>
