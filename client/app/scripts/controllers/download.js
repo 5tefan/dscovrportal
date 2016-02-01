@@ -86,19 +86,25 @@ angular.module('dscovrDataApp')
 		// stay update by $scope.parse_arg, also use $location.replace
 		// since we don't want a history entry every time they change
 		// the selected products
-		var selected = $scope.get_selected_products();
-		$location.url("/download/" 
-			+ $scope.predef_time.join(';') + '/' + selected.join(';')
-		);
-		$location.replace();
+		// added if $scope.products so that location doesn't get changed
+
+		if ($scope.products) {
+			var selected = $scope.get_selected_products();
+			$location.url("/download/" 
+				+ $scope.predef_time.join(';') + '/' + selected.join(';')
+			);
+			$location.replace();
+		};
 	};
 
 	$scope.$on("datechange", function(event, dates) {
-		var selected = $scope.get_selected_products();
-		$location.url("/download/" 
-			+ dates.join(';') + '/' + selected.join(';')
-		);
-		$scope.parse_arg(dates.join(";"));
+		if ($scope.products) {
+			var selected = $scope.get_selected_products();
+			$location.url("/download/" 
+				+ dates.join(';') + '/' + selected.join(';')
+			);
+			$scope.parse_arg(dates.join(";"));
+		}
 	});
 
 	// initialize by parsing routeparam arg
