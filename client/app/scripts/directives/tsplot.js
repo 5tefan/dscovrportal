@@ -15,8 +15,8 @@ angular.module('dscovrDataApp')
 				plot : '=',
 			},
 			link: function postLink(scope, element, attrs) {
-				scope.$watch('plot', function() {
-					if (scope.plot.data) {
+				var unwatch = scope.$watch('plot', function() {
+					if (scope.plot && scope.plot.data) {
 						MG.data_graphic({
 							title: scope.plot.title,
 							data: scope.plot.data,
@@ -34,8 +34,13 @@ angular.module('dscovrDataApp')
 							y_scale_type: scope.plot.y_scale_type,
 							y_label: scope.plot.y_label,
 							xax_count: 10,
+							y_extended_ticks: true,
+							x_extended_ticks: true,
+							min_y_from_data: true,
 						})
-					}
+						unwatch();
+						scope.plot.data = null;
+					} //end if scope.plot.data
 				});
 
 			}

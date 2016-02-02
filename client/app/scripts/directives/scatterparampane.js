@@ -52,9 +52,13 @@ angular.module('dscovrDataApp')
 					var selection_str = "";
 					if (scope.selection_x.construct) {
 						selection_str = scope.selection_x.construct + ";";
+					} else if (scope.selection_x.prod && scope.selection_x.param) {
+						selection_str = scope.selection_x.prod + ":" + scope.selection_x.param + ";";
 					}
 					if (scope.selection_y.construct) {
 						selection_str += scope.selection_y.construct;
+					} else if (scope.selection_y.prod && scope.selection_y.param) {
+						selection_str += scope.selection_y.prod + ":" + scope.selection_y.param + ";";
 					}
 					return selection_str;
 				}

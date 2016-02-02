@@ -55,7 +55,6 @@ angular.module('dscovrDataApp')
 				// how many panes we have up to the scope of the
 				// ts plot controller
 				scope.$on('evalPanes', function(e, cb) {
-					console.log("evalPanes");
 					cb(scope.panes.length);
 				});
 

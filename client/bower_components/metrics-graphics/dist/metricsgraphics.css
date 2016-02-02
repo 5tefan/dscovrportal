@@ -6,26 +6,22 @@
 }
 
 .mg-area1-color {
-    fill: #000000;
-}
-
-.mg-area2-color {
     fill: #0000ff;
 }
 
-.mg-area3-color {
+.mg-area2-color {
     fill: #05b378;
 }
 
-.mg-area4-color {
+.mg-area3-color {
     fill: #db4437;
 }
 
-.mg-area5-color {
+.mg-area4-color {
     fill: #f8b128;
 }
 
-.mg-area6-color {
+.mg-area5-color {
     fill: #5c5c5c;
 }
 
@@ -77,7 +73,7 @@
 }
 
 .mg-points circle {
-    opacity: 0.85;
+    opacity: 0.65;
 }
 
 .mg-popover {
@@ -163,53 +159,44 @@
 }
 
 .mg-line1-color {
-    stroke: #000000;
-}
-
-.mg-hover-line1-color {
-    fill: #000000;
-}
-
-.mg-line2-color {
     stroke: #4040e8;
 }
 
-.mg-hover-line2-color {
+.mg-hover-line1-color {
     fill: #4040e8;
 }
 
-.mg-line3-color {
+.mg-line2-color {
     stroke: #05b378;
 }
 
-.mg-hover-line3-color {
+.mg-hover-line2-color {
     fill: #05b378;
 }
 
-.mg-line4-color {
+.mg-line3-color {
     stroke: #db4437;
 }
 
-.mg-hover-line4-color {
+.mg-hover-line3-color {
     fill: #db4437;
 }
 
-.mg-line5-color {
+.mg-line4-color {
     stroke: #f8b128;
 }
 
-.mg-hover-line5-color {
+.mg-hover-line4-color {
     fill: #f8b128;
 }
 
-.mg-line6-color {
+.mg-line5-color {
     stroke: #5c5c5c;
 }
 
-.mg-hover-line6-color {
+.mg-hover-line5-color {
     fill: #5c5c5c;
 }
-
 
 .mg-line-legend text {
     font-size: 0.9rem;
@@ -218,31 +205,26 @@
 }
 
 .mg-line1-legend-color {
-    color: #000;
-    fill: #000;
-}
-
-.mg-line2-legend-color {
     color: #4040e8;
     fill: #4040e8;
 }
 
-.mg-line3-legend-color {
+.mg-line2-legend-color {
     color: #05b378;
     fill: #05b378;
 }
 
-.mg-line4-legend-color {
+.mg-line3-legend-color {
     color: #db4437;
     fill: #db4437;
 }
 
-.mg-line5-legend-color {
+.mg-line4-legend-color {
     color: #f8b128;
     fill: #f8b128;
 }
 
-.mg-line6-legend-color {
+.mg-line5-legend-color {
     color: #5c5c5c;
     fill: #5c5c5c;
 }

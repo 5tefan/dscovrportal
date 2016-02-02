@@ -29,10 +29,10 @@ angular.module('dscovrDataApp')
 				'<div class="col-xs-5">'+
 					'<div class="row">'+
 						'<div class="col-xs-11 col-xs-offset-1" ng-if="adv.show">'+
-							'<a ng-click="adv.show = !adv.show"><h4><span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span> Advanced options </h4></a>'+
+							'<a ng-click="adv.show = !adv.show"><h4 class="vis-adv-h4"><span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span> Advanced options </h4></a>'+
 						'</div>'+
 						'<div class="col-xs-11 col-xs-offset-1" ng-if="!adv.show">'+
-							'<a ng-click="adv.show = !adv.show"><h4><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span> Advanced options </h4></a>'+
+							'<a ng-click="adv.show = !adv.show"><h4 class="vis-adv-h4"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span> Advanced options </h4></a>'+
 						'</div>'+
 					'</div>'+
 					'<div class="row" ng-show="adv.show">'+
@@ -79,6 +79,7 @@ angular.module('dscovrDataApp')
 									param: prodparam[1]
 								}
 								if (i == 0) {
+									console.log("parsed default_selection: " + selection);
 									scope.default_selection = selection;
 								} else {
 									scope.selections.push(selection);
@@ -103,14 +104,26 @@ angular.module('dscovrDataApp')
 
 				scope.evalSelections = function() {
 					var selection_str = "";
-					if (scope.default_selection.construct) {
+					console.log("default selection while evalSelection: " + JSON.stringify(scope.default_selection));
+					// race condition in play here, sometimes construct attribute not bound when this called
+					// so falling back and using scope.default_selection.(prod|param) directly. In the future
+					// maybe implement some kind of signal at the tail of the directive chain which signals 
+					// when it is done initializing
+					//selection_str = scope.default_selection.construct + ";";
+					if ( scope.default_selection.construct ) {
 						selection_str = scope.default_selection.construct + ";";
+					} else if (scope.default_selection.prod && scope.default_selection.param) {
+						selection_str = scope.default_selection.prod + ":" + scope.default_selection.param + ";";
 					}
 					for (var each in scope.selections) {
 						if (scope.selections[each].construct) {
 							selection_str += scope.selections[each].construct + ";";
+						} else if (scope.selections[each].prod && scope.selections[each].param) {
+							selection_str += scope.selections[each].prod + ":" +
+								scope.selections[each].param + ";"
 						}
 					}
+					console.log("selection_str: " + selection_str);
 					return selection_str;
 				}
 
