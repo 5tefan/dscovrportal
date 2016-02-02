@@ -60,10 +60,10 @@ angular.module('dscovrDataApp')
 						//use epoch time to calculate what day is needed when
 						//viewing a day in the 3 day or 7 day frames
 						$scope.summary_file_date = moment.utc( 
-							dscovrUtil.getMissionStart().valueOf() 
+							dscovrUtil.getMissionBegin().valueOf() 
 							+ $scope.summary_frame_info[ $scope.frame_size ].dt 
 							* Math.floor( 
-								($scope.summary_date.valueOf() - dscovrUtil.getMissionStart().valueOf()) 
+								($scope.summary_date.valueOf() - dscovrUtil.getMissionBegin().valueOf()) 
 								/ $scope.summary_frame_info[ $scope.frame_size ].dt 
 							) 
 						);

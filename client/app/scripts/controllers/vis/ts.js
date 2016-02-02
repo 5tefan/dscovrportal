@@ -39,7 +39,13 @@ angular.module('dscovrDataApp')
 				show_error("end date is not after start date");
 				$scope.can_plot = false;
 				return;
-			}
+			};
+			// enforce query limit of 1 month
+			if (moment(begindate).add(1, 'months').isBefore(endindate)) {
+				show_error("queries larger than 1 month not supported");
+				$scope.can_plot = false;
+				return;
+			};
 			//initialize the string we will be building, will look like
 			// m1m:bx_gse;m1m:by_gse;;f1m:alpha_density where ; separate
 			// parameters in the same plot and ;; separate different panes
@@ -150,7 +156,7 @@ angular.module('dscovrDataApp')
 							// the time step is bad if all the values are null
 							bad = Boolean(nulls == y_accessor.length)
 							if (bad && badprev) {
-								// d.splice(i, 1); //read that it's better not to splice
+								d.splice(i, 1);
 								// below, we setTimeout to occasionally give control
 								// elsewhere so that UI remains responsive
 								setTimeout(process, 1);
@@ -212,8 +218,7 @@ angular.module('dscovrDataApp')
 			var new_url = "/vis/ts/" + $scope.selection_strs + "/" + $scope.timerange_construct;
 			if ($location.url() != new_url) { // if location changed
 				if ($scope.can_plot) {
-					$location.url("/vis/ts/" + $scope.selection_strs + 
-						"/" + $scope.timerange_construct); // chnage route, this reloads the controller
+					$location.url(new_url); // chnage route, this reloads the controller
 				}
 			} else {
 				show_error("request unchanged and aready fulfilled");
