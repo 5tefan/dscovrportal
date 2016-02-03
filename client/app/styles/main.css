@@ -15,6 +15,14 @@ input, form {
   padding-right: 15px;
 }
 
+.right {
+	float: right;
+}
+
+.down3 {
+	margin-top: 3px;
+}
+
 .hidden {
 	display: none;
 }
@@ -53,12 +61,35 @@ input, form {
 .vis-adv-h4 {
 	margin-top: 0px;
 }
+.vis-typeselect {
+	margin-bottom: 10px;
+}
 .vis-selectarea {
 	margin-bottom: 10px;
 }
+.vis-selectarea span {
+	margin-top: 3px;
+}
+.vis-plotarea {
+	min-height: 500px;
+	line-height: 100px;
+	text-align: center;
+}
+.vis-noplot {
+	display: inline-block;
+	vertical-align: middle;
+	line-height: normal;
+}
 #vis-visnav {
 }
-#vis-summaryselect {
+.vis-summary-timenav {
+	float: left;
+}
+.vis-summary-timestep {
+	margin-top: 39px;
+}
+.vis-summary-timeselect {
+	margin: 0 8px;
 }
 #vis-plot {
 	clear: both;

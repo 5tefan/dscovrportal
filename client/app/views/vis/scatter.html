@@ -2,7 +2,7 @@
 	<h2 class="text-center"> Scatter Plot </h2>
 	<div class="container-fluid">
 		<div id="vis-controls" class="row">
-			<div id="vis-typeselect" class="col-xs-2">
+			<div class="vis-typeselect col-xs-2">
 				<ul class="nav nav-pills nav-stacked">
 					<li>
 						<a href="#/vis/summary">Summary plots</a>
@@ -11,7 +11,9 @@
 						<a href="#/vis/ts">Custom timeseries</a>
 					</li>
 					<li class="active">
-						<a href="#/vis/scatter">Custom scatter</a>
+						<a href="#/vis/scatter">Custom scatter
+							<span class="right down3 glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+						</a>
 					</li>
 					<li>
 						<a href="#/vis/event">Find events</a>
@@ -23,7 +25,7 @@
 				<div time-range construct="timerange_construct" predef="predef_time"></div>
 				<div class="row">
 					<div class="col-xs-2">
-						<a class="btn btn-default" role="button" ng-click="go()"> Plot </a>
+						<a class="btn btn-success" role="button" ng-click="go()"> Plot </a>
 					</div>
 					<div ng-if="info" class="col-xs-5">
 						<h5> Status </h5>
@@ -36,7 +38,6 @@
 				</div>
 			</div>
 			<div class="vis-selectarea col-xs-5">
-
 					<div class="row">
 						<div class="col-xs-11 col-xs-offset-1" ng-if="adv.show">
 							<a ng-click="adv.show = !adv.show"><h4 class="vis-adv-h4"><span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span> Advanced options </h4></a>
@@ -60,16 +61,16 @@
 					<div class="row" ng-show="adv.show">
 						<div condition-container params='params' predef="predef_cond"></div>
 					</div>
-
 			</div>
 		</div>
-		<div>
+		<div class="vis-plotarea">
 			<div class="row">
 				<div scatter-plot plot="plot"></div>
 			</div>
 			<div ng-if="plot.download_link" class="row">
 				<a ng-href="#/download/{{plot.download_link.beginms}};{{plot.download_link.endms}}/{{plot.download_link.params}}">Download the data for this timerange</a>
 			</div>
+			<p class="vis-noplot" ng-if="!plot.data"> results will appear here </p>
 		</div>
 	</div>
 </div>

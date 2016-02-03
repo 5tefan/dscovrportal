@@ -19,7 +19,7 @@ angular.module('dscovrDataApp')
 						'</select>'+
 					'</div>'+
 					'<div class="col-xs-4" ng-if="removable">'+
-						'<a class="btn btn-default" ng-click=rmSelection()> - param </a>'+
+						'<a class="btn btn-default" ng-click=rmSelection()><span class="glyphicon glyphicon-remove"></span></a>'+
 					'</div>',
 			restrict: 'A',
 			scope: {

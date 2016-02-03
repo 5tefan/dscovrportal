@@ -11,11 +11,11 @@ angular.module('dscovrDataApp')
 		return {
 			template: 
 				'<div class="row">'+
-					'<div class="col-xs-4">'+
+					'<div class="col-xs-5">'+
 						'<h5>Constrain where:</h5>'+
 					'</div>'+
 					'<div class="col-xs-2">'+
-						'<a class="btn btn-default" ng-click=addExclude()> + constraint </a>'+
+						'<a class="btn btn-default btn-sm" ng-click=addExclude()> + constraint </a>'+
 					'</div>'+
 				'</div>'+
 				'<div class="row condition-edit" ng-repeat="exclude in excludes">'+
