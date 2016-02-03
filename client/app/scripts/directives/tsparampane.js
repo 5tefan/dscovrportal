@@ -16,7 +16,7 @@ angular.module('dscovrDataApp')
 							'<h4 class="ts-param-pane-panel-title"> Panel {{position}}</h4>'+
 						'</div>'+
 						'<div class="col-xs-3">'+
-							'<a class="btn btn-default" ng-click=addSelection()> + param </a>'+
+							'<a class="btn btn-default btn-sm" ng-click=addSelection()> + param </a>'+
 						'</div>'+
 					'</div>'+
 					'<div class="row pane-edit">'+

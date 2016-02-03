@@ -2,7 +2,7 @@
 	<h2 class="text-center"> Time Series Plot </h2>
 	<div class="container-fluid">
 		<div id="vis-controls" class="row">
-			<div id="vis-typeselect" class="col-xs-2">
+			<div class="vis-typeselect col-xs-2">
 				<ul class="nav nav-pills nav-stacked">
 					<li>
 						<a href="#/vis/summary">Summary plots</a>
@@ -20,10 +20,10 @@
 			</div>
 			<div id="vis-selectarea" class="col-xs-10">
 				<div ts-param-container params='params' predef="predef_cond"></div>
-				<div time-range class="col-xs-7" construct="timerange_construct" predef="predef_time"></div>
+				<div time-range construct="timerange_construct" predef="predef_time"></div>
 				<div class="row plot-button">
 					<div class="col-xs-2">
-						<a class="btn btn-default" role="button" ng-click="go()"> Plot </a>
+						<a class="btn btn-success " role="button" ng-click="go()"> Plot </a>
 					</div>
 					<div ng-if="info" class="col-xs-5">
 						<h5> Status </h5>
@@ -36,10 +36,11 @@
 				</div>
 			</div>
 		</div>
-		<div>
+		<div class="vis-plotarea">
 			<div class="row" ng-repeat="plot in plots">
 				<div ts-plot plot="plot"></div>
 			</div>
+			<p class="vis-noplot" ng-if="!plots"> results will appear here </p>
 		</div>
 	</div>
 </div>

@@ -16,7 +16,7 @@ angular.module('dscovrDataApp')
 		// Public API here
 		return {
 			dateInRange: function ( check_date ) {
-				return check_date && moment.utc( +check_date ).isBetween( mission_start, mission_end );
+				return check_date && moment.utc( +check_date ).isBetween( mission_begin, mission_end );
 			},
 			getMissionBegin: function() {
 				return mission_begin;

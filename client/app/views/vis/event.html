@@ -2,7 +2,7 @@
 	<h2 class="text-center"> Find events </h2>
 	<div class="container-fluid">
 		<div id="vis-controls" class="row">
-			<div id="vis-typeselect" class="col-xs-2">
+			<div class="vis-typeselect col-xs-2">
 				<ul class="nav nav-pills nav-stacked">
 					<li>
 						<a href="#/vis/summary">Summary plots</a>
@@ -14,27 +14,32 @@
 						<a href="#/vis/scatter">Custom scatter</a>
 					</li>
 					<li class="active">
-						<a href="#/vis/event">Find events</a>
+						<a href="#/vis/event">Find events
+							<span class="right down3 glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+						</a>
 					</li>
 				</ul>
 			</div>
-			<div id="vis-selectarea" class="col-xs-10">
-				<div condition-container params='params' predef="predef_cond"></div>
-				<div time-range class="col-xs-7" construct="timerange_construct" predef="predef_time"></div>
+			<div id="vis-selectarea" class="col-xs-5">
+				<div time-range construct="timerange_construct" predef="predef_time"></div>
 				<div class="row plot-button">
 					<div class="col-xs-2">
-						<a class="btn btn-default" role="button" ng-click="go()"> Search </a>
+						<a class="btn btn-success" role="button" ng-click="go()"> Search </a>
 					</div>
 					<div class="col-xs-5">
 						<p> {{ error }} </p>
 					</div>
 				</div>
 			</div>
+			<div id="vis-selectarea" class="col-xs-5">
+				<div condition-container params='params' predef="predef_cond"></div>
+			</div>
 		</div>
-		<div>
+		<div class="vis-plotarea">
 			<div class="row" ng-repeat="plot in plots">
 				<div event-plot plot="plot"></div>
 			</div>
+			<p class="vis-noplot" ng-if="!plots"> results will appear here </p>
 		</div>
 	</div>
 </div>

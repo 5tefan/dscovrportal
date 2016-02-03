@@ -2,10 +2,12 @@
 	<h2 class="text-center"> Summary Plot </h2>
 	<div class="container-fluid">
 		<div id="vis-controls" class="row">
-			<div id="vis-typeselect" class="col-xs-2">
+			<div class="vis-typeselect col-xs-2">
 				<ul class="nav nav-pills nav-stacked">
 					<li class="active">
-						<a href="#/vis/summary">Summary plots</a>
+						<a href="#/vis/summary">Summary plots
+							<span class="right down3 glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+						</a>
 					</li>
 					<li>
 						<a href="#/vis/ts">Custom timeseries</a>
@@ -19,32 +21,33 @@
 				</ul>
 			</div>
 			<div id="vis-selectarea" class="col-xs-10">
-				<div id="vis-summaryselect" class="col-xs-3">
-					<h4> Select date </h4>
-					<quick-datepicker ng-model="summary_date" on-change="locationchange()" icon-class="glyphicon glyphicon-calendar" disable-timepicker="true"></quick-datepicker>
+				<div class="col-xs-4">
+					<div class="vis-summary-timenav">
+						<a class="vis-summary-timestep btn btn-default btn-sm" ng-click="locationchange(frame_size, summary_prev_ms)">
+							<span class="glyphicon glyphicon-backward"></span>
+						</a>
+					</div>
+					<div class="vis-summary-timenav">
+						<h4> Select date </h4>
+						<quick-datepicker class="vis-summary-timeselect" ng-model="summary_date" on-change="locationchange()" icon-class="glyphicon glyphicon-calendar" disable-timepicker="true"></quick-datepicker>
+					</div>
+					<div class="vis-summary-timenav">
+						<a class="vis-summary-timestep btn btn-default btn-sm" ng-click="locationchange(frame_size, summary_prev_ms)">
+							<span class="glyphicon glyphicon-forward"></span>
+						</a>
+					</div>
 				</div>
-				<div id="vis-summaryselect" class="col-xs-6">
+				<div class="col-xs-6">
 					<h4> Select plot width: </h4>
-					<a class="btn btn-default" ng-class="{active:frame_size=='6h'}" ng-click="locationchange('6h')">6 hour</a>
-					<a class="btn btn-default" ng-class="{active:frame_size=='1d'}" ng-click="locationchange('1d')">1 day</a>
-					<a class="btn btn-default" ng-class="{active:frame_size=='3d'}" ng-click="locationchange('3d')">3 days</a>
-					<a class="btn btn-default" ng-class="{active:frame_size=='7d'}" ng-click="locationchange('7d')">7 days</a>
-					<a class="btn btn-default" ng-class="{active:frame_size=='1m'}" ng-click="locationchange('1m')">1 month</a>
+					<a class="btn btn-default btn-sm" ng-class="{active:frame_size=='6h'}" ng-click="locationchange('6h')">6 hour</a>
+					<a class="btn btn-default btn-sm" ng-class="{active:frame_size=='1d'}" ng-click="locationchange('1d')">1 day</a>
+					<a class="btn btn-default btn-sm" ng-class="{active:frame_size=='3d'}" ng-click="locationchange('3d')">3 days</a>
+					<a class="btn btn-default btn-sm" ng-class="{active:frame_size=='7d'}" ng-click="locationchange('7d')">7 days</a>
+					<a class="btn btn-default btn-sm" ng-class="{active:frame_size=='1m'}" ng-click="locationchange('1m')">1 month</a>
 				</div>
 			</div>
 		</div>
 		<div id="vis-plot">
-			<div class="row">
-				<div class="col-xs-2 col-xs-offset-1">
-						<a class="btn btn-default" ng-click="locationchange(frame_size, summary_prev_ms)">&lt;&lt;-- prev</a>
-				</div>
-				<div class="col-xs-4">
-						<a ng-href="#/download/{{summary_file_date.valueOf()}};{{summary_end_ms}}">Download the raw data for this plot</a>
-				</div>
-				<div class="col-xs-2 col-xs-offset-3">
-					<a class="btn btn-default" ng-click="locationchange(frame_size, summary_end_ms)">next --&gt;&gt;</a>
-				</div>
-			</div>
 			<div class="row">
 				<div class="col-xs-12" ng-switch="frame_size">
 					<div ng-switch-when="6h">
@@ -55,7 +58,9 @@
 						
 					</div>
 					<img ng-switch-default class="img-responsive" ng-src="{{ get_plotsrc() }}"></img>
-
+					<a ng-href="#/download/{{summary_file_date.valueOf()}};{{summary_end_ms}}">
+						Download the data for this plot
+					</a>
 				</div>
 			</div>
 		</div>
