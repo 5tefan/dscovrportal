@@ -31,7 +31,7 @@ angular.module('dscovrDataApp')
 							x_accessor: scope.plot.x_accessor,
 							y_accessor: scope.plot.y_accessor,
 							color_accessor: "time",
-							color_range: ["green", "blue"],
+							color_range: ["red", "blue"],
 							y_scale_type: scope.plot.y_scale_type,
 							x_scale_type: scope.plot.x_scale_type,
 							min_y_from_data: true,
