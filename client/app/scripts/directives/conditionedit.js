@@ -21,7 +21,7 @@ angular.module('dscovrDataApp')
 							'<option value="" disabled selected>-variable-</option>'+
 						'</select>'+
 					'</div>'+
-					'<div class="no-padding-right no-padding-left col-xs-1">'+
+					'<div class="no-padding-right no-padding-left col-xs-2">'+
 						'<select class="form-control condition-edit-select" ng-model="relation">'+
 							'<option value="gt"> &gt; </option>'+
 							'<option value="lt"> &lt; </option>'+
@@ -34,7 +34,7 @@ angular.module('dscovrDataApp')
 						'<input type="number" class="form-control" placeholder="val" ng-model="value" ng-required>'+
 					'</div>'+
 					'<div class="col-xs-2" ng-if="removable">'+
-						'<a class="btn btn-default" ng-click=rmCondition($index)> - constraint </a>'+
+						'<a class="btn btn-default" ng-click=rmCondition($index)><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>'+
 					'</div>'+
 					'</div>',
 			restrict: 'A',

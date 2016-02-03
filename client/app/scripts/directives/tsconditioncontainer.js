@@ -15,7 +15,7 @@ angular.module('dscovrDataApp')
 						'<h5>Constrain where:</h5>'+
 					'</div>'+
 					'<div class="col-xs-2">'+
-						'<a class="btn btn-default" ng-click=addExclude()> + constraint </a>'+
+						'<a class="btn btn-default" ng-click=addExclude()><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> constraint </a>'+
 					'</div>'+
 				'</div>'+
 				'<div class="row condition-edit" ng-repeat="exclude in excludes">'+

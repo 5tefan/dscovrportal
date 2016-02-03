@@ -10,7 +10,7 @@ angular.module('dscovrDataApp')
 	.directive('paramEdit', function () {
 		return {
 			template: 
-					'<div class="col-xs-8">'+
+					'<div class="col-xs-10">'+
 						'<select class="form-control param-edit-select" ng-model="prod" ng-options="prod for prod in keys(params)">'+
 							'<option value="" disabled selected>-product-</option>'+
 						'</select>'+
@@ -18,8 +18,8 @@ angular.module('dscovrDataApp')
 							'<option value="" disabled selected>-variable-</option>'+
 						'</select>'+
 					'</div>'+
-					'<div class="col-xs-4" ng-if="removable">'+
-						'<a class="btn btn-default" ng-click=rmSelection()> - param </a>'+
+					'<div class="col-xs-2" ng-if="removable">'+
+						'<a class="btn btn-default" ng-click=rmSelection()><span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span></a>'+
 					'</div>',
 			restrict: 'A',
 			scope: {

@@ -13,11 +13,11 @@ angular.module('dscovrDataApp')
 					'<div class="row" style="margin-bottom: 15px">'+
 						'<div class="col-xs-6">'+
 							'<h5> Begin </h5>'+
-							'<quick-datepicker ng-model="selected_begin" on-change="onchange_begin()" icon-class="glyphicon glyphicon-calendar"></quick-datepicker>'+
+							'<quick-datepicker ng-model="selected_begin" on-change="onchange_begin()" time-format="HH:mm" icon-class="glyphicon glyphicon-calendar"></quick-datepicker>'+
 						'</div>'+
 						'<div class="col-xs-6">'+
 							'<h5> End </h5>'+
-							'<quick-datepicker ng-model="selected_end" on-change="onchange_end()" icon-class="glyphicon glyphicon-calendar"></quick-datepicker>'+
+							'<quick-datepicker ng-model="selected_end" on-change="onchange_end()" time-format="HH:mm" icon-class="glyphicon glyphicon-calendar"></quick-datepicker>'+
 						'</div>'+
 					'</div>',
 			restrict: 'A',
