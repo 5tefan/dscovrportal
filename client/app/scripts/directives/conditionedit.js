@@ -35,7 +35,6 @@ angular.module('dscovrDataApp')
 					'</div>'+
 					'<div class="col-xs-2" ng-if="removable">'+
 						'<a class="btn btn-default" ng-click=rmCondition($index)><span class="glyphicon glyphicon-remove"></span></a>'+
-					'</div>'+
 					'</div>',
 			restrict: 'A',
 			scope: {
