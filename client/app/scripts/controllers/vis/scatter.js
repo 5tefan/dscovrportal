@@ -22,7 +22,7 @@ angular.module('dscovrDataApp')
 			$scope.info += message + "\n";
 		}
 
-		var evalSelections = function(cb) {
+		var evalSelections = function(cb) { //cb -> call back
 			show_info("evaluating request");
 			// first, do some date validation. Must parse it first
 			var datesplit = $scope.timerange_construct.split(';');
@@ -134,25 +134,26 @@ angular.module('dscovrDataApp')
 		};
 
 		$scope.go = function() {
-			evalSelections();
-			var new_url = "/vis/scatter/"
-				+ $scope.selection_str.split(";")[0] + ":" + $scope.adv.x_scale_type + ";"
-				+ $scope.selection_str.split(";")[1] + ":" + $scope.adv.y_scale_type  + "/"
-				+ $scope.condition_str + $scope.timerange_construct;
-			if ($location.url() != new_url) { // if location changed
-				if ($scope.can_plot) {
-					$location.url(new_url); // chnage route, this reloads the controller
+			evalSelections( function() {
+				var new_url = "/vis/scatter/"
+					+ $scope.selection_str.split(";")[0] + ":" + $scope.adv.x_scale_type + ";"
+					+ $scope.selection_str.split(";")[1] + ":" + $scope.adv.y_scale_type  + "/"
+					+ $scope.condition_str + $scope.timerange_construct;
+				if ($location.url() != new_url) { // if location changed
+					if ($scope.can_plot) {
+						$location.url(new_url); // chnage route, this reloads the controller
+					}
+				} else {
+					show_error("request unchanged and aready fulfilled");
 				}
-			} else {
-				show_error("request unchanged and aready fulfilled");
-			}
+			});
 		};
 
 		$scope.timerange_construct = "";
 
 		dscovrDataAccess.getParameters2().then( function(data) {
 			$scope.params = data;
-		});
+		}, show_error);
 
 		// advanced options for log scales will fill here
 		$scope.adv = { x_scale_type: "linear", y_scale_type: "linear" };
@@ -192,10 +193,10 @@ angular.module('dscovrDataApp')
 
 			function waiting_until_ready() {
 				if ($scope.params) {
-					console.log("waiting_until_ready finished, calling eval");
+					//console.log("waiting_until_ready finished, calling eval");
 					evalSelections(make_plot);
 				} else { 
-					console.log("waiting_until_ready not finished");
+					//console.log("waiting_until_ready not finished");
 					$timeout( waiting_until_ready, 500 );
 				}
 			};
