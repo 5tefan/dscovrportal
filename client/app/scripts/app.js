@@ -35,13 +35,13 @@ angular
       })
 		//arg is start:end
 		//argg is prod:param;prod:param;;prod:param etc
-      .when('/vis/ts/:arg?/:argg?', {
+      .when('/vis/ts/:arg?/:argg?/:arggg?', {
         templateUrl: 'views/vis/ts.html',
         controller: 'VisTsCtrl'
       })
 		//arg is prod:param;prod:param to plot x;y
 		//argg is the condition string
-      .when('/vis/scatter/:arg?/:argg?', {
+      .when('/vis/scatter/:arg?/:argg?/:arggg?', {
         templateUrl: 'views/vis/scatter.html',
         controller: 'VisScatterCtrl'
       })

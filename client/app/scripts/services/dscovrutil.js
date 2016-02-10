@@ -8,7 +8,7 @@
  * Factory in the dscovrDataApp.
  */
 angular.module('dscovrDataApp')
-	.factory('dscovrUtil', function () {
+	.factory('dscovrUtil', function (dscovrDataAccess) {
 		// Service logic
 		var mission_begin = moment.utc("02-03-2015", "DD-MM-YYYY");
 		var mission_end = moment.utc().subtract(1, 'days').startOf('day');

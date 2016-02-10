@@ -40,6 +40,9 @@ input, form {
 .margin-t15 {
 	margin-top: 15px;
 }
+.margin-b10 {
+	margin-bottom: 10px;
+}
 
 .no-padding-right {
 	padding-right: 0;

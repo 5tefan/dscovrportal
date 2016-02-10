@@ -10,8 +10,8 @@ angular.module('dscovrDataApp')
 	.directive('tsParamPane', function () {
 		return {
 			template: 
-				'<div class="col-xs-9">'+
-					'<div class="row">'+
+				'<div class="col-xs-12">'+
+					'<div class="row margin-b10">'+
 						'<div class="col-xs-5 ts-param-pane-panel-title">'+
 							'<h4 class="ts-param-pane-panel-title"> Panel {{position}}</h4>'+
 						'</div>'+
@@ -19,11 +19,8 @@ angular.module('dscovrDataApp')
 							'<a class="btn btn-default btn-sm" ng-click=addSelection()> + param </a>'+
 						'</div>'+
 					'</div>'+
-					'<div class="row pane-edit">'+
-						'<div param-edit class="ts-param-pane-param-edit" params="params" selection="default_selection" removable="false"></div>'+
-					'</div>'+
-					'<div class="row pane-edit" ng-repeat="selection in selections">'+
-							'<div param-edit params="params" selection="selection" removable="true" rm-selection="rmSelection($index)"></div>'+
+					'<div class="row pane-edit" ng-repeat="selection in selections track by $index">'+ // and then other selections
+							'<div param-edit selection="selection" removable="selections.length > 1" rm-selection="rmSelection($index)"></div>'+
 					'</div>'+
 					'<form>'+
 						'<div class="checkbox">'+
@@ -33,97 +30,83 @@ angular.module('dscovrDataApp')
 				'</div>',
 			restrict: 'A',
 			scope: {
-				removable : '=',
-				params : '=',
-				pane : '=',
+				predef : '=',
 				rmPane : '&', //function to remove this panel
 				position : '=', //function to determine which panel this is
 			},
 			link: function postLink(scope, element, attrs) {
 
-				scope.default_selection = {};
-				scope.selections = [];
+				scope.selections = [{}];
 				scope.adv = {
-					log: false
+					log: false,
 				};
-				scope.$watch('pane', function() {
-					console.log(scope.pane);
-					if (scope.pane.predef) {
+				var unwatch_predef = scope.$watch('predef', function() {
+					if (scope.predef) {
+						// scope.pane.predef comes in as a string looking like
+						// m1m:bt;m1m:bx_gsm*linear
+						// using _ as a tmp var to split on *
+						var _ = scope.predef.split('*');
+						if (!_[0]) {return};
 						//parse the log scale setting
-						var is_log = scope.pane.predef.split('*')[1];
-						if (is_log.charAt( is_log.length - 1 ) == ";" ) { is_log = is_log.slice(0, -1); }
-						scope.adv.log = ( is_log == 'true' );
+						if (_[1]) { // if the log or linear option is explicitly set
+							var is_log = _[1];
+							if (is_log.charAt( is_log.length - 1 ) == ";" ) { is_log = is_log.slice(0, -1); }
+							scope.adv.log = (is_log == 'log');
+						};
 
 						//parse the parameters to plot
-						var params = scope.pane.predef.split('$$')[0].split(';');
-						for (var i in params) {
-							if (params[i]) {
-								var prodparam = params[i].split(':');
-								var selection = {
-									prod: prodparam[0],
-									param: prodparam[1]
-								}
-								if (i == 0) {
-									console.log("parsed default_selection: " + selection);
-									scope.default_selection = selection;
-								} else {
-									scope.selections.push(selection);
-								}
-				
-							}
-						}
-						//parse the exclude and highlight conditions
-						var conds = scope.pane.predef.split('$$')[1].split('*')[0];
-						scope.predef_cond = conds.split(';');
+						// _[0] should be something like just
+						// m1m:bt;m1m:bx_gsm 
+						scope.selections = [];
+						_[0].split(';').map( function(predef) {
+							scope.selections.push( {predef: predef} );
+						});
+						unwatch_predef();
 					}
 				});
 
 				scope.addSelection = function() {
-					var selection = {};
-					scope.selections.push(selection);
+					scope.selections.push({});
 				};
 
 				scope.rmSelection = function(i) {
 					scope.selections.splice(i, 1);
 				};
 
-				scope.evalSelections = function() {
-					var selection_str = "";
-					console.log("default selection while evalSelection: " + JSON.stringify(scope.default_selection));
+				scope.getOrCreateConstruct = function(selection) {
+					// solution to the race condition, grab the actual prod and 
+					// param from the selection if the construct isn't there yet
+					if (selection.construct) {
+						return selection.construct;
+					} else if (selection.prod && selection.param) {
+						return selection.prod + ":" + selection.param;
+					}; // else 
+					return "";
+				};
+
+				scope.evalParameters = function() {
 					// race condition in play here, sometimes construct attribute not bound when this called
 					// so falling back and using scope.default_selection.(prod|param) directly. In the future
 					// maybe implement some kind of signal at the tail of the directive chain which signals 
 					// when it is done initializing
-					//selection_str = scope.default_selection.construct + ";";
-					if ( scope.default_selection.construct ) {
-						selection_str = scope.default_selection.construct + ";";
-					} else if (scope.default_selection.prod && scope.default_selection.param) {
-						selection_str = scope.default_selection.prod + ":" + scope.default_selection.param + ";";
-					}
+					var selection_str = "";
 					for (var each in scope.selections) {
-						if (scope.selections[each].construct) {
-							selection_str += scope.selections[each].construct + ";";
-						} else if (scope.selections[each].prod && scope.selections[each].param) {
-							selection_str += scope.selections[each].prod + ":" +
-								scope.selections[each].param + ";"
-						}
+						selection_str += (selection_str?';':'') + scope.getOrCreateConstruct(scope.selections[each]);
 					}
-					console.log("selection_str: " + selection_str);
+					//also add the log selection`
+					if (scope.adv.log) {
+						selection_str += '*log';
+					}
 					return selection_str;
-				}
+				}; // end scope.evalSelections function
 
-				// listen for evalClikced event, broadcast from parent when
-				// when the parent needs the conditions to be evaluated.
-				scope.$on('evalSelections', function(e, cb) {
-					console.log("evalSelections cb");
-					scope.$broadcast('evalConditions', function(condition_str) {
-						console.log("evalConditions cb");
-						var return_string = scope.evalSelections();
-						return_string += "$$" + condition_str;
-						return_string += "*" + scope.adv.log
-						cb(return_string);
-					});
+				// listen for evalParameters event, broadcast from parent when
+				// when the parent needs to know what parameters are selected for plotting
+				scope.$on('evalParameters', function(e, cb) {
+					// only add *log, otherwise nothing because linear is defualt
+					cb(scope.evalParameters());
 				});
+
 			}
 		};
 	});

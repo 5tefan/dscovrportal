@@ -20,47 +20,29 @@
 					</li>
 				</ul>
 			</div>
-			<div class="vis-selectarea col-xs-5">
-				<div scatter-param-pane params='params' predef="predef_param"></div>
-				<div time-range construct="timerange_construct" predef="predef_time"></div>
+			<div class="col-xs-2">
+				<div time-range predef="predef_time"></div>
+			</div>
+			<div class="col-xs-4">
+				<div scatter-param-pane predef="predef_selec"></div>
+			</div>
+			<div class="col-xs-4">
 				<div class="row">
-					<div class="col-xs-2">
-						<a class="btn btn-success" role="button" ng-click="go()"> Plot </a>
-					</div>
-					<div ng-if="info" class="col-xs-5">
-						<h5> Status </h5>
-						<div status-log text="info"></div>
-					</div>
-					<div ng-if="error" class="col-xs-5">
-						<h5> Errors </h5>
-						<div status-log text="error"></div>
-					</div>
+					<div condition-container predef="predef_cond"></div>
 				</div>
 			</div>
-			<div class="vis-selectarea col-xs-5">
-					<div class="row">
-						<div class="col-xs-11 col-xs-offset-1" ng-if="adv.show">
-							<a ng-click="adv.show = !adv.show"><h4 class="vis-adv-h4"><span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span> Advanced options </h4></a>
-						</div>
-						<div class="col-xs-11 col-xs-offset-1" ng-if="!adv.show">
-							<a ng-click="adv.show = !adv.show"><h4 class="vis-adv-h4"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span> Advanced options </h4></a>
-						</div>
-					</div>
-					<div class="row" ng-show="adv.show">
-						<form class="col-xs-5">
-							<div class="checkbox">
-								<label><input type="checkbox" ng-model="adv.x_scale_type" ng-true-value="'log'" ng-false-value="'linear'">Log x scale</label>
-							</div>
-						</form>
-						<form class="col-xs-5">
-							<div class="checkbox">
-								<label><input type="checkbox" ng-model="adv.y_scale_type" ng-true-value="'log'" ng-false-value="'linear'">Log y scale</label>
-							</div>
-						</form>
-					</div>
-					<div class="row" ng-show="adv.show">
-						<div condition-container params='params' predef="predef_cond"></div>
-					</div>
+			<div class="clear">
+				<div class="col-xs-2 col-xs-offset-2 vis-selectarea">
+					<a class="btn btn-success" role="button" ng-click="go()"> Plot </a>
+				</div>
+				<div ng-if="info" class="col-xs-4">
+					<h5> Status </h5>
+					<div status-log text="info"></div>
+				</div>
+				<div ng-if="error" class="col-xs-4">
+					<h5> Errors </h5>
+					<div status-log text="error"></div>
+				</div>
 			</div>
 		</div>
 		<div class="vis-plotarea">
@@ -68,9 +50,9 @@
 				<div scatter-plot plot="plot"></div>
 			</div>
 			<div ng-if="plot.download_link" class="row">
-				<a ng-href="#/download/{{plot.download_link.beginms}};{{plot.download_link.endms}}/{{plot.download_link.params}}">Download the data for this timerange</a>
+				<a ng-href="#/download/{{plot.download_link.timerange.join(';')}}/{{plot.download_link.params}}">Download the data for this timerange</a>
 			</div>
-			<p class="vis-noplot" ng-if="!plot.data"> results will appear here </p>
+			<p class="vis-noplot" ng-if="!plot.download_link"> results will appear here </p>
 		</div>
 	</div>
 </div>

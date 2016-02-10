@@ -7,22 +7,21 @@
  * # timeRange
  */
 angular.module('dscovrDataApp')
-	.directive('timeRange', function (dscovrUtil) {
+	.directive('timeRange', function () {
 		return {
 			template: 
 					'<div class="row" style="margin-bottom: 15px; clear: both">'+
-						'<div class="col-xs-6">'+
+						'<div class="col-xs-12">'+
 							'<h5><span class="glyphicon glyphicon-calendar"></span> Begin Date</h5>'+
 							'<quick-datepicker ng-model="selected_begin" on-change="onchange_begin()" time-format="HH:mm"></quick-datepicker>'+
 						'</div>'+
-						'<div class="col-xs-6">'+
+						'<div class="col-xs-12">'+
 							'<h5><span class="glyphicon glyphicon-calendar"></span> End Date</h5>'+
 							'<quick-datepicker ng-model="selected_end" on-change="onchange_end()" time-format="HH:mm"></quick-datepicker>'+
 						'</div>'+
 					'</div>',
 			restrict: 'A',
 			scope: {
-				construct : '=',
 				predef : '=',
 			},
 			link: function postLink(scope, element, attrs) {
@@ -31,20 +30,18 @@ angular.module('dscovrDataApp')
 				//scope.selected_end = moment().subtract(1, 'days').toDate();
 				scope.time_difference = scope.selected_end.getTime() - scope.selected_begin.getTime();
 
+				scope.$on('evalTimerange', function(e, cb) {
+					cb([scope.selected_begin.getTime(), scope.selected_end.getTime()]);
+				});
+
 				var unwatch_predef = scope.$watch('predef', function() {
 					if (scope.predef) {
 						scope.selected_begin = new Date(+scope.predef[0]);
 						scope.selected_end = new Date(+scope.predef[1]);
-						scope.onchange_common();
 						unwatch_predef();
 					}
 				});
 
-				scope.construct = "";
-				scope.construct += "m1m:time:ge:" + scope.selected_begin.getTime() + ";";
-				scope.construct += "m1m:time:le:" + scope.selected_end.getTime();
-
-				
 				scope.onchange_begin = function() {
 					// preserve the interval between start and and if either begin is moved after end or 
 					// end moved before begin subject to the condition that it doesn't go out of the valid
@@ -59,7 +56,6 @@ angular.module('dscovrDataApp')
 					} else {
 						scope.time_difference = scope.selected_end.getTime() - scope.selected_begin.getTime();
 					}
-					scope.onchange_common();
 				};
 
 				scope.onchange_end = function() {
@@ -76,16 +72,10 @@ angular.module('dscovrDataApp')
 					} else {
 						scope.time_difference = scope.selected_end.getTime() - scope.selected_begin.getTime();
 					}
-					scope.onchange_common();
 				};
 
-				scope.onchange_common = function() {
-					//update the contsruct when the date is changed
-					scope.construct = "";
-					scope.construct += "m1m:time:ge:" + scope.selected_begin.getTime() + ";";
-					scope.construct += "m1m:time:le:" + scope.selected_end.getTime();
-				}
-				
+				// tell controler this directive is ready
+				scope.$emit('timerangeReady');
 			}
 		};
 	});
