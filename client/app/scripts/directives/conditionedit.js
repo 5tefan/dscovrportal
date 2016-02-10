@@ -33,47 +33,32 @@ angular.module('dscovrDataApp')
 					'<div class="no-padding-right no-padding-left col-xs-2">'+
 						'<input type="number" class="form-control" placeholder="val" ng-model="value" ng-required>'+
 					'</div>'+
-					'<div class="col-xs-2" ng-if="removable">'+
+					'<div class="col-xs-2">'+
 						'<a class="btn btn-default" ng-click=rmCondition($index)><span class="glyphicon glyphicon-remove"></span></a>'+
-					'</div>'+
 					'</div>',
 			restrict: 'A',
 			scope: {
-				params : '=',
 				condition : '=',
 				rmCondition : "&",
 			},
 			link: function postLink(scope, element, attrs) {
 
-				var unwatch_removable = scope.$watch('removable', function() {
-					scope.removable = scope.$eval(attrs.removable);
-					unwatch_removable();
-				});
-
-				var set_pprv_from_condition = function() {
-					scope.prod = scope.condition.prod
-					scope.param = scope.condition.param
-					scope.relation = scope.condition.relation
-					scope.value = scope.condition.value
-				}
-					
-			
-				var unwatch_params = scope.$watch('params', function() {
-					if (scope.params) {
-						if (scope.condition) {
-							set_pprv_from_condition();
-						} else {
-							var unwatch_condition = scope.$watch('condition', function() {
-								if (scope.condition) {
-									set_pprv_from_condition();
-									unwatch_condition();
-								}
-							});
-						}
+				var unwatch_params = scope.$watch('$root.params', function() {
+					if (scope.$root.params) {
+						scope.params = scope.$root.params;
+						var unwatch_condition = scope.$watch('selection.predef', function() {
+							if (scope.condition && scope.condition.predef) {
+								var _ = scope.condition.predef.split(":")
+								scope.prod = _[0];
+								scope.param = _[1];
+								scope.relation = _[2];
+								scope.value = +_[3];
+								unwatch_condition();
+							}
+						});
 						unwatch_params();
-					}
-				})
-	
+					};
+				});
 
 				//wrapper on Object.keys to be available in scope
 				scope.keys = function( obj ) {

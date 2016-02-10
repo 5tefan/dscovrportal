@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Directive: tsConditionContainer', function () {
+describe('Directive: tsTimeRange', function () {
 
   // load the directive's module
   beforeEach(module('dscovrDataApp'));
@@ -13,8 +13,8 @@ describe('Directive: tsConditionContainer', function () {
   }));
 
   it('should make hidden element visible', inject(function ($compile) {
-    element = angular.element('<ts-condition-container></ts-condition-container>');
+    element = angular.element('<ts-time-range></ts-time-range>');
     element = $compile(element)(scope);
-    expect(element.text()).toBe('this is the tsConditionContainer directive');
+    expect(element.text()).toBe('this is the tsTimeRange directive');
   }));
 });

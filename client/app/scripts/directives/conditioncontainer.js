@@ -11,19 +11,18 @@ angular.module('dscovrDataApp')
 		return {
 			template: 
 				'<div class="row">'+
-					'<div class="col-xs-7">'+
-						'<h3> Add constraints </h3>'+
+					'<div class="col-xs-5">'+
+						'<h5>Constrain where:</h5>'+
 					'</div>'+
 					'<div class="col-xs-2">'+
-						'<a class="btn btn-default margin-t15" ng-click=addCondition()> + constraint </a>'+
+						'<a class="btn btn-default btn-sm" ng-click=addCondition()> + constraint </a>'+
 					'</div>'+
 				'</div>'+
 				'<div class="row condition-edit" ng-repeat="condition in conditions">'+
-						'<div condition-edit params="params" condition="condition" removable="true" rm-condition="rmCondition($index)"></div>'+
+						'<div condition-edit params="params" condition="condition" rm-condition="rmCondition($index)"></div>'+
 				'</div>',
 			restrict: 'A',
 			scope: {
-				params : '=',
 				predef : '=',
 			},
 			link: function postLink(scope, element, attrs) {
@@ -33,15 +32,10 @@ angular.module('dscovrDataApp')
 				//handle predef conditions
 				var unwatch_predef = scope.$watch('predef', function() {
 					if (scope.predef) {
-						for (var i in scope.predef) {
-							var condition = {
-								prod: scope.predef[i][0],
-								param: scope.predef[i][1],
-								relation: scope.predef[i][2],
-								value: Number(scope.predef[i][3]),
-							}
-							scope.conditions.push(condition);
-						}
+						console.log(scope.predef);
+						scope.predef.split(';').map( function(condition) {
+							scope.conditions.push({predef: condition});
+						});
 						unwatch_predef();
 					}
 				});
@@ -58,7 +52,12 @@ angular.module('dscovrDataApp')
 					var condition_str = "";
 					for (var each in scope.conditions) {
 						if (scope.conditions[each].construct) {
-							condition_str += scope.conditions[each].construct + ";";
+							condition_str += (condition_str?';':'') + scope.conditions[each].construct;
+						} else if (scope.conditions[each].predef) {
+							// this is the backup to solve the race condition which occasionally 
+							// occurs if the condition edit hasn't bound construct back to this scope
+							// so this is a shortcut for predefined conditions
+							condition_str += (condition_str?';':'') + scope.conditions[each].predef;
 						}
 					}
 					return condition_str;

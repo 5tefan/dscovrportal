@@ -113,11 +113,11 @@ angular.module('dscovrDataApp')
 			// and as a callback from the date pick directive. The date picker directive
 			// does not give any arguments onchange callback
 			$scope.frame_size = optional_new_frame_size || $scope.frame_size;
-			$location.url("/vis/summary/" + $scope.frame_size + "/" 
-				+ optional_new_ms || $scope.summary_date.valueOf());
+			var new_time = (optional_new_ms || $scope.summary_date.valueOf());
+			$location.url("/vis/summary/" + $scope.frame_size + "/" + new_time);
 			//change the url ^ but still reparse with the new frame size and date range 
 			//in $scope.parse_args now that we are intercepting the $locationChangeSuccess event
-			$scope.parse_args($scope.frame_size, optional_new_ms || $scope.summary_date.valueOf());
+			$scope.parse_args($scope.frame_size, new_time);
 		}
 
 		//formats the summary_frame_info url string to the current user selected date

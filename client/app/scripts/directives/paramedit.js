@@ -10,7 +10,7 @@ angular.module('dscovrDataApp')
 	.directive('paramEdit', function () {
 		return {
 			template: 
-					'<div class="col-xs-8">'+
+					'<div ng-class="{\'col-xs-10\' : removable, \'col-xs-12\' : !removable}">'+
 						'<select class="form-control param-edit-select" ng-model="prod" ng-options="prod for prod in keys(params)">'+
 							'<option value="" disabled selected>-product-</option>'+
 						'</select>'+
@@ -18,42 +18,30 @@ angular.module('dscovrDataApp')
 							'<option value="" disabled selected>-variable-</option>'+
 						'</select>'+
 					'</div>'+
-					'<div class="col-xs-4" ng-if="removable">'+
+					'<div class="col-xs-2" ng-if="removable">'+
 						'<a class="btn btn-default" ng-click=rmSelection()><span class="glyphicon glyphicon-remove"></span></a>'+
 					'</div>',
 			restrict: 'A',
 			scope: {
-				params : '=',
 				selection : '=',
+				removable : '=',
 				rmSelection : "&",
 			},
 			link: function postLink(scope, element, attrs) {
 
-				var unwatch_removable = scope.$watch('removable', function() {
-					scope.removable = scope.$eval(attrs.removable);
-					unwatch_removable();
-				});
-
-				var set_pp_from_selection = function() {
-					scope.prod = scope.selection.prod;
-					scope.param = scope.selection.param;
-				};
-
-				var unwatch_params = scope.$watch('params', function() {
-					if (scope.params) {
-						if (scope.selection) {
-							console.log(scope.selection);
-							set_pp_from_selection();
-						} else {
-							var unwatch_selection = scope.$watch('selection', function() {
-								if (scope.selection) {
-									set_pp_from_selection();
-									unwatch_selection();
-								}
-							});
-						}
+				var unwatch_params = scope.$watch('$root.params', function() {
+					if (scope.$root.params) {
+						scope.params = scope.$root.params;
+						var unwatch_selection = scope.$watch('selection.predef', function() {
+							if (scope.selection && scope.selection.predef) {
+								var _ = scope.selection.predef.split(":")
+								scope.prod = _[0];
+								scope.param = _[1];
+								unwatch_selection();
+							}
+						});
 						unwatch_params();
-					}
+					};
 				})
 
 				scope.$watchGroup(['prod', 'param'], function() {
