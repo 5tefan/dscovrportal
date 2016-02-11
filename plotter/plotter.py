@@ -25,11 +25,11 @@ dscovr_ts_width = 14 	#inches
 dscovr_ts_height = 10 	#inches
 dscovr_ts_frame_sizes = [
 	#name		#path				#filename	#startms		#finishms
-#	["6hour1",	"dscovr_6hr_plots/%Y/%m",	"%Y%m%d00-6hr", 0,			1000 * 60 * 60 * 6],
-#	["6hour2",	"dscovr_6hr_plots/%Y/%m",	"%Y%m%d06-6hr", 1000 * 60 * 60 * 6, 	1000 * 60 * 60 * 12],
-#	["6hour3",	"dscovr_6hr_plots/%Y/%m",	"%Y%m%d12-6hr", 1000 * 60 * 60 * 12, 	1000 * 60 * 60 * 18],
-#	["6hour4",	"dscovr_6hr_plots/%Y/%m",	"%Y%m%d18-6hr", 1000 * 60 * 60 * 18, 	1000 * 60 * 60 * 24],
-#	["1day",	"dscovr_1day_plots/%Y/%m",	"%Y%m%d-day", 	0,			1000 * 60 * 60 * 24],
+	["6hour1",	"dscovr_6hr_plots/%Y/%m",	"%Y%m%d00-6hr", 0,			1000 * 60 * 60 * 6],
+	["6hour2",	"dscovr_6hr_plots/%Y/%m",	"%Y%m%d06-6hr", 1000 * 60 * 60 * 6, 	1000 * 60 * 60 * 12],
+	["6hour3",	"dscovr_6hr_plots/%Y/%m",	"%Y%m%d12-6hr", 1000 * 60 * 60 * 12, 	1000 * 60 * 60 * 18],
+	["6hour4",	"dscovr_6hr_plots/%Y/%m",	"%Y%m%d18-6hr", 1000 * 60 * 60 * 18, 	1000 * 60 * 60 * 24],
+	["1day",	"dscovr_1day_plots/%Y/%m",	"%Y%m%d-day", 	0,			1000 * 60 * 60 * 24],
 	["3day",	"dscovr_3day_plots/%Y/",	"%Y%m%d-3day", 	0,			1000 * 60 * 60 * 24 * 3],
 	["7day",	"dscovr_7day_plots/%Y/",	"%Y%m%d-7day", 	0,			1000 * 60 * 60 * 24 * 7],
 	["1month",	"dscovr_month_plots/%Y/",	"%Y%m-month", 	0,			0] #month is going to to take a custom range, months not all same length
@@ -287,5 +287,6 @@ if __name__ == "__main__":
 	while date < datetime.datetime(2015, 06, 03):
 		print date.strftime("%Y-%m-%d")
 		date += delta
+		main(date)
 
 """
