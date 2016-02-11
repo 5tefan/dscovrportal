@@ -29,7 +29,7 @@
 					</div>
 					<div class="vis-summary-timenav">
 						<h4> Select date </h4>
-						<quick-datepicker class="vis-summary-timeselect" ng-model="summary_date" on-change="locationchange()" icon-class="glyphicon glyphicon-calendar" disable-timepicker="true"></quick-datepicker>
+						<quick-datepicker class="vis-summary-timeselect" ng-model="summary_date" on-change="locationchange()" icon-class="glyphicon glyphicon-calendar" timezone="UTC" disable-timepicker="true"></quick-datepicker>
 					</div>
 					<div class="vis-summary-timenav">
 						<a class="vis-summary-timestep btn btn-default btn-sm" ng-click="locationchange(frame_size, summary_end_ms)">
