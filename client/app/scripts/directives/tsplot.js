@@ -34,9 +34,14 @@ angular.module('dscovrDataApp')
 							y_scale_type: scope.plot.y_scale_type,
 							y_label: scope.plot.y_label,
 							xax_count: 10,
-							y_extended_ticks: true,
+							yax_count: 5,
 							x_extended_ticks: true,
+							y_extended_ticks: true,
 							min_y_from_data: true,
+							utc_time: true,
+							x_rollover_format: function(d) {
+return d.time.toUTCString() + " - ";
+							},
 						})
 						unwatch();
 						scope.plot.data = null;

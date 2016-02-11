@@ -34,7 +34,15 @@ angular.module('dscovrDataApp')
 							color_range: ["red", "blue"],
 							y_scale_type: scope.plot.y_scale_type,
 							x_scale_type: scope.plot.x_scale_type,
+							x_extended_ticks: true,
+							y_extended_ticks: true,
 							min_y_from_data: true,
+							mouseover: function(d, i) {
+this.target.getElementsByClassName("mg-active-datapoint")[0].innerHTML=
+	this.data[0][i].time.toUTCString() + " - "
+	+ this.x_accessor + ": " + this.data[0][i][this.x_accessor] + ", " 
+	+ this.y_accessor + ": " + this.data[0][i][this.y_accessor];
+							}
 						});
 						unwatch();
 						scope.plot.data = null;
