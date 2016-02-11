@@ -46,7 +46,7 @@ angular
         controller: 'VisScatterCtrl'
       })
 		//arg is the condition string
-      .when('/vis/event/:arg?', {
+      .when('/vis/event/:arg?/:argg?', {
         templateUrl: 'views/vis/event.html',
         controller: 'VisEventCtrl'
       })

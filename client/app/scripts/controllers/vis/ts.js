@@ -226,7 +226,7 @@ angular.module('dscovrDataApp')
 
 		dscovrDataAccess.getParameters2().then( function(data) {
 			$rootScope.params = data;
-		});
+		}, show_error);
 
 		// $routeParams.arg holds info on panels, if exists, set predef_param
 		if ($routeParams.arg) { // the lines

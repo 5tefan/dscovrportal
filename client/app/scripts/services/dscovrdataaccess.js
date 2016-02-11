@@ -23,7 +23,11 @@ angular.module('dscovrDataApp')
 					tries_counter++;
 					$timeout(do_request, 500);
 				} else {
-					deferred.reject(response.error + " ("+response.status+") : "+response.message);
+					if (response) {
+						deferred.reject(response.error + " ("+response.status+") : "+response.message);
+					} else {
+						deferred.reject("could not contact data server, please try again later");
+					};
 				};
 			});
 		};
@@ -122,7 +126,11 @@ angular.module('dscovrDataApp')
 						tries_counter++;
 						do_request();
 					} else {
-						deferred.reject(response.error + " ("+response.status+") : "+response.message);
+						if (response) {
+							deferred.reject(response.error + " ("+response.status+") : "+response.message);
+						} else {
+							deferred.reject("could not contact data server, please try again later");
+						};
 					}
 				});
 			}

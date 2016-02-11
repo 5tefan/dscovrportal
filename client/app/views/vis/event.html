@@ -20,24 +20,24 @@
 					</li>
 				</ul>
 			</div>
-			<div class="vis-selectarea col-xs-5">
-				<div time-range construct="timerange_construct" predef="predef_time"></div>
-				<div class="row">
-					<div class="col-xs-2 plot-button">
-						<a class="btn btn-success" role="button" ng-click="go()"> Plot </a>
-					</div>
-					<div ng-if="info" class="col-xs-5">
-						<h5> Status </h5>
-						<div status-log text="info"></div>
-					</div>
-					<div ng-if="error" class="col-xs-5">
-						<h5> Errors </h5>
-						<div status-log text="error"></div>
-					</div>
-				</div>
+			<div class="col-xs-2">
+				<div time-range predef="predef_time"></div>
 			</div>
-			<div id="vis-selectarea" class="col-xs-5">
-				<div condition-container params='params' predef="predef_cond"></div>
+			<div class="col-xs-4">
+				<div condition-container predef="predef_cond"></div>
+			</div>
+			<div class="clear">
+				<div class="col-xs-2 col-xs-offset-2 vis-selectarea">
+					<a class="btn btn-success" role="button" ng-click="go()"> Plot </a>
+				</div>
+				<div ng-if="info" class="col-xs-4">
+					<h5> Status </h5>
+					<div status-log text="info"></div>
+				</div>
+				<div ng-if="error" class="col-xs-4">
+					<h5> Errors </h5>
+					<div status-log text="error"></div>
+				</div>
 			</div>
 		</div>
 		<div class="vis-plotarea">

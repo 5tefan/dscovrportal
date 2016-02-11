@@ -8,10 +8,15 @@
  * Controller of the dscovrDataApp
  */
 angular.module('dscovrDataApp')
-	.controller('VisEventCtrl', function ($scope, $timeout, dscovrDataAccess, $routeParams, $location) {
-
-		$scope.plot = {};
+	.controller('VisEventCtrl', function ($scope, $timeout,
+	 dscovrDataAccess, $routeParams, $location, $rootScope) {
 		$scope.can_plot = false;
+		$scope.timerange_ready = false;
+
+		$scope.$on('timerangeReady', function() {
+			$scope.timerange_ready = true;
+		});
+
 		$scope.error = "";
 		$scope.info = "";
 
@@ -28,38 +33,58 @@ angular.module('dscovrDataApp')
 		// the generated condition string.
 		var evalConditions = function(cb) {
 			show_info("evaluating request");
-			$scope.$broadcast("evalConditions", function(condition_str) {
-				if (condition_str) {
-					$scope.criteria = condition_str;
-					$scope.can_plot = true;
-				} else {
-					// flash an error message if none of the conditions are valid
+			$scope.$broadcast('evalTimerange', function( timerange ) {
+				console.log("got time range: " + timerange);
+				$scope.timerange = timerange;
+				// do some validation on it
+				if (!$scope.timerange[0] || !$scope.timerange[1]) {
+					// if either one is missing, error, can't plot, and return
+					show_error("no time range selected");
 					$scope.can_plot = false;
-					show_error("No valid conditions");
-				}
-				if (cb) {cb()};
+					return;
+				} else if ($scope.timerange[0] >= $scope.timerange[1]) {
+					// if begindat is after enddate, again, error, can't plot, return
+					show_error("end date is not after start date");
+					$scope.can_plot = false;
+					return;
+				};
+				// enforce query limit of 1 month
+				if (moment($scope.timerange[0]).add(1, 'months').isBefore($scope.timerange[1])) {
+					show_error("queries larger than 1 month not supported");
+					$scope.can_plot = false;
+					return;
+				};
+				$scope.$broadcast("evalConditions", function(condition_str) {
+					if (condition_str) {
+						$scope.condition_str = condition_str;
+						$scope.can_plot = true;
+						if (cb) {cb()};
+					} else {
+						// flash an error message if none of the conditions are valid
+						$scope.can_plot = false;
+						show_error("No valid conditions");
+					}
+				});
 			});
 		};
 
 		var make_plot = function() {
-			evalConditions( function() {
-				var criteria = $scope.criteria;
-				var time = $scope.timerange_construct;
-				show_info("requesting data");
-				dscovrDataAccess.getValues2("", criteria + time).then( function( data ) {
-					show_info("data received");
-					show_info("plot is below");
-					$scope.plot = {
-						data: data,
-						title: criteria,
-					}
-				}, show_error);
-			});
+			var conditions = $scope.condition_str;
+			var timerange = $scope.timerange.slice();
+			show_info("requesting data");
+			dscovrDataAccess.getValues3("", timerange, conditions ).then( function( data ) {
+				show_info("data received, plot is below");
+				$scope.plot = {
+					data: data,
+					title: conditions,
+				}
+			}, show_error);
 		};
 
 		$scope.go = function() {
 			evalConditions( function() {
-				var new_url = "/vis/event/" + $scope.criteria + $scope.timerange_construct;
+				var new_url = "/vis/event/" + $scope.timerange.join(":") 
+					+ "/" + $scope.condition_str;
 				if ($location.url() != new_url) { //if locations changed
 					if ($scope.can_plot) {
 						$location.url(new_url); //change route, reload the controller
@@ -70,40 +95,26 @@ angular.module('dscovrDataApp')
 			});
 		};
 
-		$scope.timerange_construct = "";
-
 		dscovrDataAccess.getParameters2().then( function(data) {
-			$scope.params = data;
+			$rootScope.params = data;
 		}, show_error);
 
 		if ($routeParams.arg) {
-			$scope.predef_cond = []
-			$scope.predef_time = []
-			$routeParams.arg.split(";").map( function(str_cond) {
-				str_cond = str_cond.split(":");
-				if (str_cond[1] == "time") {
-					if (str_cond[2] == "ge" || str_cond[2] == "gt") {
-						$scope.predef_time[0] = str_cond[3];
-					} else {
-						$scope.predef_time[1] = str_cond[3];
-					}
-				} else {
-					$scope.predef_cond.push( str_cond )
-				}
-			});
+			$scope.predef_time = $routeParams.arg.split(":").map( Number );
+		}
+		if ($routeParams.argg) {
+			$scope.predef_cond = $routeParams.argg;
+		}
 
-			function waiting_until_ready() {
-				if ($scope.params) {
-					//console.log("waiting_until_ready finished, calling eval");
-					make_plot();
+		if ($routeParams.arg && $routeParams.argg) {
+			var waiting_until_ready = function() {
+				if ($rootScope.params && $scope.timerange_ready) {
+					evalConditions(make_plot);
 				} else { 
-					//console.log("waiting_until_ready not finished");
 					$timeout( waiting_until_ready, 500 );
 				}
 			};
 			waiting_until_ready();
 		};
-
-
 
 	});
