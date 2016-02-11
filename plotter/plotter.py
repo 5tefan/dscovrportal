@@ -8,6 +8,7 @@ import sys
 import math
 import time
 import fnmatch
+from subprocess import call
 import netCDF4 as nc
 import matplotlib as mpl
 mpl.use( 'Agg' )				##necessary when there is no xserver avail
@@ -88,9 +89,19 @@ def gunzip_files_to_tmp(files):
 	degz_files = []
 	for file in files:
 		tmp_path = tempfile.NamedTemporaryFile(mode="w+b", delete=False)
+        print "gunzipping file : " + file
 		shutil.copyfileobj( gzip.open( file ), tmp_path )
 		degz_files.append( tmp_path.name )
 	return degz_files
+
+def netcdf4_to_netcdf3_classic(files, delete=False):
+    classic_files = []
+    for file in files:
+        tmp_path = tempfile.NamedTemporaryFile(mode="w+b", delete=False)
+        call( ["nccopy", "-k", "classic", file, tmp_path.name] )
+        classic_files.append( tmp_path.name )
+    rm_gunzip_tmp_files(files)
+    return classic_files
 
 def rm_gunzip_tmp_files(files):
 	for file in files:
@@ -203,6 +214,9 @@ def main(date):
 					##treated specially because nc.MFDataset can take * wildcard and files are stored
 					## in the directories by month, so format the proper wildcard string for the datatype
 					if dscovr_files_gzipped:
+                        frame_beginning_millis = unix_time_millis( frame_beginning )
+                        current_get_millis = frame_beginning_millis
+                        current_get = datetime.datetime.utcfromtimestamp( current_get_millis/1000 )
 						file_paths = find_files_for_month( current_get, stroke[0] )
 					else:
 						path_part = os.path.join( dscovr_file_base, date_to_plot.strftime("%Y/%m") )
@@ -228,7 +242,12 @@ def main(date):
 					file_paths = gunzip_files_to_tmp( file_paths )
 				
 				try:
-					dataset = nc.MFDataset( file_paths )
+					try:
+						dataset = nc.MFDataset( file_paths )
+					except ValueError: ## handle NETCDF4 files,
+						print "converting to necdf3-classic"
+						file_paths = netcdf4_to_netcdf3_classic(file_paths)
+						dataset = nc.MFDataset( file_paths )
 
 					time = dataset.variables[ 'time' ][:] 					# type is np.ndarray, pull time from nc file
 					data = dataset.variables[ stroke[1] ][:]				# pull out the data
@@ -274,6 +293,7 @@ def main(date):
 #get rid of some annoying warnings
 if __name__ == "__main__":
 	warnings.filterwarnings("ignore")
+    """
 	try:
 		date = datetime.datetime.strptime( str( sys.argv[1] ), "%Y%m%d")
 	except (ValueError, IndexError):
@@ -281,12 +301,11 @@ if __name__ == "__main__":
 
 	main(date)
 	
-"""
+    """
 	date = dscovr_mission_start
 	delta = datetime.timedelta(days=1)
 	while date < datetime.datetime(2015, 06, 03):
 		print date.strftime("%Y-%m-%d")
-		date += delta
 		main(date)
+		date += delta
 
-"""
