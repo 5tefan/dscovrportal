@@ -80,31 +80,35 @@ angular.module('dscovrDataApp')
 			var selection = $scope.selection_str;
 			var timerange = $scope.timerange.slice();
 			var conditions = $scope.condition_str;
+			// takes f1m:proton_speed:linear;f1m:proton_density:linear
+			// and puts proton_speed in x_accessor and proton_density
+			// in y_accessor
+
+			var _, selsplitlog, sel; //temp vars for parsing seleciton string
+			_ = selection.split(";");
+			var request_selection = [];
+
+			selsplitlog = _[0].split("*");
+			var sel = selsplitlog[0].split(':');
+			var x_scale_type = (selsplitlog[1]=='log'?'log':'linear');
+			var x_prod = sel[0];
+			var x_accessor = sel[1];
+			request_selection.push(selsplitlog[0]);
+
+			selsplitlog = _[1].split("*");
+			sel = selsplitlog[0].split(':');
+			var y_scale_type = (selsplitlog[1]=='log'?'log':'linear');
+			var y_prod = sel[0];
+			var y_accessor = sel[1];
+			request_selection.push(selsplitlog[0]);
+
+			var x_label = x_accessor + " ["+$scope.params[x_prod][x_accessor]+"]";
+			var y_label = y_accessor + " ["+$scope.params[y_prod][y_accessor]+"]";
+
 			show_info("requesting data");
-			dscovrDataAccess.getValues3(selection, timerange, conditions).then( function( data ) {
+			dscovrDataAccess.getValues3(request_selection.join(";"), timerange, conditions).then( function( data ) {
 				show_info("data received, parsing");
 				
-				// takes f1m:proton_speed:linear;f1m:proton_density:linear
-				// and puts proton_speed in x_accessor and proton_density
-				// in y_accessor
-
-				var _, selsplitlog, sel; //temp vars for parsing seleciton string
-				_ = selection.split(";");
-
-				selsplitlog = _[0].split("*");
-				sel = selsplitlog[0].split(':');
-				var x_scale_type = (selsplitlog[1]=='log'?'log':'linear');
-				var x_prod = sel[0];
-				var x_accessor = sel[1];
-
-				selsplitlog = _[1].split("*");
-				sel = selsplitlog[0].split(':');
-				var y_scale_type = (selsplitlog[1]=='log'?'log':'linear');
-				var y_prod = sel[0];
-				var y_accessor = sel[1];
-
-				var x_label = x_accessor + " ["+$scope.params[x_prod][x_accessor]+"]";
-				var y_label = y_accessor + " ["+$scope.params[y_prod][y_accessor]+"]";
 
 				// filter the data for fill values to convert to null
 				// since this is not time series, each point is individual
