@@ -52,12 +52,6 @@ angular.module('dscovrDataApp')
 					$scope.can_plot = false;
 					return;
 				};
-				// enforce query limit of 1 month
-				if (moment($scope.timerange[0]).add(1, 'months').isBefore($scope.timerange[1])) {
-					show_error("queries larger than 1 month not supported");
-					$scope.can_plot = false;
-					return;
-				};
 				$scope.$broadcast('evalParameters', function(selection_str) {
 					$scope.selection_str = selection_str;
 					if ($scope.selection_str) {
@@ -108,54 +102,58 @@ angular.module('dscovrDataApp')
 			show_info("requesting data");
 			dscovrDataAccess.getValues3(request_selection.join(";"), timerange, conditions).then( function( data ) {
 				show_info("data received, parsing");
-				
-
-				// filter the data for fill values to convert to null
-				// since this is not time series, each point is individual
-				// so we dont have to worry about putting nulls in gaps to 
-				// make sure that lines don't get drawn connecting them like
-				// we do for ts, hence this loop is much simpler
-				var i = 0; // loop iter counter
-				var nulls = false;
-				var process = function() {
-					while (i < data.length) {
-						//null fill values and decide if we have a 
-						//sequence of nulls we can get rid of
-						nulls = false;
-						Object.keys(data[i]).map( function(k) {
-							if (+data[i][k] == -9999 | +data[i][k] == -999) {
-								nulls = true;
-							};
-						});
-						// since these are x and y, if either is null, we cant plot so
-						// splice dat
-						if (nulls) {
-							data.splice(i, 1); //we must splice
-							// below, we setTimeout to occasionally give control
-							// elsewhere so that UI remains responsive
-							setTimeout(process, 1);
-						} else {
-							data[i].time = new Date(+data[i].time);
-							i++;
+				var trace = {
+					x: [], y: [],
+					marker: { 
+						color: [],
+						autocolorscale: false,
+						colorscale: true,
+						colorbar: {
+							title: "date",
+							tickmode: "array",
+							tickvals: [],
+							ticktext: [],
+						}
+					 },
+					mode: 'markers',
+					type: 'scatter',
+					hoverinfo: "x+y",
+				};
+				var interval = Math.floor(data.length / 3);
+				data.map( function(dat, i){
+						if (((i + Math.floor(interval/1.7)) % interval) == 0) {
+							trace.marker.colorbar.tickvals.push(dat.time);
+							trace.marker.colorbar.ticktext
+							.push(moment(dat.time).format("YYYY-MM-DD HH:MM"));
+						}
+						if (dat[x_accessor] == "-9999" | dat[x_accessor] == "-999" 
+						| dat[y_accessor] == "-9999" | dat[y_accessor] == "-999") {
+							return
 						};
-					} //end while
-				}; //end process
-				process();
-				if (data.length > 0) { //check that we have data worth plotting
+						trace.marker.color.push(dat.time);
+						trace.x.push( dat[x_accessor] );
+						trace.y.push( dat[y_accessor] );
+				});
+				if (trace.x.length > 0) { //check that we have data worth plotting
 					show_info("plot will appear below");
 					$scope.plot = {
-						data: data,
-						title: y_accessor + " vs " + x_accessor,
-						y_accessor: y_accessor,
-						x_accessor: x_accessor,
-						y_scale_type: y_scale_type,
-						x_scale_type: x_scale_type,
-						y_label: y_label,
-						x_label: x_label,
+						traces: [trace],
+						layout: {
+							
+							title: y_accessor+" vs "+x_accessor,
+							hovermode:'closest',
+							xaxis: { 
+								title: x_label,
+								type: x_scale_type,
+							 },
+							yaxis: { 
+								title: y_label,
+								type: y_scale_type,
+							 },
+						},
 						download_link: {
 							timerange: timerange,
-							params: (y_accessor == x_accessor) ? x_accessor
-								: x_accessor + ";" + y_accessor,
+							params: (y_prod == x_prod)?x_prod:x_prod+";"+y_prod,
 						},
 					};
 				} else { // if no data to show, display error

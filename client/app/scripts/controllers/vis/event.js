@@ -74,9 +74,26 @@ angular.module('dscovrDataApp')
 			show_info("requesting data");
 			dscovrDataAccess.getValues3("", timerange, conditions ).then( function( data ) {
 				show_info("data received, plot is below");
+				var trace = {
+					x: [], y: [],
+					mode: 'markers',
+					type: 'scatter'
+				};
+				var i = 0;
+				var process = function() {
+					while (i < data.length) {
+						trace.x.push( new Date(data[i].time) );
+						trace.y.push( 1 );
+						i++;
+					}
+				}
+				process();
 				$scope.plot = {
-					data: data,
-					title: conditions,
+					traces: [trace],
+					layout: {
+						xaxis: {title: "time"},
+						title: conditions + " is true",
+					}
 				}
 			}, show_error);
 		};

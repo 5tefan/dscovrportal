@@ -132,69 +132,44 @@ angular.module('dscovrDataApp')
 				// end (make y_lablel)
 
 				show_info("panel " + (panel_index + 1) + ": requesting data");
-				dscovrDataAccess.getValues3(lines, timerange, conditions).then( function(d) {
+				dscovrDataAccess.getValues3(lines, timerange, conditions).then( function(data) {
 					show_info("panel " + (panel_index + 1) + ": data received, parsing");
-					//initialize some vars
-					var i = 0; //loop iter counter
-					var dt = 60*1000; //1 minute in ms, expected data time step
-					var bad = false; //current measurement is bad
-					var badprev = false; //previous measurement is bad
-					var process = function() {
-						//this while loop used to be while i+1 < d.length but
-						// now gapnext will always be false when it gets to the end
-						// of the array which will allow this routine to take out
-						// fill values at the end, while it was missing these with i+1
-						while (i < d.length) {
-							// count the number of nulls (fill values @ cur time step)
-							var nulls = 0;
-							Object.keys(d[i]).map( function(f) {
-								if (+d[i][f] == -9999 | +d[i][f] == -999) {
-									nulls++;
-									d[i][f] = null;
+					var traces = y_accessor.map( function(att) { 
+						return {
+							x: [], y: [],
+							mode: 'lines',
+							name: att,
+							line: { width: 1 },
+						};
+					});
+					var dates = [];
+					data.map( function(dat) {
+							dates.push( new Date( dat.time ) );
+							y_accessor.map( function(att, j) {
+								if (dat[att] == "-9999" | dat[att] == "-999") {
+									traces[j].y.push( null );
+								} else {
+									traces[j].y.push( + dat[att] );
 								}
 							});
-							// the time step is bad if all the values are null
-							bad = Boolean(nulls == y_accessor.length)
-							if (bad && badprev) {
-								d.splice(i, 1);
-								// below, we setTimeout to occasionally give control
-								// elsewhere so that UI remains responsive
-								setTimeout(process, 1);
-							} else { //end if (bad && badprev)
-								// see if there is missing time step before the next measurement
-								var gapnext = Boolean(d[i+1] && d[i+1]["time"]-d[i]["time"] > dt)
-								if (gapnext && !bad) {
-									// if there is, we need to add a null measurement so that metrics
-									// grphics doesn't connect the line between the two points
-									d.splice(i+1, 0, d[i])
-									Object.keys(d[i+1]).map( function(f) {
-										if (f == "time") {
-											d[i+1][f] = +d[i+1][f] + dt;
-										} else {
-											d[i+1][f] = null;
-										}
-									});
-									badprev = true;
-									i = i + 2;
-								} else { //end if (gapnext && !bad)
-									d[i].time = new Date(+d[i].time);
-									badprev = bad
-									i++;
-								} //end if (gapnext && !bad) else
-							} //end if (bad && badprev) else
-						} //end while filter over data
-					}; //end process
-					process();
-					if (d.length > 1) { // check that we have data worth plotting
+					});
+					traces.map( function(trace) { 
+						trace.x = dates;
+					});
+					if (dates.length > 1) { // check that we have data worth plotting
 						show_info("panel " + (panel_index + 1) + ": plot will appear below");
 						var title = lines + " from " + timerange.map( Date ).join(" to ");
 						// append to $scope.plots so that ng-repeat directive sees and plots
 						$scope.plots[panel_index] =  {
-							y_accessor: y_accessor,
-							data: d,
-							title: title,
-							y_scale_type: y_scale_type,
-							y_label: y_label,
+							traces: traces,
+							layout: {
+								title: y_accessor.join(', ')+" vs time",
+								xaxis: { title: "time" },
+								yaxis: { 
+									title: y_label,
+									type: y_scale_type,
+								},
+							},
 						};
 					} else { // if no data to show, display error
 						show_error("Panel " + (panel_index + 1) + ": no data matching request");

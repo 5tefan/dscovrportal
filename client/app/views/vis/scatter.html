@@ -45,7 +45,7 @@
 		</div>
 		<div class="vis-plotarea">
 			<div class="row">
-				<div scatter-plot plot="plot"></div>
+				<div plotly-plot plot="plot"></div>
 			</div>
 			<div ng-if="plot.download_link" class="row">
 				<a ng-href="#/download/{{plot.download_link.timerange.join(';')}}/{{plot.download_link.params}}">Download the data for this timerange</a>
