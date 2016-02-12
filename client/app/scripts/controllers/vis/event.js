@@ -48,12 +48,6 @@ angular.module('dscovrDataApp')
 					$scope.can_plot = false;
 					return;
 				};
-				// enforce query limit of 1 month
-				if (moment($scope.timerange[0]).add(1, 'months').isBefore($scope.timerange[1])) {
-					show_error("queries larger than 1 month not supported");
-					$scope.can_plot = false;
-					return;
-				};
 				$scope.$broadcast("evalConditions", function(condition_str) {
 					if (condition_str) {
 						$scope.condition_str = condition_str;

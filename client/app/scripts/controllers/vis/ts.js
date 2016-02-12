@@ -48,12 +48,6 @@ angular.module('dscovrDataApp')
 					$scope.can_plot = false;
 					return;
 				};
-				// enforce query limit of 1 month
-				if (moment($scope.timerange[0]).add(1, 'months').isBefore($scope.timerange[1])) {
-					show_error("queries larger than 1 month not supported");
-					$scope.can_plot = false;
-					return;
-				};
 				//initialize the string we will be building, will look like
 				// m1m:bx_gse;m1m:by_gse;;f1m:alpha_density where ; separate
 				// parameters in the same plot and ;; separate different panes
