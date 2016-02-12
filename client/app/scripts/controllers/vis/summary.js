@@ -8,7 +8,7 @@
  * Controller of the dscovrDataApp
  */
 angular.module('dscovrDataApp')
-	.controller('VisSummaryCtrl', function ($scope, $routeParams, $cookieStore, $location, $route, dscovrUtil) {
+	.controller('VisSummaryCtrl', function ($scope, $routeParams, $location, $route, dscovrUtil) {
 
 		$scope.summary_frame_info = {
 			"6h": {

@@ -10,12 +10,7 @@
  */
 angular
   .module('dscovrDataApp', [
-    'ngAnimate',
-    'ngCookies',
-    'ngResource',
     'ngRoute',
-    'ngSanitize',
-    'ngTouch',
 	'ngQuickDate',
   ])
   .config(function ($routeProvider, ngQuickDateDefaultsProvider) {

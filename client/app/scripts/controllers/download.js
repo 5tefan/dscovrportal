@@ -8,7 +8,7 @@
  * Controller of the dscovrDataApp
  */
 angular.module('dscovrDataApp')
-  .controller('DownloadCtrl', function ($scope, $routeParams, $cookieStore, $location, $route, dscovrDataAccess) {
+  .controller('DownloadCtrl', function ($scope, $routeParams, $location, $route, dscovrDataAccess) {
 
 	//info icon to do desc
 	dscovrDataAccess.getProducts().then( function(products) {
