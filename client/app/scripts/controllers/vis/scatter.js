@@ -139,7 +139,7 @@ angular.module('dscovrDataApp')
 					$scope.plot = {
 						traces: [trace],
 						layout: {
-							
+							autosize: true,
 							title: y_accessor+" vs "+x_accessor,
 							hovermode:'closest',
 							xaxis: { 
@@ -151,6 +151,7 @@ angular.module('dscovrDataApp')
 								type: y_scale_type,
 							 },
 						},
+						makesquare: true,
 						download_link: {
 							timerange: timerange,
 							params: (y_prod == x_prod)?x_prod:x_prod+";"+y_prod,
