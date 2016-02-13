@@ -11,10 +11,7 @@ angular.module('dscovrDataApp')
 		return {
 			template: 
 				'<div class="row ts-param-pane" ng-repeat="pane in panes track by $index">'+
-					'<div ts-param-pane predef="pane" rm-pane="rmPane($index)" position="$index+1"></div>'+
-					'<div class="ts-param-pane-remove-pane" class="col-xs-2">'+
-						'<a ng-if="panes.length > 1" class="btn btn-default" ng-click=rmPane($index)> - panel </a>'+
-					'</div>'+
+					'<div ts-param-pane predef="pane" removable="panes.length > 1" rm-pane="rmPane($index)" position="$index+1"></div>'+
 				'</div>'+
 				'<div class="ts-param-pane-add-pane" class="col-xs-2">'+
 					'<a class="btn btn-default" ng-click=addPane()> + panel </a>'+

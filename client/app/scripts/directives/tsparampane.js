@@ -12,25 +12,29 @@ angular.module('dscovrDataApp')
 			template: 
 				'<div class="col-xs-12">'+
 					'<div class="row margin-b10">'+
-						'<div class="col-xs-5 ts-param-pane-panel-title">'+
+						'<div class="col-xs-3 ts-param-pane-panel-title">'+
 							'<h4 class="ts-param-pane-panel-title"> Panel {{position}}</h4>'+
 						'</div>'+
-						'<div class="col-xs-4">'+
-							'<a class="btn btn-default btn-sm" ng-click=addSelection()> + param </a>'+
+						'<div class="ts-param-pane-remove-pane" class="col-xs-2">'+
+							'<a ng-if="removable" class="btn btn-default btn-sm" ng-click=rmPane($index)><span class="glyphicon glyphicon-remove"> </span></a>'+
 						'</div>'+
 					'</div>'+
 					'<div class="row pane-edit" ng-repeat="selection in selections track by $index">'+ // and then other selections
 							'<div param-edit selection="selection" removable="selections.length > 1" rm-selection="rmSelection($index)"></div>'+
 					'</div>'+
-					'<form>'+
+					'<form class="col-xs-5">'+
 						'<div class="checkbox">'+
 							'<label><input type="checkbox" ng-model="adv.log">Log scale</label>'+
 						'</div>'+
 					'</form>'+
+					'<div class="col-xs-4 col-xs-offset-1">'+
+						'<a class="btn btn-default btn-sm" ng-click=addSelection()> + variable </a>'+
+					'</div>'+
 				'</div>',
 			restrict: 'A',
 			scope: {
 				predef : '=',
+				removable : '=',
 				rmPane : '&', //function to remove this panel
 				position : '=', //function to determine which panel this is
 			},
