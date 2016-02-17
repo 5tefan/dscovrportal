@@ -43,7 +43,9 @@ input, form {
 .margin-b10 {
 	margin-bottom: 10px;
 }
-
+.margin-b5 {
+	margin-bottom: 5px;
+}
 .no-padding-right {
 	padding-right: 0;
 }
@@ -117,7 +119,7 @@ input, form {
 .ts-param-pane-add-pane {
 	clear: both;
 	float: right;
-	margin-top: -14px;
+	margin-top: -20px;
 	box-shadow: 0px 0px 55px 40px #eee;
 	-moz-box-shadow: 0px 0px 55px 40px #eee;
 	-webkit-box-shadow: 0px 0px 55px 40px #eee;
@@ -125,9 +127,12 @@ input, form {
 .pane-edit {
 	margin: 0 0 5px 0;
 }
-.param-edit-select{
-	width: 48%;
-	margin-right: 2px;
+.param-edit-select-prod{
+	width: 40%;
+	display: inline;
+}
+.param-edit-select-var{
+	width: 60%;
 	display: inline;
 }
 .condition-edit {
@@ -181,7 +186,7 @@ div#ngdcheader {left: auto;}
 }
 
 .status-log-box {
-	max-height: 70px;
+	max-height: 1.6rem;
 	overflow-y: scroll;
 }
 

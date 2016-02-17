@@ -11,6 +11,7 @@
 angular
   .module('dscovrDataApp', [
     'ngRoute',
+	'ngCookies',
 	'ngQuickDate',
   ])
   .config(function ($routeProvider, ngQuickDateDefaultsProvider) {
@@ -60,4 +61,5 @@ angular
 		return moment(d).isBetween(mission_start, mission_end);
 	});
 	ngQuickDateDefaultsProvider.set('placeholder', '---------------');
+	ngQuickDateDefaultsProvider.set('closeButtonHtml', 'ok');
   });

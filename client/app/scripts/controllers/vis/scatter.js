@@ -8,7 +8,7 @@
  * Controller of the dscovrDataApp
  */
 angular.module('dscovrDataApp')
-	.controller('VisScatterCtrl', function ($scope, $timeout, 
+	.controller('VisScatterCtrl', function ($scope, $timeout, $cookieStore,
 	dscovrDataAccess, $routeParams, $location, $rootScope) {
 
 		//stats indicator for conditions met for plotting.
@@ -96,8 +96,8 @@ angular.module('dscovrDataApp')
 			var y_accessor = sel[1];
 			request_selection.push(selsplitlog[0]);
 
-			var x_label = x_accessor + " ["+$scope.params[x_prod][x_accessor]+"]";
-			var y_label = y_accessor + " ["+$scope.params[y_prod][y_accessor]+"]";
+			var x_label = x_accessor + ($scope.params[x_prod][x_accessor]?" ["+$scope.params[x_prod][x_accessor]+"]":"");
+			var y_label = y_accessor + ($scope.params[y_prod][y_accessor]?" ["+$scope.params[y_prod][y_accessor]+"]":"");
 
 			show_info("requesting data");
 			dscovrDataAccess.getValues3(request_selection.join(";"), timerange, conditions).then( function( data ) {
@@ -145,10 +145,12 @@ angular.module('dscovrDataApp')
 							xaxis: { 
 								title: x_label,
 								type: x_scale_type,
+								showline: true,
 							 },
 							yaxis: { 
 								title: y_label,
 								type: y_scale_type,
+								showline: true,
 							 },
 						},
 						makesquare: true,
@@ -168,6 +170,9 @@ angular.module('dscovrDataApp')
 				var new_url = "/vis/scatter/" + $scope.selection_str + "/" 
 				+ $scope.timerange.join(":") + "/" + $scope.condition_str;
 				if ($location.url() != new_url) { // if location changed
+					$cookieStore.put("scatter.arg", $scope.selection_str);
+					$cookieStore.put("scatter.argg", $scope.timerange.join(":"));
+					$cookieStore.put("scatter.arggg", $scope.condition_str);
 					if ($scope.can_plot) {
 						$location.url(new_url); // chnage route, this reloads the controller
 					}
@@ -183,15 +188,21 @@ angular.module('dscovrDataApp')
 
 		if ($routeParams.arg) {
 			$scope.predef_selec = $routeParams.arg;
-		}
+		} else if ($cookieStore.get("scatter.arg")) {
+			$scope.predef_selec = $cookieStore.get("scatter.arg");
+		};
 
 		if ($routeParams.argg) {
 			$scope.predef_time = $routeParams.argg.split(':').map( Number );
-		}
+		} else if ($cookieStore.get("scatter.argg")) {
+			$scope.predef_time = $cookieStore.get("scatter.argg").split(':').map( Number );
+		};
 
 		if ($routeParams.arggg) {
 			$scope.predef_cond = $routeParams.arggg;
-		}
+		} else if ($cookieStore.get("scatter.arggg")) {
+			$scope.predef_cond = $cookieStore.get("scatter.arggg");
+		};
 
 		if ($routeParams.arg && $routeParams.argg) { //must have both to plot
 			var waiting_until_ready = function() {

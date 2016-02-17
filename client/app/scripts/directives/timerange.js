@@ -10,14 +10,14 @@ angular.module('dscovrDataApp')
 	.directive('timeRange', function () {
 		return {
 			template: 
-					'<div class="row" style="margin-bottom: 15px; clear: both">'+
-						'<div class="col-xs-12">'+
-							'<h5><span class="glyphicon glyphicon-calendar"></span> Begin Date</h5>'+
-							'<quick-datepicker ng-model="selected_begin" on-change="onchange_begin()" time-format="HH:mm"></quick-datepicker>'+
+					'<div class="row no-padding-right" style="margin-bottom: 15px; clear: both">'+
+						'<div class="col-xs-12 no-padding-right">'+
+							'<h5>Begin Date</h5>'+
+							'<quick-datepicker ng-model="selected_begin" on-change="onchange_begin()" time-format="HH:mm" icon-class="glyphicon glyphicon-calendar" disable-clear-button="true"></quick-datepicker>'+
 						'</div>'+
-						'<div class="col-xs-12">'+
-							'<h5><span class="glyphicon glyphicon-calendar"></span> End Date</h5>'+
-							'<quick-datepicker ng-model="selected_end" on-change="onchange_end()" time-format="HH:mm"></quick-datepicker>'+
+						'<div class="col-xs-12 no-padding-right">'+
+							'<h5>End Date</h5>'+
+							'<quick-datepicker ng-model="selected_end" on-change="onchange_end()" time-format="HH:mm" icon-class="glyphicon glyphicon-calendar" disable-clear-button="true"></quick-datepicker>'+
 						'</div>'+
 					'</div>',
 			restrict: 'A',

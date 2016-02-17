@@ -8,7 +8,8 @@
  * Controller of the dscovrDataApp
  */
 angular.module('dscovrDataApp')
-	.controller('VisSummaryCtrl', function ($scope, $routeParams, $location, $route, dscovrUtil) {
+	.controller('VisSummaryCtrl', function ($scope, $routeParams, $cookieStore,
+	 $location, $route, dscovrUtil) {
 
 		$scope.summary_frame_info = {
 			"6h": {
@@ -96,8 +97,11 @@ angular.module('dscovrDataApp')
 		};
 
 		//initialize the page with $routeParams.arg and argg
-		$scope.parse_args($routeParams.arg, $routeParams.argg);
-
+		if ($routeParams.arg) {
+			$scope.parse_args($routeParams.arg, $routeParams.argg);
+		} else if ($cookieStore.get("summary.arg")) {
+			$scope.parse_args($cookieStore.get("summary.arg"), $cookieStore.get("summary.argg"));
+		};
 		// see http://stackoverflow.com/a/14329570
 		// prevents refresh on route change
 		var lastRoute = $route.current;
@@ -114,6 +118,8 @@ angular.module('dscovrDataApp')
 			// does not give any arguments onchange callback
 			$scope.frame_size = optional_new_frame_size || $scope.frame_size;
 			var new_time = (optional_new_ms || $scope.summary_date.valueOf());
+			$cookieStore.put("summary.arg", $scope.frame_size);
+			$cookieStore.put("summary.argg", new_time);
 			$location.url("/vis/summary/" + $scope.frame_size + "/" + new_time);
 			//change the url ^ but still reparse with the new frame size and date range 
 			//in $scope.parse_args now that we are intercepting the $locationChangeSuccess event

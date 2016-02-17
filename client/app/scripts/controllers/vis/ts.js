@@ -8,7 +8,7 @@
  * Controller of the dscovrDataApp
  */
 angular.module('dscovrDataApp')
-	.controller('VisTsCtrl', function ($scope, $timeout, 
+	.controller('VisTsCtrl', function ($scope, $timeout, $cookieStore,
 	dscovrDataAccess, $routeParams, $location, $rootScope) {
 
 		$scope.can_plot = false;
@@ -119,7 +119,7 @@ angular.module('dscovrDataApp')
 				y_accessor = lines.split(";").map( function(line) {
 					var _ = line.split(":")
 					// create the label and add the units
-					y_label.push( _[1] + " [" + $scope.params[_[0]][_[1]] + "]" );
+					y_label.push( _[1] + ($scope.params[_0][_1]?" ["+$scope.params[_[0]][_[1]]+"]":"") );
 					return _[1]
 				}); 
 				y_label.join(', ');
@@ -158,11 +158,16 @@ angular.module('dscovrDataApp')
 							traces: traces,
 							layout: {
 								title: y_accessor.join(', ')+" vs time",
-								xaxis: { title: "time" },
+								xaxis: { 
+									title: "time",
+									showline: true,
+								 },
 								yaxis: { 
 									title: y_label,
 									type: y_scale_type,
+									showline: true,
 								},
+								margin: {t: 80},
 							},
 						};
 					} else { // if no data to show, display error
@@ -184,6 +189,9 @@ angular.module('dscovrDataApp')
 				var new_url = "/vis/ts/" + $scope.pane_strs + "/" 
 					+ $scope.timerange.join(":") + "/" +  $scope.condition_str;
 				if ($location.url() != new_url) { // if location changed
+					$cookieStore.put("vis.arg", $scope.pane_strs);
+					$cookieStore.put("vis.argg", $scope.timerange.join(":"));
+					$cookieStore.put("vis.arggg", $scope.condition_str);
 					if ($scope.can_plot) {
 						$location.url(new_url); // chnage route, this reloads the controller
 					}
@@ -200,13 +208,19 @@ angular.module('dscovrDataApp')
 		// $routeParams.arg holds info on panels, if exists, set predef_param
 		if ($routeParams.arg) { // the lines
 			$scope.predef_param = $routeParams.arg;
-		}
+		} else if ($cookieStore.get("vis.arg")) {
+			$scope.predef_param = $cookieStore.get("vis.arg");
+		};
 		if ($routeParams.argg) { // the time range
 			$scope.predef_time = $routeParams.argg.split(":").map( Number );
-		} 
+		} else if ($cookieStore.get("vis.argg")) {
+			$scope.predef_time = $cookieStore.get("vis.argg").split(":").map( Number );
+		};
 		if ($routeParams.arggg) { // conditions
 			$scope.predef_cond = $routeParams.arggg;
-		}
+		} else if ($cookieStore.get("vis.arggg")) {
+			$scope.predef_cond = $cookieStore.get("vis.arggg");
+		};
 		// if $routeParams.arg and $routeParams.argg, try to plot
 		if ($routeParams.arg && $routeParams.argg) {
 			//this timeout is needed becuase otherwise

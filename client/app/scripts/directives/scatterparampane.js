@@ -14,7 +14,7 @@ angular.module('dscovrDataApp')
 					'<div class="col-xs-3 no-padding-right">'+
 						'<h4> x-axis: </h4>'+
 					'</div>'+
-					'<div class="col-xs-9 no-padding-left">'+
+					'<div class="col-xs-9 no-padding-left no-padding-right">'+
 						'<div param-edit selection="selection_x" removable="false"></div>'+
 					'</div>'+
 					'<form class="col-xs-5 col-xs-offset-3 clear">'+
@@ -27,7 +27,7 @@ angular.module('dscovrDataApp')
 					'<div class="col-xs-3 no-padding-right">'+
 						'<h4> y-axis: </h4>'+
 					'</div>'+
-					'<div class="col-xs-9 no-padding-left">'+
+					'<div class="col-xs-9 no-padding-left no-padding-right">'+
 						'<div param-edit selection="selection_y" removable="false"></div>'+
 					
 					'</div>'+

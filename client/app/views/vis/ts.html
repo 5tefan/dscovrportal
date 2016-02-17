@@ -18,13 +18,13 @@
 					</li>
 				</ul>
 			</div>
-			<div class="col-xs-2">
+			<div class="col-xs-2 no-padding-right">
 				<div time-range predef="predef_time"></div>
 			</div>
-			<div class="col-xs-4">
+			<div class="col-xs-4 no-padding-right">
 				<div ts-param-container predef="predef_param"></div>
 			</div>
-			<div class="col-xs-4">
+			<div class="col-xs-4 no-padding-right">
 				<div condition-container predef="predef_cond"></div>
 			</div>
 			<div class="clear">
@@ -32,11 +32,11 @@
 					<a class="btn btn-success" role="button" ng-click="go()"> Plot </a>
 				</div>
 				<div ng-if="info" class="col-xs-4">
-					<h5> Status </h5>
+					<h5 class="no-margin margin-b5"> Status </h5>
 					<div status-log text="info"></div>
 				</div>
 				<div ng-if="error" class="col-xs-4">
-					<h5> Errors </h5>
+					<h5 class="no-margin margin-b5"> Errors </h5>
 					<div status-log text="error"></div>
 				</div>
 			</div>

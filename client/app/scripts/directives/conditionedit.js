@@ -30,10 +30,10 @@ angular.module('dscovrDataApp')
 							'<option value="le"> &lt;= </option>'+
 						'</select>'+
 					'</div>'+
-					'<div class="no-padding-right no-padding-left col-xs-2">'+
+					'<div class="no-padding-right no-padding-left col-xs-3">'+
 						'<input type="number" class="form-control" placeholder="val" ng-model="value" ng-required>'+
 					'</div>'+
-					'<div class="col-xs-2">'+
+					'<div class="col-xs-1 no-padding-right no-padding-left">'+
 						'<a class="btn btn-default" ng-click=rmCondition($index)><span class="glyphicon glyphicon-remove"></span></a>'+
 					'</div>',
 			restrict: 'A',

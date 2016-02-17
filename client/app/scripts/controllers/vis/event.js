@@ -8,7 +8,7 @@
  * Controller of the dscovrDataApp
  */
 angular.module('dscovrDataApp')
-	.controller('VisEventCtrl', function ($scope, $timeout,
+	.controller('VisEventCtrl', function ($scope, $timeout, $cookieStore,
 	 dscovrDataAccess, $routeParams, $location, $rootScope) {
 		$scope.can_plot = false;
 		$scope.timerange_ready = false;
@@ -97,6 +97,8 @@ angular.module('dscovrDataApp')
 				var new_url = "/vis/event/" + $scope.timerange.join(":") 
 					+ "/" + $scope.condition_str;
 				if ($location.url() != new_url) { //if locations changed
+					$cookieStore.put("event.arg", $scope.timerange.join(":"));
+					$cookieStore.put("event.argg", $scope.condition_str);
 					if ($scope.can_plot) {
 						$location.url(new_url); //change route, reload the controller
 					}
@@ -112,10 +114,15 @@ angular.module('dscovrDataApp')
 
 		if ($routeParams.arg) {
 			$scope.predef_time = $routeParams.arg.split(":").map( Number );
-		}
+		} else if ($cookieStore.get("event.arg")) {
+			$scope.predef_time = $cookieStore.get("event.arg").split(":").map( Number );
+		};
+
 		if ($routeParams.argg) {
 			$scope.predef_cond = $routeParams.argg;
-		}
+		} else if ($cookieStore.get("event.argg")) {
+			$scope.predef_cond = $cookieStore.get("event.argg");
+		};
 
 		if ($routeParams.arg && $routeParams.argg) {
 			var waiting_until_ready = function() {
