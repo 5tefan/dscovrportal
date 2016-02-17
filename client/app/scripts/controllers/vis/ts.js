@@ -119,7 +119,7 @@ angular.module('dscovrDataApp')
 				y_accessor = lines.split(";").map( function(line) {
 					var _ = line.split(":")
 					// create the label and add the units
-					y_label.push( _[1] + ($scope.params[_0][_1]?" ["+$scope.params[_[0]][_[1]]+"]":"") );
+					y_label.push( _[1] + ($scope.params[_[0]][_[1]]?" ["+$scope.params[_[0]][_[1]]+"]":"") );
 					return _[1]
 				}); 
 				y_label.join(', ');
