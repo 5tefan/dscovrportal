@@ -59,8 +59,14 @@
 				</div>-->
                 <h4 style="margin-bottom:20px;">Results:</h4>
 
-                <p> Download all files using <a href="#" data-toggle="tooltip" title="Help text"><strong>wget</strong> <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a><br />
+                <p style="display: inline"> Download all files using 
+					<a href="https://en.wikipedia.org/wiki/Wget">
+						<strong>wget</strong> 
+					</a>
+				</p>
+				<div tooltip-help class="right inline" hover="Paste the command below into a command line to download all files listed to your current directory"></div>
                 <input class="form-control input-sm" type="text" value="{{make_wget()}}" readonly> </input>
+				<br/>
                 <p> Individual files by date</p>
 
                 <div ng-repeat="(date, links) in files">
