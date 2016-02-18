@@ -200,13 +200,13 @@ def main(date):
 	for frame_size in dscovr_ts_frame_sizes:							# loop over frame sizes defined
 		#print( "getting data for: %s" % frame_size[0] )
 		frame_beginning = startof_frame( date_to_plot, frame_size[0] )				# only used if not 1month frame size
+		frame_beginning_millis = unix_time_millis( frame_beginning )
 
 		for pane_config in dscovr_ts_pane_config:
 			#print( "\tpane: %s" % pane_config[0].split('\n')[0] )
 
 			for stroke in pane_config[2]:
 				#for multiple strokes on same pane, eg bz, bx, and by
-				
 				start_millis = 0
 				end_millis = 0
 				file_paths = []
@@ -214,13 +214,12 @@ def main(date):
 					##treated specially because nc.MFDataset can take * wildcard and files are stored
 					## in the directories by month, so format the proper wildcard string for the datatype
 					if dscovr_files_gzipped:
-                        frame_beginning_millis = unix_time_millis( frame_beginning )
-                        current_get_millis = frame_beginning_millis
-                        current_get = datetime.datetime.utcfromtimestamp( current_get_millis/1000 )
-						file_paths = find_files_for_month( current_get, stroke[0] )
+						file_paths = find_files_for_month( date_to_plot, stroke[0] )
 					else:
 						path_part = os.path.join( dscovr_file_base, date_to_plot.strftime("%Y/%m") )
 						file_paths = path_part + "/it_" + stroke[0] + "_dscovr_*.nc" 
+					start_millis = frame_beginning_millis
+					end_millis = unix_time_millis( datetime.datetime(date_to_plot.year, date_to_plot.month+1, 1) )
 					
 				else:
 					##otherwise have to iterate by date to get the filenames containing the data for the period
@@ -265,10 +264,15 @@ def main(date):
 							finaldata.append( x )
 							finaltime.append( datetime.datetime.utcfromtimestamp( time[i]/1000 ) )
 
-						if i + 1 < len( data ): #if still inside data array
-							if time[i+1] - time[i] > 1000 * 60 * 60: ##more than 1 hour until next time element
-								finaldata.append( np.nan )
-								finaltime.append( datetime.datetime.utcfromtimestamp( (time[i] + 1000 * 60)/1000 ) )
+					#	if i + 1 < len( data ): #if still inside data array
+					#		if time[i+1] - time[i] > 1000 * 60 * 60: ##more than 1 hour until next time element
+					#			finaldata.append( np.nan )
+					#			finaltime.append( datetime.datetime.utcfromtimestamp( (time[i] + 1000 * 60)/1000 ) )
+
+					# sort the by the time
+					zipped = zip(finaltime, finaldata)
+					zipped.sort(key=lambda tup: tup[0])
+					finaltime, finaldata = zip(*zipped)
 
 					stroke.append( finaltime ) 							# plug it into the config, see pop in the make_plot function
 					stroke.append( finaldata )							# put it into the config as well, this is what second pop in make_plot is for
