@@ -32,7 +32,7 @@
 							<p > {{products[$index+3].title}} </p>
 						</div>
 					</div>
-				</div>--> <h4 style="margin-bottom:20px">Results:</h4> <p> Download all files using <a href="#" data-toggle="tooltip" title="Help text"><strong>wget</strong> <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a><br> <input class="form-control input-sm" type="text" value="{{make_wget()}}" readonly>  </p><p> Individual files by date</p> <div ng-repeat="(date, links) in files"> <h4> {{date}} </h4> <div ng-repeat="product in products | filter:{selected:true}"> <span style="font-size:small"> <a ng-href="{{links[product.product]}}">{{ links[product.product].split('/')[7]}}</a> </span> </div> </div> </div> </div> </div> <!--<div id="download-browse" class="row">
+				</div>--> <h4 style="margin-bottom:20px">Results:</h4> <p style="display: inline"> Download all files using <a href="https://en.wikipedia.org/wiki/Wget"> <strong>wget</strong> </a> </p> <div tooltip-help class="right inline" hover="Paste the command below into a command line to download all files listed to your current directory"></div> <input class="form-control input-sm" type="text" value="{{make_wget()}}" readonly>  <br> <p> Individual files by date</p> <div ng-repeat="(date, links) in files"> <h4> {{date}} </h4> <div ng-repeat="product in products | filter:{selected:true}"> <span style="font-size:small"> <a ng-href="{{links[product.product]}}">{{ links[product.product].split('/')[7]}}</a> </span> </div> </div> </div> </div> </div> <!--<div id="download-browse" class="row">
         <div class="row">
             <div class="col-xs-2">
                 <h2>Results:</h2>
