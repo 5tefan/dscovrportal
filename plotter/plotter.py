@@ -19,7 +19,7 @@ import matplotlib.pyplot as plt
 ############## config ####################
 dscovr_mission_start = datetime.datetime(2015, 03, 02)  #march 2
 dscovr_file_base = '/nfs/dscovr_private/data/' #code assumes files organized under this by YEAR/MONTH
-dscovr_plot_output_base = '/nfs/dscovr_private/plots/'
+dscovr_plot_output_base = '/nfs/dscovr_public/plots/'
 dscovr_files_gzipped = True
 
 dscovr_ts_width = 14 	#inches
@@ -89,19 +89,19 @@ def gunzip_files_to_tmp(files):
 	degz_files = []
 	for file in files:
 		tmp_path = tempfile.NamedTemporaryFile(mode="w+b", delete=False)
-        print "gunzipping file : " + file
+		print "gunzipping file : " + file
 		shutil.copyfileobj( gzip.open( file ), tmp_path )
 		degz_files.append( tmp_path.name )
 	return degz_files
 
 def netcdf4_to_netcdf3_classic(files, delete=False):
-    classic_files = []
-    for file in files:
-        tmp_path = tempfile.NamedTemporaryFile(mode="w+b", delete=False)
-        call( ["nccopy", "-k", "classic", file, tmp_path.name] )
-        classic_files.append( tmp_path.name )
-    rm_gunzip_tmp_files(files)
-    return classic_files
+	classic_files = []
+	for file in files:
+		tmp_path = tempfile.NamedTemporaryFile(mode="w+b", delete=False)
+		call( ["nccopy", "-k", "classic", file, tmp_path.name] )
+		classic_files.append( tmp_path.name )
+	rm_gunzip_tmp_files(files)
+	return classic_files
 
 def rm_gunzip_tmp_files(files):
 	for file in files:
@@ -264,10 +264,10 @@ def main(date):
 							finaldata.append( x )
 							finaltime.append( datetime.datetime.utcfromtimestamp( time[i]/1000 ) )
 
-					#	if i + 1 < len( data ): #if still inside data array
-					#		if time[i+1] - time[i] > 1000 * 60 * 60: ##more than 1 hour until next time element
-					#			finaldata.append( np.nan )
-					#			finaltime.append( datetime.datetime.utcfromtimestamp( (time[i] + 1000 * 60)/1000 ) )
+						if i + 1 < len( data ): #if still inside data array
+							if time[i+1] - time[i] > 1000 * 60 * 60: ##more than 1 hour until next time element
+								finaldata.append( np.nan )
+								finaltime.append( datetime.datetime.utcfromtimestamp( (time[i] + 1000 * 60)/1000 ) )
 
 					# sort the by the time
 					zipped = zip(finaltime, finaldata)
@@ -297,7 +297,7 @@ def main(date):
 #get rid of some annoying warnings
 if __name__ == "__main__":
 	warnings.filterwarnings("ignore")
-    """
+	"""
 	try:
 		date = datetime.datetime.strptime( str( sys.argv[1] ), "%Y%m%d")
 	except (ValueError, IndexError):
@@ -305,10 +305,10 @@ if __name__ == "__main__":
 
 	main(date)
 	
-    """
+	"""
 	date = dscovr_mission_start
 	delta = datetime.timedelta(days=1)
-	while date < datetime.datetime(2015, 06, 03):
+	while date < datetime.datetime(2016, 02, 17):
 		print date.strftime("%Y-%m-%d")
 		main(date)
 		date += delta
