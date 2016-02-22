@@ -98,17 +98,17 @@ angular.module('dscovrDataApp')
 	};
 
 	$scope.$on("datechange", function(event, dates) {
-		if ($scope.products) {
-			var selected = $scope.get_selected_products();
-			$location.url("/download/" 
-				+ dates.join(';') + '/' + selected.join(';')
-			);
-			$scope.parse_arg(dates.join(";"));
-		}
+		var selected = $scope.get_selected_products();
+		$location.url("/download/" 
+			+ dates.join(';') + '/' + selected.join(';')
+		);
+		$scope.parse_arg(dates.join(";"));
 	});
 
 	// initialize by parsing routeparam arg
-	$scope.parse_arg($routeParams.arg);
+	if ($routeParams.arg) {
+		$scope.parse_arg($routeParams.arg);
+	};
 });
 
 
