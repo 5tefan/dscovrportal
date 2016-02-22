@@ -41,11 +41,6 @@ angular
         templateUrl: 'views/vis/scatter.html',
         controller: 'VisScatterCtrl'
       })
-		//arg is the condition string
-      .when('/vis/event/:arg?/:argg?', {
-        templateUrl: 'views/vis/event.html',
-        controller: 'VisEventCtrl'
-      })
       .when('/download/:arg?/:argg?', {
         templateUrl: 'views/download.html',
         controller: 'DownloadCtrl'
