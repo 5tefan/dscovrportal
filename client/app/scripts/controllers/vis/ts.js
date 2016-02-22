@@ -131,7 +131,11 @@ angular.module('dscovrDataApp')
 					var traces = y_accessor.map( function(att) { 
 						return {
 							x: [], y: [],
-							mode: 'lines',
+							mode: 'markers',
+							marker: {
+								symbol: "circle",
+								size: 3,
+							},
 							name: att,
 							line: { width: 1 },
 						};
@@ -203,6 +207,10 @@ angular.module('dscovrDataApp')
 
 		dscovrDataAccess.getParameters2().then( function(data) {
 			$rootScope.params = data;
+		}, show_error);
+
+		dscovrDataAccess.getProducts2().then( function(data) {
+			$rootScope.prods = data;
 		}, show_error);
 
 		// $routeParams.arg holds info on panels, if exists, set predef_param

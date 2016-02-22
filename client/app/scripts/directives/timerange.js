@@ -7,7 +7,7 @@
  * # timeRange
  */
 angular.module('dscovrDataApp')
-	.directive('timeRange', function () {
+	.directive('timeRange', function (dscovrUtil) {
 		return {
 			template: 
 					'<div class="row no-padding-right" style="margin-bottom: 15px; clear: both">'+

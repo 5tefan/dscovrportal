@@ -11,8 +11,10 @@ angular.module('dscovrDataApp')
 		return {
 			template: 
 					'<div ng-class="{\'col-xs-11\' : removable, \'col-xs-12\' : !removable}" class="no-padding-left no-padding-right">'+
-						'<select class="form-control param-edit-select-prod" ng-model="prod" ng-options="prod for prod in keys(params)">'+
+						'<select class="form-control param-edit-select-prod" ng-model="prod" title={{prodTitle(prod)}}>'+
 							'<option value="" disabled selected>-product-</option>'+
+							'<option ng-repeat="prod in keys(params)" '+
+								'title="{{prodTitle(prod)}}">{{prod}}</option>'+
 						'</select>'+
 						'<select class="form-control param-edit-select-var" ng-model="param" ng-options="param for param in keys(params[prod])">'+
 							'<option value="" disabled selected>-variable-</option>'+
@@ -42,7 +44,14 @@ angular.module('dscovrDataApp')
 						});
 						unwatch_params();
 					};
-				})
+				});
+
+				var unwatch_prods = scope.$watch('$root.prods', function() {
+					if (scope.$root.prods) {
+						scope.prods = scope.$root.prods;
+						unwatch_prods();
+					}
+				});
 
 				scope.$watchGroup(['prod', 'param'], function() {
 					if (scope.param && scope.prod) {
@@ -62,7 +71,16 @@ angular.module('dscovrDataApp')
 					if (obj) {
 						return Object.keys(obj);
 					}
-				}
+				};
+
+				scope.prodTitle = function(prod) {
+					if (scope.prods) {
+						var index = scope.prods.findIndex( function(d) { return d.product == prod } );
+						if (index >= 0) {
+							return scope.prods[index].title
+						}
+					}
+				};
 
 			}
 		};

@@ -105,6 +105,7 @@ angular.module('dscovrDataApp')
 				var trace = {
 					x: [], y: [],
 					marker: { 
+						size: 5,
 						color: [],
 						autocolorscale: false,
 						colorscale: true,
@@ -185,6 +186,11 @@ angular.module('dscovrDataApp')
 		dscovrDataAccess.getParameters2().then( function(data) {
 			$rootScope.params = data;
 		}, show_error);
+
+		dscovrDataAccess.getProducts2().then( function(data) {
+			$rootScope.prods = data;
+		}, show_error);
+
 
 		if ($routeParams.arg) {
 			$scope.predef_selec = $routeParams.arg;

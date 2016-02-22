@@ -11,7 +11,7 @@ angular.module('dscovrDataApp')
   .controller('DownloadCtrl', function ($scope, $routeParams, $location, $route, dscovrDataAccess) {
 
 	//info icon to do desc
-	dscovrDataAccess.getProducts().then( function(products) {
+	dscovrDataAccess.getProducts2().then( function(products) {
 		if ($routeParams.argg) {
 			//if argg specified, then only select ones that are
 			// specified
@@ -36,7 +36,7 @@ angular.module('dscovrDataApp')
 		if (arg) {
 			var daterange = arg.split(';');
 			if (daterange.length == 2 && !isNaN(daterange[0]) && !isNaN(daterange[1])) {
-				dscovrDataAccess.getFiles(daterange[0], daterange[1]).then( function(data) {
+				dscovrDataAccess.getFiles2(daterange[0], daterange[1]).then( function(data) {
 					$scope.files = data;
 				});
 				$scope.predef_time = daterange;
