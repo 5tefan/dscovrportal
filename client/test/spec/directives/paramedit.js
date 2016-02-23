@@ -12,9 +12,11 @@ describe('Directive: paramEdit', function () {
     scope = $rootScope.$new();
   }));
 
-  it('should make hidden element visible', inject(function ($compile) {
-    element = angular.element('<param-edit></param-edit>');
-    element = $compile(element)(scope);
-    expect(element.text()).toBe('this is the paramEdit directive');
-  }));
+	it('should define scope.keys', function() {
+		expect(scope.keys).toBeDefined();
+	});
+
+	it('should define scope.prodTitle', function() {
+		expect(scope.prodTitle).toBeDefined();
+	});
 });

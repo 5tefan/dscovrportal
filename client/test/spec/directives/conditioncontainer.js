@@ -6,15 +6,33 @@ describe('Directive: conditionContainer', function () {
   beforeEach(module('dscovrDataApp'));
 
   var element,
-    scope;
+    scope,
+	isolated;
 
-  beforeEach(inject(function ($rootScope) {
+  beforeEach(inject(function ($rootScope, $compile) {
     scope = $rootScope.$new();
+	element = $compile('<div condition-container></div>')(scope);
+	scope.$digest();
+	isolated = element.isolateScope();
   }));
 
-  it('should make hidden element visible', inject(function ($compile) {
-    element = angular.element('<condition-container></condition-container>');
-    element = $compile(element)(scope);
-    expect(element.text()).toBe('this is the conditionContainer directive');
-  }));
+	it('should have 0 conditions to start', function() {
+		expect(isolated.conditions.length).toBe(0);
+	});
+
+	it('should not remove anything if there are no conditions', function() {
+		isolated.rmCondition(0);
+		expect(isolated.conditions.length).toBe(0);
+	});
+
+	it('should add a condition', function() {
+		isolated.addCondition();
+		expect(isolated.conditions.length).toBe(1);
+	});
+
+	it('should remove a condition', function() {
+		isolated.rmCondition(0);
+		expect(isolated.conditions.length).toBe(0);
+	});
+
 });

@@ -45,7 +45,9 @@ angular.module('dscovrDataApp')
 					scope.conditions.push(condition);
 				};
 				scope.rmCondition = function(i) {
-					scope.conditions.splice(i, 1);
+					if (scope.conditions.length > 0) {
+						scope.conditions.splice(i, 1);
+					};
 				};
 
 				scope.evalConditions = function() {

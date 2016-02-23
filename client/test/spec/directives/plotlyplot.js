@@ -12,9 +12,4 @@ describe('Directive: plotlyPlot', function () {
     scope = $rootScope.$new();
   }));
 
-  it('should make hidden element visible', inject(function ($compile) {
-    element = angular.element('<plotly-plot></plotly-plot>');
-    element = $compile(element)(scope);
-    expect(element.text()).toBe('this is the plotlyPlot directive');
-  }));
 });

@@ -12,9 +12,4 @@ describe('Directive: statusLog', function () {
     scope = $rootScope.$new();
   }));
 
-  it('should make hidden element visible', inject(function ($compile) {
-    element = angular.element('<status-log></status-log>');
-    element = $compile(element)(scope);
-    expect(element.text()).toBe('this is the statusLog directive');
-  }));
 });

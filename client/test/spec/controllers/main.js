@@ -16,7 +16,7 @@ describe('Controller: MainCtrl', function () {
     });
   }));
 
-  it('should attach a list of awesomeThings to the scope', function () {
+  it('scrollTo should be defined', function () {
     expect(scope.scrollTo).toBeDefined();
   });
 });

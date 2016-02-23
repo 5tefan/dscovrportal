@@ -40,7 +40,9 @@ angular.module('dscovrDataApp')
 				};
 
 				scope.rmPane = function(i) {
-					scope.panes.splice(i, 1);
+					if (scope.panes.length > 1) {
+						scope.panes.splice(i, 1);
+					};
 				};
 
 				//listener for evalPanes so that we can get
