@@ -6,58 +6,77 @@ describe('Directive: conditionEdit', function () {
   beforeEach(module('dscovrDataApp'));
 
   var element,
-    scope,
-	isolated,
-	q;
+    scope;
 
 	beforeEach( function() {
 
-		var mockDscovrDataAccess = {
-			getParameters2: function() {
-				var deferred = q.defer();
-				deferred.resolve( mockDscovrDataAccessGetParameters2 );
-				return deferred.promise;
-			},
-			getProducts2: function() {
-				var deferred = q.defer();
-				deferred.resolve( mockDscovrDataAccessGetProducts2 );
-				return deferred.promise;
-			},
-		}
-
-		module( function($provide) {
-			$provide.value('dscovrDataAccess', mockDscovrDataAccess);
-		});
-
-		inject(function ($rootScope, $compile, dscovrDataAccess, $q) {
-			q = $q;
+		inject(function ($rootScope, $compile) {
 			scope = $rootScope.$new();
 			scope.condition = {};
-			dscovrDataAccess.getParameters2().then( function(d) {
-				scope.params = d
-				element = $compile('<div condition-edit condition="condition"></div>')(scope);
-				scope.$digest();
-				isolated = element.isolateScope();
-			});
+			element = $compile('<div condition-edit condition="condition"></div>')(scope);
+			scope.$root.params = mockDscovrDataAccessGetParameters2;
 		})
 
 	});
 
-	it('should define isolated.keys', function() {
-		expect(isolated.keys).toBeDefined();
+	it('should define keys', function() {
+		expect(element.isolateScope().keys).toBeDefined();
 	});
 
-	it('should define isolated.isConditionValid', function() {
-		expect(isolated.isConditionValid).toBeDefined();
+	it('should define isConditionValid', function() {
+		expect(element.isolateScope().isConditionValid).toBeDefined();
 	});
 
-	it('should set isolated.condition.construct', function() {
-		isolated.prod = "m1m";
-		isolated.param = "bt";
-		isolated.relation = "gt";
-		isolated.value = 5;
-		isolated.$digest();
-		expect(isolated.condition.construct).toBe("m1m:bt:gt:5");
+	it('should set condition.construct', function() {
+		element.isolateScope().prod = "m1m";
+		element.isolateScope().param = "bt";
+		element.isolateScope().relation = "gt";
+		element.isolateScope().value = 5;
+		element.isolateScope().$apply();
+		expect(element.scope().condition.construct).toBe("m1m:bt:gt:5");
+	});
+
+	it('should reject invalid condition product', function() {
+		element.isolateScope().prod = "zzz";
+		element.isolateScope().param = "bt";
+		element.isolateScope().relation = "gt";
+		element.isolateScope().value = 5;
+		element.isolateScope().$apply();
+		expect(element.scope().condition.construct).toBe("");
+	});
+
+	it('should reject invalid condition parameter', function() {
+		element.isolateScope().prod = "m1m";
+		element.isolateScope().param = "foobar";
+		element.isolateScope().relation = "gt";
+		element.isolateScope().value = 5;
+		element.isolateScope().$apply();
+		expect(element.scope().condition.construct).toBe("");
+	});
+
+	it('should reject invalid condition relation', function() {
+		element.isolateScope().prod = "m1m";
+		element.isolateScope().param = "bt";
+		element.isolateScope().relation = "asdf";
+		element.isolateScope().value = 5;
+		element.isolateScope().$apply();
+		expect(element.scope().condition.construct).toBe("");
+	});
+
+	it('should make a construct from a predefined external conidition', function() {
+		scope.condition.predef = "m1m:bt:gt:5";
+		element.isolateScope().$apply();
+		expect(element.scope().condition.construct).toBe("m1m:bt:gt:5");
+	});
+
+	it('should initialize empty construct, parse predef, and change a value', function() {
+		expect(element.scope().condition.construct).toBe(undefined);
+		element.isolateScope().condition.predef = "m1m:bt:gt:5";
+		element.isolateScope().$apply();
+		expect(element.scope().condition.construct).toBe("m1m:bt:gt:5");
+		element.isolateScope().value = 6;
+		element.isolateScope().$apply();
+		expect(element.scope().condition.construct).toBe("m1m:bt:gt:6");
 	});
 
 });
