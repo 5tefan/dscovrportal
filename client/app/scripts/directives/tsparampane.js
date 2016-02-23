@@ -74,7 +74,9 @@ angular.module('dscovrDataApp')
 				};
 
 				scope.rmSelection = function(i) {
-					scope.selections.splice(i, 1);
+					if (scope.selections.length > 1) {
+						scope.selections.splice(i, 1);
+					};
 				};
 
 				scope.getOrCreateConstruct = function(selection) {

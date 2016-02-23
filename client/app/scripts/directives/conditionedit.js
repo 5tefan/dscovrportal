@@ -46,7 +46,7 @@ angular.module('dscovrDataApp')
 				var unwatch_params = scope.$watch('$root.params', function() {
 					if (scope.$root.params) {
 						scope.params = scope.$root.params;
-						var unwatch_condition = scope.$watch('selection.predef', function() {
+						var unwatch_condition = scope.$watch('condition.predef', function() {
 							if (scope.condition && scope.condition.predef) {
 								var _ = scope.condition.predef.split(":")
 								scope.prod = _[0];
@@ -71,7 +71,10 @@ angular.module('dscovrDataApp')
 
 				scope.isConditionValid = function() {
 					if (scope.params && scope.condition) {
-						return (scope.params[scope.prod] && (typeof scope.value === 'number'));
+						return (scope.params[scope.prod] 
+							&& (scope.params[scope.prod][scope.param])
+							&& (["gt", "lt", "eq", "ge", "le"].indexOf(scope.relation) > -1)
+							&& (typeof scope.value === 'number') );
 					} else {
 						return false;
 					};
