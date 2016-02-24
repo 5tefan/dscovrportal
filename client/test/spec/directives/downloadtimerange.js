@@ -26,14 +26,16 @@ describe('Directive: downloadTimeRange', function () {
 	});
 
 	it('should move end date if begin set after end', function() {
-		element.isolateScope().selected_begin = moment(element.isolateScope().selected_end).add(1, 'days');
+		element.isolateScope().selected_begin = moment(element.isolateScope().selected_end)
+			.add(1, 'days').toDate();
 		element.isolateScope().onchange_begin();
 		expect(element.isolateScope().selected_end.valueOf())
 			.toBeGreaterThan(element.isolateScope().selected_begin.valueOf());
 	});
 
 	it('should move begin date if end set before begin', function() {
-		element.isolateScope().selected_end = moment(element.isolateScope().selected_begin).subtract(1, 'days');
+		element.isolateScope().selected_end = moment(element.isolateScope().selected_begin)
+			.subtract(1, 'days').toDate();
 		element.isolateScope().onchange_end();
 		expect(element.isolateScope().selected_end.valueOf())
 			.toBeGreaterThan(element.isolateScope().selected_begin.valueOf());
