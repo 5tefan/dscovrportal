@@ -12,6 +12,6 @@ angular.module('dscovrDataApp')
 		$scope.scrollTo = function(id) {
 			$location.hash(id);
 			$anchorScroll();
-		}
+		};
 	});
 

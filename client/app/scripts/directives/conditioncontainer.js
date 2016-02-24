@@ -7,7 +7,7 @@
  * # conditionContainer
  */
 angular.module('dscovrDataApp')
-	.directive('conditionContainer', function ($timeout) {
+	.directive('conditionContainer', function () {
 		return {
 			template: 
 				'<div class="row">'+
@@ -25,7 +25,7 @@ angular.module('dscovrDataApp')
 			scope: {
 				predef : '=',
 			},
-			link: function postLink(scope, element, attrs) {
+			link: function postLink(scope) {
 				//array of conditions for ng-repeat
 				scope.conditions = [];
 
@@ -47,7 +47,7 @@ angular.module('dscovrDataApp')
 				scope.rmCondition = function(i) {
 					if (scope.conditions.length > 0) {
 						scope.conditions.splice(i, 1);
-					};
+					}
 				};
 
 				scope.evalConditions = function() {
@@ -63,7 +63,7 @@ angular.module('dscovrDataApp')
 						}
 					}
 					return condition_str;
-				}
+				};
 
 				// listen for evalClikced event, broadcast from parent when
 				// when the parent needs the conditions to be evaluated.

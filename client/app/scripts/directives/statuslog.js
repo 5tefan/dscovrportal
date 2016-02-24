@@ -14,7 +14,7 @@ angular.module('dscovrDataApp')
 			scope: {
 				text : '='
 			},
-			link: function postLink(scope, element, attrs) {
+			link: function postLink(scope) {
 				scope.$watch('text', function(newval) {
 					if (newval) {
 						// dont do dom manipulation in controllers they say..... 

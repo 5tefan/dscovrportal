@@ -27,13 +27,13 @@ angular.module('dscovrDataApp')
 						deferred.reject(response.error + " ("+response.status+") : "+response.message);
 					} else {
 						deferred.reject("could not contact data server, please try again later");
-					};
-				};
+					}
+				}
 			});
-		};
+		}
 		do_request();
 		return deferred.promise;
-	}
+	};
 
     // Public API here
 	return {
@@ -130,7 +130,7 @@ angular.module('dscovrDataApp')
 							deferred.reject(response.error + " ("+response.status+") : "+response.message);
 						} else {
 							deferred.reject("could not contact data server, please try again later");
-						};
+						}
 					}
 				});
 			}

@@ -29,21 +29,21 @@ angular.module('dscovrDataApp')
 				removable : '=',
 				rmSelection : "&",
 			},
-			link: function postLink(scope, element, attrs) {
+			link: function postLink(scope) {
 
 				var unwatch_params = scope.$watch('$root.params', function() {
 					if (scope.$root.params) {
 						scope.params = scope.$root.params;
 						var unwatch_selection = scope.$watch('selection.predef', function() {
 							if (scope.selection && scope.selection.predef) {
-								var _ = scope.selection.predef.split(":")
+								var _ = scope.selection.predef.split(":");
 								scope.prod = _[0];
 								scope.param = _[1];
 								unwatch_selection();
 							}
 						});
 						unwatch_params();
-					};
+					}
 				});
 
 				var unwatch_prods = scope.$watch('$root.prods', function() {
@@ -75,9 +75,9 @@ angular.module('dscovrDataApp')
 
 				scope.prodTitle = function(prod) {
 					if (scope.prods) {
-						var index = scope.prods.findIndex( function(d) { return d.product == prod } );
+						var index = scope.prods.findIndex(function(d) {return d.product===prod;});
 						if (index >= 0) {
-							return scope.prods[index].title
+							return scope.prods[index].title;
 						}
 					}
 				};

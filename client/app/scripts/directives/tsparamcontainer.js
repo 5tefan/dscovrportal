@@ -20,7 +20,7 @@ angular.module('dscovrDataApp')
 			scope: {
 				predef : '=',
 			},
-			link: function postLink(scope, element, attrs) {
+			link: function postLink(scope) {
 				//for ng-repeat with one element already
 				scope.panes = [""];
 
@@ -42,7 +42,7 @@ angular.module('dscovrDataApp')
 				scope.rmPane = function(i) {
 					if (scope.panes.length > 1) {
 						scope.panes.splice(i, 1);
-					};
+					}
 				};
 
 				//listener for evalPanes so that we can get

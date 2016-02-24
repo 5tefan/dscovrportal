@@ -23,7 +23,7 @@ angular.module('dscovrDataApp')
 			scope: {
 				predef : '=',
 			},
-			link: function postLink(scope, element, attrs) {
+			link: function postLink(scope) {
 				var unwatch_predef = scope.$watch('predef', function() {
 					if (scope.predef) {
 						scope.selected_begin = new Date(+scope.predef[0]);
@@ -31,6 +31,10 @@ angular.module('dscovrDataApp')
 						unwatch_predef();
 					}
 				});
+
+				scope.onchange_common = function() {
+					scope.$emit('datechange', [scope.selected_begin.getTime(), scope.selected_end.getTime()]);
+				};
 
 				scope.onchange_begin = function() {
 					// preserve the interval between start and and if either begin is moved after end or 
@@ -64,10 +68,6 @@ angular.module('dscovrDataApp')
 						scope.time_difference = scope.selected_end.getTime() - scope.selected_begin.getTime();
 					}
 					scope.onchange_common();
-				};
-
-				scope.onchange_common = function() {
-					scope.$emit('datechange', [scope.selected_begin.getTime(), scope.selected_end.getTime()])
 				};
 
 				scope.selected_begin = moment(1438927200000).toDate();

@@ -24,7 +24,7 @@ angular.module('dscovrDataApp')
 			scope: {
 				predef : '=',
 			},
-			link: function postLink(scope, element, attrs) {
+			link: function postLink(scope) {
 				scope.selected_begin = moment(1438927200000).toDate();
 				scope.selected_end = moment(1440050400000).toDate();//moment().subtract(2, 'days').toDate();
 				//scope.selected_end = moment().subtract(1, 'days').toDate();
@@ -44,7 +44,7 @@ angular.module('dscovrDataApp')
 
 				scope.evalTimerange = function() {
 					return [scope.selected_begin.getTime(), scope.selected_end.getTime()];
-				}
+				};
 
 				scope.onchange_begin = function() {
 					// preserve the interval between start and and if either begin is moved after end or 

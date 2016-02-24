@@ -41,14 +41,14 @@ angular.module('dscovrDataApp')
 				condition : '=',
 				rmCondition : "&",
 			},
-			link: function postLink(scope, element, attrs) {
+			link: function postLink(scope) {
 
 				var unwatch_params = scope.$watch('$root.params', function() {
 					if (scope.$root.params) {
 						scope.params = scope.$root.params;
 						var unwatch_condition = scope.$watch('condition.predef', function() {
 							if (scope.condition && scope.condition.predef) {
-								var _ = scope.condition.predef.split(":")
+								var _ = scope.condition.predef.split(":");
 								scope.prod = _[0];
 								scope.param = _[1];
 								scope.relation = _[2];
@@ -57,7 +57,7 @@ angular.module('dscovrDataApp')
 							}
 						});
 						unwatch_params();
-					};
+					}
 				});
 
 				//wrapper on Object.keys to be available in scope
@@ -67,7 +67,7 @@ angular.module('dscovrDataApp')
 					if (obj) {
 						return Object.keys(obj);
 					}
-				}
+				};
 
 				scope.isConditionValid = function() {
 					if (scope.params && scope.condition) {
@@ -77,8 +77,8 @@ angular.module('dscovrDataApp')
 							&& (typeof scope.value === 'number') );
 					} else {
 						return false;
-					};
-				}
+					}
+				};
 
 				//watch on pprv and update condition construct
 				scope.$watchGroup(['prod', 'param', 'relation', 'value'], function() {
@@ -92,7 +92,7 @@ angular.module('dscovrDataApp')
 					} else {
 						scope.condition.construct = "";
 					}
-				})
+				});
 
 			}
 		};

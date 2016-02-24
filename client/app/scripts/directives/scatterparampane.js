@@ -41,7 +41,7 @@ angular.module('dscovrDataApp')
 			scope: {
 				predef : '=',
 			},
-			link: function postLink(scope, element, attrs) {
+			link: function postLink(scope) {
 
 				scope.selection_y = {};
 				scope.selection_x = {};
@@ -49,16 +49,17 @@ angular.module('dscovrDataApp')
 				var unwatch_predef = scope.$watch('predef', function() {
 					if (scope.predef) {
 						var _ = scope.predef.split(";");
+						var selsplitlog;
 						if (_[0]) {
-							var selsplitlog = _[0].split("*");
-							scope.selection_x.log = (selsplitlog[1] == 'log');
+							selsplitlog = _[0].split("*");
+							scope.selection_x.log = (selsplitlog[1] === 'log');
 							scope.selection_x.predef = selsplitlog[0];
-						};
+						}
 						if (_[1]) {
-							var selsplitlog = _[1].split("*");
-							scope.selection_y.log = (selsplitlog[1] == 'log');
+							selsplitlog = _[1].split("*");
+							scope.selection_y.log = (selsplitlog[1] === 'log');
 							scope.selection_y.predef = selsplitlog[0];
-						};
+						}
 						unwatch_predef();
 					}
 				});
@@ -70,7 +71,7 @@ angular.module('dscovrDataApp')
 						return selection.construct + (selection.log?'*log':'');
 					} else if (selection.prod && selection.param) {
 						return selection.prod + ":" + selection.param + (selection.log?'*log':'');
-					}; // else 
+					} // else 
 					return "";
 				};
 
@@ -80,8 +81,8 @@ angular.module('dscovrDataApp')
 					// for scatter plots, enforce that they are both there
 					if (sel_x && sel_y) {
 						return [sel_x, sel_y].join(';');
-					} else { '' };
-				}
+					} else { return ''; }
+				};
 
 				// listen for evalParameters event, broadcast from parent when
 				// when the parent needs the conditions to be evaluated.

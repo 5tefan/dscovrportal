@@ -35,7 +35,7 @@ angular.module('dscovrDataApp')
 		// updated so just call this function with the updated routeParams on locationchange
 		if (arg) {
 			var daterange = arg.split(';');
-			if (daterange.length == 2 && !isNaN(daterange[0]) && !isNaN(daterange[1])) {
+			if (daterange.length === 2 && !isNaN(daterange[0]) && !isNaN(daterange[1])) {
 				dscovrDataAccess.getFiles2(daterange[0], daterange[1]).then( function(data) {
 					$scope.files = data;
 				});
@@ -69,15 +69,15 @@ angular.module('dscovrDataApp')
 			}
 			return to_return.join(" ");
 		}
-	}
+	};
 
 	// see http://stackoverflow.com/a/14329570
 	// prevents refresh on route change
 	var lastRoute = $route.current;
-	$scope.$on('$locationChangeSuccess', function(event) {
-		if ($route.current.$$route.controller == 'DownloadCtrl') {
+	$scope.$on('$locationChangeSuccess', function() {
+		if ($route.current.$$route.controller === 'DownloadCtrl') {
 			$route.current = lastRoute;
-		};
+		}
 	});
 
 	$scope.selected_products_onchange = function() {
@@ -94,7 +94,7 @@ angular.module('dscovrDataApp')
 				+ $scope.predef_time.join(';') + '/' + selected.join(';')
 			);
 			$location.replace();
-		};
+		}
 	};
 
 	$scope.$on("datechange", function(event, dates) {
@@ -108,7 +108,7 @@ angular.module('dscovrDataApp')
 	// initialize by parsing routeparam arg
 	if ($routeParams.arg) {
 		$scope.parse_arg($routeParams.arg);
-	};
+	}
 });
 
 

@@ -38,7 +38,7 @@ angular.module('dscovrDataApp')
 				rmPane : '&', //function to remove this panel
 				position : '=', //function to determine which panel this is
 			},
-			link: function postLink(scope, element, attrs) {
+			link: function postLink(scope) {
 
 				scope.selections = [{}];
 				scope.adv = {
@@ -50,13 +50,13 @@ angular.module('dscovrDataApp')
 						// m1m:bt;m1m:bx_gsm*linear
 						// using _ as a tmp var to split on *
 						var _ = scope.predef.split('*');
-						if (!_[0]) {return};
+						if (!_[0]) { return; }
 						//parse the log scale setting
 						if (_[1]) { // if the log or linear option is explicitly set
 							var is_log = _[1];
-							if (is_log.charAt( is_log.length - 1 ) == ";" ) { is_log = is_log.slice(0, -1); }
-							scope.adv.log = (is_log == 'log');
-						};
+							if (is_log.charAt( is_log.length - 1 ) === ";" ) { is_log = is_log.slice(0, -1); }
+							scope.adv.log = (is_log === 'log');
+						}
 
 						//parse the parameters to plot
 						// _[0] should be something like just
@@ -76,7 +76,7 @@ angular.module('dscovrDataApp')
 				scope.rmSelection = function(i) {
 					if (scope.selections.length > 1) {
 						scope.selections.splice(i, 1);
-					};
+					}
 				};
 
 				scope.getOrCreateConstruct = function(selection) {
@@ -86,7 +86,7 @@ angular.module('dscovrDataApp')
 						return selection.construct;
 					} else if (selection.prod && selection.param) {
 						return selection.prod + ":" + selection.param;
-					}; // else 
+					} // else 
 					return "";
 				};
 
