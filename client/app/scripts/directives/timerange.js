@@ -31,7 +31,7 @@ angular.module('dscovrDataApp')
 				scope.time_difference = scope.selected_end.getTime() - scope.selected_begin.getTime();
 
 				scope.$on('evalTimerange', function(e, cb) {
-					cb([scope.selected_begin.getTime(), scope.selected_end.getTime()]);
+					cb(scope.evalTimerange());
 				});
 
 				var unwatch_predef = scope.$watch('predef', function() {
@@ -41,6 +41,10 @@ angular.module('dscovrDataApp')
 						unwatch_predef();
 					}
 				});
+
+				scope.evalTimerange = function() {
+					return [scope.selected_begin.getTime(), scope.selected_end.getTime()];
+				}
 
 				scope.onchange_begin = function() {
 					// preserve the interval between start and and if either begin is moved after end or 
