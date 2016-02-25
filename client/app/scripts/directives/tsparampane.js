@@ -33,7 +33,7 @@ angular.module('dscovrDataApp')
 				'</div>',
 			restrict: 'A',
 			scope: {
-				predef : '=',
+				pane : '=',
 				removable : '=',
 				rmPane : '&', //function to remove this panel
 				position : '=', //function to determine which panel this is
@@ -44,12 +44,12 @@ angular.module('dscovrDataApp')
 				scope.adv = {
 					log: false,
 				};
-				var unwatch_predef = scope.$watch('predef', function() {
-					if (scope.predef) {
+				var unwatch_predef = scope.$watch('pane.predef', function() {
+					if (scope.pane && scope.pane.predef) {
 						// scope.pane.predef comes in as a string looking like
 						// m1m:bt;m1m:bx_gsm*linear
 						// using _ as a tmp var to split on *
-						var _ = scope.predef.split('*');
+						var _ = scope.pane.predef.split('*');
 						if (!_[0]) { return; }
 						//parse the log scale setting
 						if (_[1]) { // if the log or linear option is explicitly set

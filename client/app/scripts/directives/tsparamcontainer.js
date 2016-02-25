@@ -10,8 +10,8 @@ angular.module('dscovrDataApp')
 	.directive('tsParamContainer', function () {
 		return {
 			template: 
-				'<div class="row ts-param-pane" ng-repeat="pane in panes track by $index">'+
-					'<div ts-param-pane predef="pane" removable="panes.length > 1" rm-pane="rmPane($index)" position="$index+1"></div>'+
+				'<div class="row ts-param-pane" ng-repeat="pane in panes">'+
+					'<div ts-param-pane pane="pane" removable="panes.length > 1" rm-pane="rmPane($index)" position="$index+1"></div>'+
 				'</div>'+
 				'<div class="ts-param-pane-add-pane" class="col-xs-2">'+
 					'<a class="btn btn-default" ng-click=addPane()> + panel </a>'+
@@ -22,13 +22,13 @@ angular.module('dscovrDataApp')
 			},
 			link: function postLink(scope) {
 				//for ng-repeat with one element already
-				scope.panes = [""];
+				scope.panes = [{}];
 
 				var unwatch_predef = scope.$watch('predef', function() {
 					if (scope.predef) {
 						console.log("passing on predef: " + scope.predef);
 						// this removes the default pane and puts in the predefined ones
-						scope.panes = scope.predef.split(";;");
+						scope.panes = scope.predef.split(";;").map(function(pane) { return { predef: pane } });
 						//scope.panes = scope.predef.slice();
 						unwatch_predef();
 					}
@@ -36,7 +36,7 @@ angular.module('dscovrDataApp')
 
 				scope.addPane = function() {
 					// push an empty pane with no predef
-					scope.panes.push("");
+					scope.panes.push({});
 				};
 
 				scope.rmPane = function(i) {
