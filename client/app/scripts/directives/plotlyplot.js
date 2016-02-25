@@ -22,7 +22,11 @@ angular.module('dscovrDataApp')
 							scope.plot.layout.width = element[0].clientWidth;
 							scope.plot.layout.height = element[0].clientWidth*0.7;
 						}
-						Plotly.newPlot(element[0], scope.plot.traces, scope.plot.layout || {},  {displaylogo: false, showLink: false, modeBarButtonsToRemove: ["sendDataToCloud", "lasso2d"]});
+						Plotly.newPlot(element[0], scope.plot.traces, scope.plot.layout || {},  {editable: true, displaylogo: false, showLink: false, modeBarButtonsToRemove: ["sendDataToCloud", "lasso2d"]});
+						if (scope.plot.dark) {
+							$('.js-plotly-plot .plotly .modebar-btn path').css("fill", "white");
+							$('.js-plotly-plot .plotly .modebar').css("background-color", "black");
+						}
 					}
 				});
 

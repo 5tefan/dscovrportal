@@ -138,6 +138,11 @@ input, form {
 	width: 60%;
 	display: inline;
 }
+.param-edit-select-color{
+	width: 20%;
+	padding: 5px 5px;
+	display: inline;
+}
 .condition-edit {
 	margin-top: 5px;
 }
