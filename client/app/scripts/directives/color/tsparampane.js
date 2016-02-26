@@ -12,14 +12,14 @@ angular.module('dscovrDataApp')
 			template: 
 				'<div class="col-xs-12">'+
 					'<div class="row margin-b10">'+
-						'<div class="col-xs-3 ts-param-pane-panel-title">'+
+						'<div class="col-xs-4 ts-param-pane-panel-title">'+
 							'<h4 class="ts-param-pane-panel-title"> Panel {{position}}</h4>'+
 						'</div>'+
-						'<div class="ts-param-pane-remove-pane" class="col-xs-2">'+
+						'<div class="col-xs-4 col-xs-offset-1 ts-param-pane-remove-pane">'+
 							'<a ng-if="removable" class="btn btn-default btn-sm" ng-click=rmPane() style="background-color: #000; color: #FFF"><span class="glyphicon glyphicon-remove"> </span></a>'+
 						'</div>'+
 					'</div>'+
-					'<div class="row pane-edit" ng-repeat="selection in selections track by $index">'+ // and then other selections
+					'<div class="row pane-edit" ng-repeat="selection in selections">'+
 							'<div color-param-edit selection="selection" removable="selections.length > 1" rm-selection="rmSelection($index)"></div>'+
 					'</div>'+
 					'<form class="col-xs-5">'+
@@ -28,7 +28,7 @@ angular.module('dscovrDataApp')
 						'</div>'+
 					'</form>'+
 					'<div class="col-xs-4 col-xs-offset-1">'+
-						'<a class="btn btn-default btn-sm" ng-click=addSelection() style="background-color: #000; color: #FFF"> + variable </a>'+
+						'<a ng-if="selections.length < 5" class="btn btn-default btn-sm" ng-click=addSelection() style="background-color: #000; color: #FFF"> + variable </a>'+
 					'</div>'+
 				'</div>',
 			restrict: 'A',
@@ -40,8 +40,14 @@ angular.module('dscovrDataApp')
 			},
 			link: function postLink(scope) {
 
+				scope.colors = [
+					"FF0000", "A500FF", "0053FF",
+					"12FF00", "FFDF00",
+				];
+				scope.color_index = 1;
+
 				scope.selections = [{
-					predef: "::" + Math.round(Math.random()*(1<<24)).toString(16),
+					predef: "::" + scope.colors[0],
 				}];
 				scope.adv = {
 					log: false,
@@ -72,9 +78,12 @@ angular.module('dscovrDataApp')
 				});
 
 				scope.addSelection = function() {
-					scope.selections.push({
-						predef: "::" + Math.round(Math.random()*(1<<24)).toString(16),
-					});
+					if (scope.selections.length < 5) {
+						scope.selections.push({
+							predef: "::"+scope.colors[scope.color_index],
+						});
+						scope.color_index = (scope.color_index+1)%scope.colors.length;
+					}
 				};
 
 				scope.rmSelection = function(i) {
