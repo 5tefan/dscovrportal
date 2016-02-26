@@ -19,7 +19,7 @@ angular.module('dscovrDataApp')
 							'<a ng-if="removable" class="btn btn-default btn-sm" ng-click=rmPane($index)><span class="glyphicon glyphicon-remove"> </span></a>'+
 						'</div>'+
 					'</div>'+
-					'<div class="row pane-edit" ng-repeat="selection in selections track by $index">'+ // and then other selections
+					'<div class="row pane-edit" ng-repeat="selection in selections">'+ // and then other selections
 							'<div param-edit selection="selection" removable="selections.length > 1" rm-selection="rmSelection($index)"></div>'+
 					'</div>'+
 					'<form class="col-xs-5">'+
@@ -28,12 +28,12 @@ angular.module('dscovrDataApp')
 						'</div>'+
 					'</form>'+
 					'<div class="col-xs-4 col-xs-offset-1">'+
-						'<a class="btn btn-default btn-sm" ng-click=addSelection()> + variable </a>'+
+						'<a ng-if="selections.length < 5" class="btn btn-default btn-sm" ng-click=addSelection()> + variable </a>'+
 					'</div>'+
 				'</div>',
 			restrict: 'A',
 			scope: {
-				predef : '=',
+				pane : '=',
 				removable : '=',
 				rmPane : '&', //function to remove this panel
 				position : '=', //function to determine which panel this is
@@ -44,12 +44,12 @@ angular.module('dscovrDataApp')
 				scope.adv = {
 					log: false,
 				};
-				var unwatch_predef = scope.$watch('predef', function() {
-					if (scope.predef) {
+				var unwatch_predef = scope.$watch('pane.predef', function() {
+					if (scope.pane && scope.pane.predef) {
 						// scope.pane.predef comes in as a string looking like
 						// m1m:bt;m1m:bx_gsm*linear
 						// using _ as a tmp var to split on *
-						var _ = scope.predef.split('*');
+						var _ = scope.pane.predef.split('*');
 						if (!_[0]) { return; }
 						//parse the log scale setting
 						if (_[1]) { // if the log or linear option is explicitly set
@@ -69,10 +69,14 @@ angular.module('dscovrDataApp')
 					}
 				});
 
+				// add on prod var selection on + variable click
 				scope.addSelection = function() {
-					scope.selections.push({});
+					if (scope.selections.length < 5) {
+						scope.selections.push({});
+					}
 				};
 
+				// remove one prod var selection on X click
 				scope.rmSelection = function(i) {
 					if (scope.selections.length > 1) {
 						scope.selections.splice(i, 1);
