@@ -19,7 +19,7 @@ angular.module('dscovrDataApp')
 							'<a ng-if="removable" class="btn btn-default btn-sm" ng-click=rmPane($index)><span class="glyphicon glyphicon-remove"> </span></a>'+
 						'</div>'+
 					'</div>'+
-					'<div class="row pane-edit" ng-repeat="selection in selections track by $index">'+ // and then other selections
+					'<div class="row pane-edit" ng-repeat="selection in selections">'+ // and then other selections
 							'<div param-edit selection="selection" removable="selections.length > 1" rm-selection="rmSelection($index)"></div>'+
 					'</div>'+
 					'<form class="col-xs-5">'+

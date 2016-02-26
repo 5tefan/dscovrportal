@@ -1,6 +1,6 @@
 {
   "name": "dscovrdata",
-  "version": "0.0.0",
+  "version": "0.0.3",
   "dependencies": {},
   "devDependencies": {
     "grunt": "^0.4.1",
@@ -30,12 +30,16 @@
     "karma-jasmine": "^0.3.5",
     "karma-phantomjs-launcher": "^0.1.4",
     "load-grunt-tasks": "^0.4.0",
-    "time-grunt": "^0.3.1"
+    "time-grunt": "^0.3.1",
+	"bower": "^1.7.6",
+	"grunt-cli": "*"
   },
   "engines": {
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "grunt test"
+    "test": "grunt test",
+	"build": "grunt build; zip -r dist.zip dist",
+	"postinstall": "bower install"
   }
 }

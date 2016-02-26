@@ -16,6 +16,7 @@ angular.module('dscovrDataApp')
 			$('.header').addClass('hidden');
 			$('.foot').addClass('hidden');
 			$('*').css("background-color", "black");
+			$('.no-padding-right').css("background", "none");
 			$('*').css("color", "white");
 			$('.ts-param-pane-add-pane').css("box-shadow", "none");
 		});
