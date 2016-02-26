@@ -11,7 +11,7 @@ angular.module('dscovrDataApp')
 		return {
 			template: 
 				'<div class="row ts-param-pane" ng-repeat="pane in panes">'+
-					'<div color-ts-param-pane predef="pane" removable="panes.length > 1" rm-pane="rmPane($index)" position="$index+1"></div>'+
+					'<div color-ts-param-pane pane="pane" removable="panes.length > 1" rm-pane="rmPane($index)" position="$index+1"></div>'+
 				'</div>'+
 				'<div class="ts-param-pane-add-pane" class="col-xs-2" style="background-color: #000; color: #FFF">'+
 					'<a class="btn btn-default" ng-click=addPane()> + panel </a>'+
