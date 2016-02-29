@@ -41,13 +41,13 @@ angular.module('dscovrDataApp')
 			link: function postLink(scope) {
 
 				scope.colors = [
-					"FF0000", "A500FF", "0053FF",
+					"A500FF", "0053FF",
 					"12FF00", "FFDF00",
 				];
-				scope.color_index = 1;
+				scope.used_colors = [ "FF0000" ];
 
 				scope.selections = [{
-					predef: "::" + scope.colors[0],
+					predef: "::" + scope.used_colors[0],
 				}];
 				scope.adv = {
 					log: false,
@@ -79,16 +79,27 @@ angular.module('dscovrDataApp')
 
 				scope.addSelection = function() {
 					if (scope.selections.length < 5) {
+						var addcolor = scope.colors.pop();
 						scope.selections.push({
-							predef: "::"+scope.colors[scope.color_index],
+							predef: "::"+addcolor,
 						});
-						scope.color_index = (scope.color_index+1)%scope.colors.length;
+						scope.used_colors.push(addcolor);
 					}
 				};
 
 				scope.rmSelection = function(i) {
+					// basically remove a selection and when doing that check if it has a
+					// predef color that needs to be recycled back into the available options
 					if (scope.selections.length > 1) {
-						scope.selections.splice(i, 1);
+						var rmsel = scope.selections.splice(i, 1)[0];
+						if (rmsel && rmsel.predef) {
+							var rmcolor = rmsel.predef.split(':')[2];
+							var used_color_index = scope.used_colors.indexOf(rmcolor);
+							if (used_color_index > -1) {
+								scope.used_colors.splice(used_color_index, 1);
+								scope.colors.push( rmcolor );
+							}
+						}
 					}
 				};
 
