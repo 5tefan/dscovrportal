@@ -26,19 +26,19 @@ angular.module('dscovrDataApp')
 
 				var unwatch_predef = scope.$watch('predef', function() {
 					if (scope.predef) {
-						console.log("passing on predef: " + scope.predef);
-						// this removes the default pane and puts in the predefined ones
-						scope.panes = scope.predef.split(";;").map(function(pane) { return { predef: pane } });
-						//scope.panes = scope.predef.slice();
+						// remove the default pane and puts in the predefined ones
+						scope.panes = scope.predef.split(";;").map(function(pane) { return {predef: pane} });
 						unwatch_predef();
 					}
 				});
 
+				// add one empty pane on click + panel button
 				scope.addPane = function() {
 					// push an empty pane with no predef
 					scope.panes.push({});
 				};
 
+				// remove one panel on X button in panel
 				scope.rmPane = function(i) {
 					if (scope.panes.length > 1) {
 						scope.panes.splice(i, 1);

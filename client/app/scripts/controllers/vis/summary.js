@@ -124,7 +124,7 @@ angular.module('dscovrDataApp')
 			//change the url ^ but still reparse with the new frame size and date range 
 			//in $scope.parse_args now that we are intercepting the $locationChangeSuccess event
 			$scope.parse_args($scope.frame_size, new_time);
-		}
+		};
 
 		//formats the summary_frame_info url string to the current user selected date
 		$scope.get_plotsrc = function() {
