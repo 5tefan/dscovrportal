@@ -193,8 +193,8 @@ def make_plot(output_path): ##can only be called after dscovr_ts_pane_config has
 		dscovr_ts_pane_i += 1
 
 	# after all panes done, put the attribution on the bottom
-	ax = plt.subplot( dscovr_ts_panes, 1, dscovr_ts_pane_i) 		#subplot(n rows, n cols, plot n)
-	plt.text(0, -0.5, dscovr_attribution_text, ax.transAxes)
+	ax = plt.subplot( dscovr_ts_panes, 1, dscovr_ts_pane_i-1) 		#subplot(n rows, n cols, plot n)
+	plt.text(0, -0.5, dscovr_attribution_text, transform=ax.transAxes, fontsize=10)
 	plt.savefig( output_path, bbox_inches='tight' )
 
 def main(date):
