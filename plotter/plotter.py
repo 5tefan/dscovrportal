@@ -17,11 +17,11 @@ import matplotlib.pyplot as plt
 
 
 ############## config ####################
-dscovr_mission_start = datetime.datetime(2015, 03, 02)  #march 2
+dscovr_mission_start = datetime.datetime(2015, 03, 02)  #march 2, MUST MATCH WEB START DATE
 dscovr_file_base = '/nfs/dscovr_private/data/' #code assumes files organized under this by YEAR/MONTH
 dscovr_plot_output_base = '/nfs/dscovr_public/plots/'
-dscovr_files_gzipped = True
-
+dscovr_files_gzipped = True #are the files in /data/ gszipped?
+dscovr_attribution_text = 'courtesy of NCEI, CO - ngdc.noaa.gov/dscovr'
 dscovr_ts_width = 14 	#inches
 dscovr_ts_height = 10 	#inches
 dscovr_ts_frame_sizes = [
@@ -192,6 +192,9 @@ def make_plot(output_path): ##can only be called after dscovr_ts_pane_config has
 		plt.legend( prop={'size':7}, loc='upper left' )
 		dscovr_ts_pane_i += 1
 
+	# after all panes done, put the attribution on the bottom
+	ax = plt.subplot( dscovr_ts_panes, 1, dscovr_ts_pane_i) 		#subplot(n rows, n cols, plot n)
+	plt.text(0, -0.5, dscovr_attribution_text, ax.transAxes)
 	plt.savefig( output_path, bbox_inches='tight' )
 
 def main(date):
