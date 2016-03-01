@@ -45,6 +45,10 @@ angular
         templateUrl: 'views/download.html',
         controller: 'DownloadCtrl'
       })
+      .when('/vis/color/ts/:arg?/:argg?/:arggg?', {
+        templateUrl: 'views/vis/color/ts.html',
+        controller: 'VisColorTsCtrl',
+      })
       .otherwise({
         redirectTo: '/'
       });

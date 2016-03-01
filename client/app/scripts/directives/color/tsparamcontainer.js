@@ -2,18 +2,18 @@
 
 /**
  * @ngdoc directive
- * @name dscovrDataApp.directive:tsParamContainer
+ * @name dscovrDataApp.directive:color/tsParamContainer
  * @description
- * # tsParamContainer
+ * # color/tsParamContainer
  */
 angular.module('dscovrDataApp')
-	.directive('tsParamContainer', function () {
+	.directive('colorTsParamContainer', function () {
 		return {
 			template: 
 				'<div class="row ts-param-pane" ng-repeat="pane in panes">'+
-					'<div ts-param-pane pane="pane" removable="panes.length > 1" rm-pane="rmPane($index)" position="$index+1"></div>'+
+					'<div color-ts-param-pane pane="pane" removable="panes.length > 1" rm-pane="rmPane($index)" position="$index+1"></div>'+
 				'</div>'+
-				'<div class="ts-param-pane-add-pane" class="col-xs-2">'+
+				'<div class="ts-param-pane-add-pane" class="col-xs-2" style="background-color: #000; color: #FFF">'+
 					'<a class="btn btn-default" ng-click=addPane()> + panel </a>'+
 				'</div>',
 			restrict: 'A',
@@ -26,20 +26,21 @@ angular.module('dscovrDataApp')
 
 				var unwatch_predef = scope.$watch('predef', function() {
 					if (scope.predef) {
-						// remove the default pane and puts in the predefined ones
-						scope.panes = scope.predef.split(";;").map(function(pane) { return {predef: pane} });
+						console.log("passing on predef: " + scope.predef);
+						// this removes the default pane and puts in the predefined ones
+						scope.panes = scope.predef.split(";;").map(function(pane) { return { predef: pane } });
+						//scope.panes = scope.predef.slice();
 						unwatch_predef();
 					}
 				});
 
-				// add one empty pane on click + panel button
 				scope.addPane = function() {
 					// push an empty pane with no predef
 					scope.panes.push({});
 				};
 
-				// remove one panel on X button in panel
 				scope.rmPane = function(i) {
+					console.log("rmPane: " + i);
 					if (scope.panes.length > 1) {
 						scope.panes.splice(i, 1);
 					}
