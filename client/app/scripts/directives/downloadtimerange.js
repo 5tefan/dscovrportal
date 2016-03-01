@@ -70,12 +70,10 @@ angular.module('dscovrDataApp')
 					scope.onchange_common();
 				};
 
-				scope.selected_begin = moment(1438927200000).toDate();
-				scope.selected_end = moment(scope.selected_begin).add(10, 'days').toDate();
-				scope.time_difference = scope.selected_end.getTime() - scope.selected_begin.getTime();
+				scope.selected_begin = dscovrUtil.getMissionEnd().subtract(7, 'days').toDate();
+				scope.selected_end = dscovrUtil.getMissionEnd().toDate();
+				scope.time_difference = scope.selected_end.getTime()-scope.selected_begin.getTime();
 				scope.onchange_common();
-				//scope.selected_end = moment(1440050400000).toDate();//moment().subtract(2, 'days').toDate();
-				//scope.selected_end = moment().subtract(1, 'days').toDate();
 
 				
 			}

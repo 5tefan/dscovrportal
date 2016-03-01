@@ -25,9 +25,8 @@ angular.module('dscovrDataApp')
 				predef : '=',
 			},
 			link: function postLink(scope) {
-				scope.selected_begin = moment(1438927200000).toDate();
-				scope.selected_end = moment(1440050400000).toDate();//moment().subtract(2, 'days').toDate();
-				//scope.selected_end = moment().subtract(1, 'days').toDate();
+				scope.selected_begin = dscovrUtil.getMissionEnd().subtract(7, 'days').toDate();
+				scope.selected_end = dscovrUtil.getMissionEnd().toDate();
 				scope.time_difference = scope.selected_end.getTime() - scope.selected_begin.getTime();
 
 				scope.$on('evalTimerange', function(e, cb) {

@@ -142,7 +142,7 @@ angular.module('dscovrDataApp')
 					});
 					var dates = [];
 					data.map( function(dat) {
-							dates.push( new Date( dat.time ) );
+							dates.push( moment.utc( dat.time ).toDate() );
 							y_accessor.map( function(att, j) {
 								if (dat[att] == "-9999" | dat[att] == "-999") {
 									traces[j].y.push( null );
@@ -163,7 +163,7 @@ angular.module('dscovrDataApp')
 							layout: {
 								title: y_accessor.join(', ')+" vs time",
 								xaxis: { 
-									title: "time",
+									title: "local time [UTC" + (moment().utcOffset()/60) + "]",
 									showline: true,
 								 },
 								yaxis: { 

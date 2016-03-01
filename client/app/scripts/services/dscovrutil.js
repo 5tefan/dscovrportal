@@ -16,13 +16,13 @@ angular.module('dscovrDataApp')
 		// Public API here
 		return {
 			dateInRange: function ( check_date ) {
-				return check_date && moment.utc( +check_date ).isBetween( mission_begin, mission_end );
+				return check_date && moment.utc(+check_date).isBetween(mission_begin, mission_end);
 			},
 			getMissionBegin: function() {
-				return mission_begin;
+				return moment.utc(mission_begin);
 			},
 			getMissionEnd: function() {
-				return mission_end;
+				return moment.utc(mission_end);
 			},
 		};
 	});
