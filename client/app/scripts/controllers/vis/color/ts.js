@@ -157,8 +157,9 @@ angular.module('dscovrDataApp')
 						};
 					});
 					var dates = [];
+					var utcoffset = moment().utcOffset();
 					data.map( function(dat) {
-							dates.push( new Date( dat.time ) );
+							dates.push( moment( dat.time ).subtract(utcoffset, 'minutes').toDate() );
 							y_accessor.map( function(att, j) {
 								if (dat[att] == "-9999" | dat[att] == "-999") {
 									traces[j].y.push( null );
@@ -182,7 +183,7 @@ angular.module('dscovrDataApp')
 								title: y_accessor.join(', ')+" vs time",
 								font: { color: "#FFFFFF" },
 								xaxis: { 
-									title: "time",
+									title: "utc time",
 									showline: true,
 									titlefont: { color: "#FFFFFF" },
 									tickfont: { color: "#FFFFFF" },
