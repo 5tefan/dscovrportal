@@ -221,8 +221,6 @@ def main(date):
 					else:
 						path_part = os.path.join( dscovr_file_base, date_to_plot.strftime("%Y/%m") )
 						file_paths = path_part + "/it_" + stroke[0] + "_dscovr_*.nc" 
-					start_millis = frame_beginning_millis
-					end_millis = unix_time_millis( datetime.datetime(date_to_plot.year, date_to_plot.month+1, 1) )
 					
 				else:
 					##otherwise have to iterate by date to get the filenames containing the data for the period
@@ -263,7 +261,7 @@ def main(date):
 						if time[i] >= start_millis and time[i] <= end_millis:
 							finaldata.append( x )
 							finaltime.append( datetime.datetime.utcfromtimestamp( time[i]/1000 ) )
-						elif start_millis == 0 and end_millis == 0:
+						elif start_millis == 0 and end_millis == 0: #this else is to handle the 1 month stuff, everything needs to go in
 							finaldata.append( x )
 							finaltime.append( datetime.datetime.utcfromtimestamp( time[i]/1000 ) )
 
@@ -272,7 +270,7 @@ def main(date):
 								finaldata.append( np.nan )
 								finaltime.append( datetime.datetime.utcfromtimestamp( (time[i] + 1000 * 60)/1000 ) )
 
-					# sort the by the time
+					# sort the by the time, critical for making the plots correctly
 					zipped = zip(finaltime, finaldata)
 					zipped.sort(key=lambda tup: tup[0])
 					finaltime, finaldata = zip(*zipped)
@@ -307,7 +305,6 @@ if __name__ == "__main__":
 		print( "Usage: python plotter.py <YYYYmmdd>" )
 
 	main(date)
-	
 	"""
 	date = dscovr_mission_start
 	delta = datetime.timedelta(days=1)
