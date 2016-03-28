@@ -23,7 +23,7 @@ module.exports = function(config) {
       'bower_components/angular-cookies/angular-cookies.js',
       'bower_components/angular-route/angular-route.js',
 	  'bower_components/moment/moment.js',
-	  'bower_components/gildorwang-ng-quick-date/dist/ng-quick-date.js',
+	  'bower_components/ngQuickDate/dist/ng-quick-date.js',
       'app/scripts/**/*.js',
       'test/mock/**/*.js',
       'test/spec/**/*.js'

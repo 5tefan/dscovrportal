@@ -83,10 +83,13 @@
 			For EPIC and NISTAR data, please visit NASA's <a href="https://eosweb.larc.nasa.gov"> Atmospheric Science Data Center </a>.
 		</p>-->
         
-        <p>The <strong>Deep Space Climate Observatory (DSCOVR)</strong> is the replacement for the NASA
-        Advanced Composition Explorer (ACE) to monitor space weather at L1. DSCOVR data enables forecasters to observe space weather conditions and supports research investigations. The results of these efforts will be warning and understanding of conditions that could disrupt Earth-based infrastructure.</p>
-        
-        <p>Here, data are archived, distributed, and visualized for magnetometer and faraday cup measurements. For realtime data, see the <a href="//www.swpc.noaa.gov">Space Weather Prediction Center (SWPC)</a>. For EPIC and NISTAR data, see NASA's <a href="//eosweb.larc.nasa.gov"> Atmospheric Science Data Center.</a></p>
+		<p>The <strong>Deep Space Climate Observatory (DSCOVR)</strong> is the replacement satellite for the NASA
+		Advanced Composition Explorer (ACE) spacecraft to continue monitoring space weather from L1. DSCOVR allows forecasters to observe
+		space weather conditions and supports research investigations. The results of these efforts will be warning and understanding of
+		 conditions that could disrupt Earth-based infrastructure.</p>
+        <p>Here, data are archived, distributed, and visualized for magnetometer and faraday cup measurements. For realtime data,
+		 see the <a href="//www.swpc.noaa.gov">Space Weather Prediction Center (SWPC)</a>. For EPIC and NISTAR data, see NASA's 
+		<a href="//eosweb.larc.nasa.gov"> Atmospheric Science Data Center.</a></p>
         
 		<h2 id="swi" class="subheading"> Space Weather Instruments</h2>
 		<p> DSCOVR is carrying the following space weather monitoring instruments: </p>
@@ -100,23 +103,32 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td> PlasMag </td>
-					<td> Solar Wind Plasma Sensor and Magnetometer </td>
-					<td> Measure solar wind velocity, magnitude and direction of the solar wind magnetic filed </td>
+					<td> PlasMAG </td>
+					<td> DSCOVR Faraday Cup and Magnetometer </td>
+					<td> Individual instruments described below. </td>
 				</tr>
 				<tr>
-					<td> PHA </td>
-					<td> Pulse Height Analyzer </td>
-					<td> Provide real-time measurement of particle events that may impact DSCOVR's electronics </td>
+					<td> MAG </td>
+					<td> Magnetometer </td>
+					<td> Measure solar wind velocity, solar wind vector magnetic filed </td>
+				</tr>
+				<tr>
+					<td> FC </td>
+					<td> Faraday Cup </td>
+					<td> Provide real-time measurement of solar wind proton density, speed, velocity, temperature, etc... </td>
 				</tr>
 			</tbody>
 		</table>
 		<h2 id="dd" class="subheading"> Data Product Documentation </h2>
-		<p> Documentation for data products hosted at this site. </p>
+		<p> Documentation for space weather data products. </p>
 		<table class="table">
 			<thead>
 				<tr>
-					<th> Instrument </th>
+					<th> Instrument: </th>
+				</tr>
+				<tr>
+					<th></th>
+					<th> Product </th>
 					<th> Measurement </th>
 					<th> Availability </th>
 					<th> Notes </th>
@@ -124,7 +136,151 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td>Coming soon</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td> DSCOVR telemetry </td>
+					<td> vc0 </td>
+					<td> DSCOVR raw telemetry </td>
+					<td> Only available via asynchronous access from tape archive via *NEXTlink*</td>
+					<td> Always available publicly. </td>
+				</tr>
+				<tr>
+					<td></td>
+					<td> vc1 </td>
+					<td> DSCOVR stored raw telemetry </td>
+					<td> Only available via asynchronous access from tape archive via *NEXTlink*</td>
+					<td> Always available publicly. </td>
+				</tr>
+				<tr>
+					<td></td>
+					<td> rt0 </td>
+					<td> DSCOVR real time raw telemetry retransmitted from receiving station </td>
+					<td> Only available via asynchronous access from tape archive via *NEXTlink*</td>
+					<td> Always available publicly. </td>
+				</tr>
+				<tr>
+					<td></td>
+					<td> rt1 </td>
+					<td> DSCOVR stored raw telemetry retransmitted from receiving station </td>
+					<td> Only available via asynchronous access from tape archive via *NEXTlink*</td>
+					<td> Always available publicly. </td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td> Faraday Cup </td>
+					<td> fc0 </td>
+					<td> Faraday Cup Level 0 full resolution data (e.g. counts rather than physical units) </td>
+					<td> Only available via asynchronous access from tape archive via *NEXTlink*</td>
+					<td> Sampling rate may vary.  All science data are currently still embargoed by the data provider. </td>
+				</tr>
+				<tr>
+					<td></td>
+					<td> fc1 </td>
+					<td> Faraday Cup Level 1 full resolution data (scientific units) </td>
+					<td> Only available via asynchronous access from tape archive via *NEXTlink*</td>
+					<td> Sampling rate may vary.  All science data are currently still embargoed by the data provider. </td>
+				</tr>
+				<tr>
+					<td></td>
+					<td> f3s </td>
+					<td> Faraday Cup 3 second resolution data </td>
+					<td> Immediate via this page or asynchronous by date range via *NEXTlink*</td>
+					<td> All science data are currently still embargoed by the data provider. </td>
+				</tr>
+				<tr>
+					<td></td>
+					<td> f1m </td>
+					<td> Faraday Cup 1 minute averages </td>
+					<td> Immediate via this page or asynchronous by date range via *NEXTlink*</td>
+					<td> All science data are currently still embargoed by the data provider. </td>
+				</tr>
+				<tr>
+					<td></td>
+					<td> fcc </td>
+					<td> Faraday Cup calibration file </td>
+					<td> Only available via asynchronous access from tape archive via *NEXTlink*</td>
+					<td> Often flagged for dissemination. </td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td> Magnetometer </td>
+					<td> mg0 </td>
+					<td> Magnetometer Level 0 full resolution data (e.g. counts rather than physical units) </td>
+					<td> Only available via asynchronous access from tape archive via *NEXTlink*</td>
+					<td> 50Hz sampling rate.  All science data are currently still embargoed by the data provider. </td>
+				</tr>
+				<tr>
+					<td></td>
+					<td> mg1 </td>
+					<td> Magnetometer Level 1 full resolution data (scientific units) </td>
+					<td> Only available via asynchronous access from tape archive via *NEXTlink*</td>
+					<td> 50Hz sampling rate.  All science data are currently still embargoed by the data provider. </td>
+				</tr>
+				<tr>
+					<td></td>
+					<td> m1s </td>
+					<td> Magnetometer 1 second resolution data </td>
+					<td> Immediate via this page or asynchronous by date range via *NEXTlink*</td>
+					<td> All science data are currently still embargoed by the data provider. </td>
+				</tr>
+				<tr>
+					<td></td>
+					<td> m1m </td>
+					<td> Magnetometer 1 minute averages </td>
+					<td> Immediate via this page or asynchronous by date range via *NEXTlink*</td>
+					<td> All science data are currently still embargoed by the data provider. </td>
+				</tr>
+				<tr>
+					<td></td>
+					<td> mcc </td>
+					<td> Magnetometer calibration file </td>
+					<td> Only available via asynchronous access from tape archive via *NEXTlink*</td>
+					<td> Often flagged for dissemination. </td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td> Orbit and orientation information </td>
+					<td> pop </td>
+					<td> Predicted Orbit Product.  Position and velocity in gse, gsi, gsm. </td>
+					<td> Only asynchronous via *NEXTlink*</td>
+					<td> Should be flagged for public dissemination. </td>
+				</tr>
+				<tr>
+					<td> Attitude </td>
+					<td> att </td>
+					<td> DSCOVR attitude product </td>
+					<td> Access may be requested on a case by case basis. Contact DSCOVR Data Manager. </td>
+					<td> Embargoed by provider. </td>
+				</tr>
+				<tr>
+					<td> Telemetry Database</td>
+					<td> tmd </td>
+					<td> DSCOVR telemetry database </td>
+					<td> Access may be requested on a case by case basis. Contact DSCOVR Data Manager. </td>
+					<td> Embargoed by provider. </td>
 				</tr>
 			</tbody>
 		</table>
@@ -133,15 +289,12 @@
 			<div class="col-xs-6">
 				<div class="panel panel-default">
 					<div class="panel-heading"> What is DSCOVR? </div>
-					<div class="panel-body"> DSCOVR is the Deep Space Climate Observatory. See <a href="//www.nesdis.noaa.gov/DSCOVR/"> DSCOVR Home.</a> </div>
-				</div>
-				<div class="panel panel-default">
-					<div class="panel-heading"> When was DSCOVR launched? </div>
-					<div class="panel-body"> February 11, 2015 </div>
+					<div class="panel-body"> DSCOVR is the Deep Space Climate Observatory. See <a href="//www.nesdis.noaa.gov/DSCOVR/"> DSCOVR Home </a> for general information. </div>
 				</div>
 				<div class="panel panel-default">
 					<div class="panel-heading"> What is the earliest DSCOVR space weather data I can access? </div>
-					<div class="panel-body"> Space weather data became available from DSCOVR on TBD </div>
+					<div class="panel-body"> Space weather data will become releasable at a date to be determined by National Weather Service.
+					Historical DSCOVR data may be reprocessed back to a date where the hardware reached its final configuration at the discretion of the data provider. </div>
 				</div>
 				<div class="panel panel-default">
 					<div class="panel-heading"> Where can I access realtime solar wind data from DSCOVR? </div>
@@ -152,21 +305,25 @@
 					<div class="panel-body"> See NASA's <a href="//eosweb.larc.nasa.gov"> Atmospheric Science Data Center.</a></div>
 				</div>
 				<div class="panel panel-default">
-					<div class="panel-heading"> Why do the time series plots slow down my computer? </div>
-					<div class="panel-body"> The time series plots are resource intensive. A high volume of data and interactivity contribute to this.
-						We recommend reducing the number of panes, lines, or span of time you have plotted. We have not imposed any limits
-						on the number of panes you may create in the time series under the philosophy that no limit is suitable for everyone's
-						hardware capabilities.</div>
+					<div class="panel-heading"> Where can I download full resolution data, raw telemetry, or to make bulk orders? </div>
+					<div class="panel-body"> Please visit our <a href="//www.ngdc.noaa.gov/dscovr/next"> Next Data order interface. </a> </div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading"> How can I create my own machine to machine interface to acquire archived data? </div>
+					<div class="panel-body"> The NCEI Agile Team created an interface that permits access to all publicly available DSCOVR data.
+						If you are comfortable interacting with a Rest API, the relevant documentation is available at the following link: 
+						<a href="//www.ngdc.noaa.gov/next-web/docs/guide/"> Next Data order interface. </a> </div>
 				</div>
 			</div>
 			<div class="col-xs-6">
 				<div class="panel panel-default">
 					<div class="panel-heading"> How do I share my custom plot? </div>
-					<div class="panel-body"> If you created a plot, it can be uniquely identified and shared by the URL. </div>
+					<div class="panel-body"> The URL displayed for your plot can be shared with others. Additionally, a .png format image can be downloaded for each 
+						plot by using an option in the upper right corner of the plot. </div>
 				</div>
 				<div class="panel panel-default">
 					<div class="panel-heading"> How do I embed a plot I have created into a presentation? </div>
-					<div class="panel-body"> Take a screen shot of the plot if you wish to embed it in a presentation. </div>
+					<div class="panel-body"> We recommend you download a .png image of your plot by clicking the option in the upper right hand corner of the plot.  </div>
 				</div>
 				<div class="panel panel-default">
 					<div class="panel-heading"> How do I obtain publication quality plots? </div>
@@ -174,8 +331,15 @@
 						associated with any custom visualization you create, so that you can generate a relevant plot with your own software if you prefer. </div>
 				</div>
 				<div class="panel panel-default">
-					<div class="panel-heading"> How do I find interesting events to visualize? </div>
-					<div class="panel-body"> See &quot;find events&quot; module under Visualize Data, and search the entire dataset.  </div>
+					<div class="panel-heading"> How can I improve the performance of the visualization pages? </div>
+					<div class="panel-body"> If you are experiencing performance issues, please reduce the volume of data plotted by either shortening the time span or reducing 
+						the number of variables requested. We have not limited the length of plots or number of panels due to varying end user hardware capabilities.</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading"> What is the difference between synchronous (portal) vs. tape archive (next) access? </div>
+					<div class="panel-body"> Files served via this portal are stored on hard drives in our data center and you may browse and retrieve them without delay.
+						Files available only through the tape archive have been stored on magnetic tapes. To download these, you must make a request, and a reader will 
+						read the tapes to collect the files you requested. The next service will send you an email when the files are ready to download. </div>
 				</div>
 			</div>
 		</div>
@@ -183,33 +347,43 @@
 		<dl class="dl-horizontal">
 			<dt> <a href="//www.ngdc.noaa.gov/docucomp/page?xml=NOAA/NESDIS/NGDC/STP/Space_Weather/iso/xml/satellite-systems_dscovr.xml&view=iso2html&title=Get%20Data%20NOAA/NESDIS/NGDC/STP/Space_Weather/iso/xml/satellite-systems_dscovr.xml">Metadata record</a> </dt>
 			<dd> View NCEI's metadata for the DSCOVR archive. </dd>
+			<dt> <a href=""> Real Time DSCOVR data </a> </dt>
+			<dd> Real Time DSCOVR Space Weather data from SWPC </dd>
+			<dt><a href="//www.ngdc.noaa.gov/next-web/docs/guide/"> Next REST api</a> </dt>
+			<dd> REST api access to Next tape archive </dd>
+			<dt><a href="//eosweb.larc.nasa.gov"> Atmospheric Science Data Center.</a></dt>
+			<dd> Access to EPIC and NISTAR data </dd>
+			<dt> <a href="//www.ngdc.noaa.gov/next-web/docs/guide/"> DSCOVR home </a> </dt>
+			<dd> General information on the DSCOVR mission </dd>
 		</dl>
-        <h2 id="dt" class="subheading"> NCEI DSCOVR team </h2>
-        <div class="row">
-            <div class="col-xs-6">
-                <dl class="dl-horizontal">
-                    <dt> William Rowland </dt>
-                    <dd> Data manager, project supervisor </dt>
-                    <dt> Paul Lotoaniu </dt>
-                    <dd> Instrument scientist </dd>
-                    <dt> John Cartwright </dt>
-                    <dd> Server side api </dt>
-                    <dt> John LaRocque </dt>
-                    <dd> DBA </dd>
-                </dl>
-            </div>
-            <div class="col-xs-6">
-                <dl class="dl-horizontal">
-                    <dt> Stefan Codrescu </dt>
-                    <dd> Web interface, pre-generated plots </dd>
-                    <dt> Margaret Tilton </dt>
-                    <dd> Database construction </dt>
-                    <dt> Rob Redmon </dt>
-                    <dd> Contributor </dd>
-                    <dt> Heather McCullough </dt>
-                    <dd> Web interface </dt>
-                </dl>
-            </div>
-        </div>
+		<h2 id="dt" class="subheading"> NCEI DSCOVR team </h2>
+		<div class="row">
+			<div class="col-xs-6">
+				<dl class="dl-horizontal">
+					<dt> William Rowland </dt>
+					<dd> Data manager, data ingest </dt>
+					<dt> Margaret Tilton </dt>
+					<dd> Backup data manager, database management </dt>
+					<dt> Heather McCullough </dt>
+					<dd> Site design guidance </dt>
+					<dt> John LaRocque </dt>
+					<dd> Database guidance </dt>
+					<dt> <a href="http://www.ngdc.noaa.gov/stp/">NCEI STP team </a></dt>
+					<dd> User feedback </dt>
+				</dl>
+			</div>
+			<div class="col-xs-6">
+				<dl class="dl-horizontal">
+					<dt> Stefan Codrescu </dt>
+					<dd> Web development, visualization </dt>
+					<dt> John Cartwright </dt>
+					<dd> Database API, deployment guidance </dt>
+					<dt> Rob Redmon </dt>
+					<dd> Proxy generation, user feedback </dt>
+					<dt> Paul Lotoaniu </dt>
+					<dd> User feedback </dt>
+				</dl>
+			</div>
+		</div>
 	</div>
 </div>

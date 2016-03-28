@@ -15,6 +15,8 @@ module.exports = function (grunt) {
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
 
+  grunt.loadNpmTasks('grunt-protractor-webdriver');
+
   // Configurable paths for the application
   var appConfig = {
     app: require('./bower.json').appPath || 'app',
@@ -351,7 +353,21 @@ module.exports = function (grunt) {
         configFile: 'test/karma.conf.js',
         singleRun: true
       }
-    }
+    },
+
+	//protractor webdirver task starter
+	protractor_webdriver: {
+		start: { }
+	},
+
+	// e2e testing with protractor
+	protractor: {
+		options: { 
+			keepAlive: true,
+			configFile: 'test/protractor.conf.js'
+		},
+		run: {}
+	}
   });
 
 
@@ -380,7 +396,8 @@ module.exports = function (grunt) {
     'concurrent:test',
     'autoprefixer',
     'connect:test',
-    'karma'
+    'karma',
+	'protractor:run'
   ]);
 
   grunt.registerTask('build', [

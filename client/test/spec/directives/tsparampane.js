@@ -10,7 +10,7 @@ describe('Directive: tsParamPane', function () {
 
   beforeEach(inject(function ($rootScope, $compile) {
     scope = $rootScope.$new();
-	element = $compile('<div ts-param-pane predef="predef"></div>')(scope);
+	element = $compile('<div ts-param-pane pane="pane"></div>')(scope);
 	scope.$root.params = mockDscovrDataAccessGetParameters2;
   }));
 
@@ -49,17 +49,23 @@ describe('Directive: tsParamPane', function () {
 	});
 
 	it('should create a string given predefs', function() {
-		scope.predef = "m1m:bt;m1m:bx_gse";
+		scope.pane = { predef: "m1m:bt;m1m:bx_gse" };
 		element.isolateScope().$apply();
 		expect(element.isolateScope().selections.length).toBe(2);
 		expect(element.isolateScope().evalParameters()).toBe("m1m:bt;m1m:bx_gse");
 	});
 
 	it('should create a string given predefs and append log', function() {
-		scope.predef = "m1m:bt;m1m:bx_gse";
+		scope.pane = { predef: "m1m:bt;m1m:bx_gse" };
 		element.isolateScope().$apply();
 		element.isolateScope().adv.log = true;
 		expect(element.isolateScope().selections.length).toBe(2);
 		expect(element.isolateScope().evalParameters()).toBe("m1m:bt;m1m:bx_gse*log");
+	});
+
+	it('should parse the log from a predef', function() {
+		scope.pane = { predef: "m1m:bt*log" };
+		element.isolateScope().$apply();
+		expect(element.isolateScope().adv.log).toBe(true);
 	});
 });
