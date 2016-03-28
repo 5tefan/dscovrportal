@@ -362,11 +362,24 @@ module.exports = function (grunt) {
 
 	// e2e testing with protractor
 	protractor: {
-		options: { 
-			keepAlive: true,
-			configFile: 'test/protractor.conf.js'
+		run: {
+			options: { 
+				keepAlive: true,
+				configFile: 'test/protractor.conf.js'
+			}
 		},
-		run: {}
+		run_headless: {
+			options: {
+				keepAlive: false,
+				configFile: 'test/protractor_headless.conf.js',
+				args: {
+					browser: "phantomjs",
+					capabilities: {
+						'phantomjs.binary.path': require('phantomjs').path
+					}
+				},
+			}
+		}
 	}
   });
 
@@ -398,6 +411,15 @@ module.exports = function (grunt) {
     'connect:test',
     'karma',
 	'protractor:run'
+  ]);
+
+  grunt.registerTask('test_headless', [
+    'clean:server',
+    'concurrent:test',
+    'autoprefixer',
+    'connect:test',
+    'karma',
+	'protractor:run_headless'
   ]);
 
   grunt.registerTask('build', [
