@@ -17,3 +17,6 @@ hs_err_pid*
 node_modules/
 bower_components/
 npm-debug.log
+
+#testing log
+phantomjsdriver.log
