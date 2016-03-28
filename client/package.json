@@ -42,7 +42,7 @@
   },
   "scripts": {
     "test": "grunt test",
-    "build": "grunt build; zip -r dist.zip dist",
-    "postinstall": "bower install; webdriver-manager update"
+    "build": "grunt build && zip -r dist.zip dist",
+    "postinstall": "bower cache clean && bower install && webdriver-manager update"
   }
 }
