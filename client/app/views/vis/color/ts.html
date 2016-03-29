@@ -1,6 +1,6 @@
 <div class="view">
 	<h2 class="text-center"> 
-	Time Series Plot <div tooltip-help class="right fs20" hover="Select variables to plot against time. <br/><br/> Optionally constrain the results displayed to areas where your conditions are true. "></div>
+	Time Series Plot <div data-tooltip-help class="right fs20" data-hover="Select variables to plot against time. <br/><br/> Optionally constrain the results displayed to areas where your conditions are true. "></div>
 	</h2>
 	<div class="container-fluid">
 		<div id="vis-controls" class="row">
@@ -25,13 +25,13 @@
 				</ul>
 			</div>
 			<div class="col-xs-2 no-padding-right">
-				<div time-range predef="predef_time"></div>
+				<div data-time-range data-predef="predef_time"></div>
 			</div>
 			<div class="col-xs-4 no-padding-right">
-				<div color-ts-param-container predef="predef_param"></div>
+				<div data-color-ts-param-container data-predef="predef_param"></div>
 			</div>
 			<div class="col-xs-4 no-padding-right">
-				<div color-condition-container predef="predef_cond"></div>
+				<div data-color-condition-container data-predef="predef_cond"></div>
 			</div>
 			<div class="clear">
 				<div class="col-xs-2 col-xs-offset-2 vis-selectarea">
@@ -39,17 +39,17 @@
 				</div>
 				<div ng-if="info" class="col-xs-4">
 					<h5 class="no-margin margin-b5"> Status </h5>
-					<div status-log text="info"></div>
+					<div data-status-log data-text="info"></div>
 				</div>
 				<div ng-if="error" class="col-xs-4">
 					<h5 class="no-margin margin-b5"> Errors </h5>
-					<div status-log text="error"></div>
+					<div data-status-log data-text="error"></div>
 				</div>
 			</div>
 		</div>
 		<div class="vis-plotarea">
 			<div class="row" ng-repeat="plot in plots">
-				<div plotly-plot plot="plot"></div>
+				<div data-plotly-plot data-plot="plot"></div>
 			</div>
 			<p class="vis-noplot" ng-if="!plots"> results will appear here </p>
 		</div>

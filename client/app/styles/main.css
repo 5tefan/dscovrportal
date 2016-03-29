@@ -23,6 +23,10 @@ input, form {
 	clear:both;
 }
 
+.center {
+	margin: 0 auto;
+}
+
 .down3 {
 	margin-top: 3px;
 }
@@ -174,6 +178,7 @@ div#ngdcheader {left: auto;}
 .foot   {
     margin: 20px 15px 0 15px;
 }
+
 
 
 /*.nav-tabs.nav-justified > .active > a,

@@ -20,13 +20,13 @@
 				</ul>
 			</div>
 			<div class="col-xs-2">
-				<div time-range predef="predef_time"></div>
+				<div data-time-range data-predef="predef_time"></div>
 			</div>
 			<div class="col-xs-4">
-				<div scatter-param-pane predef="predef_selec"></div>
+				<div data-scatter-param-pane data-predef="predef_selec"></div>
 			</div>
 			<div class="col-xs-4">
-				<div condition-container predef="predef_cond"></div>
+				<div data-condition-container data-predef="predef_cond"></div>
 			</div>
 			<div class="clear">
 				<div class="col-xs-2 col-xs-offset-2 vis-selectarea">
@@ -34,17 +34,17 @@
 				</div>
 				<div ng-if="info" class="col-xs-4">
 					<h5 class="no-margin margin-b5"> Status </h5>
-					<div status-log text="info"></div>
+					<div data-status-log data-text="info"></div>
 				</div>
 				<div ng-if="error" class="col-xs-4">
 					<h5 class="no-margin margin-b5"> Errors </h5>
-					<div status-log text="error"></div>
+					<div data-status-log data-text="error"></div>
 				</div>
 			</div>
 		</div>
 		<div class="vis-plotarea">
 			<div class="row">
-				<div plotly-plot plot="plot"></div>
+				<div data-plotly-plot data-plot="plot"></div>
 			</div>
 			<div ng-if="plot.download_link" class="row">
 				<a ng-href="#/download/{{plot.download_link.timerange.join(';')}}/{{plot.download_link.params}}">Download the data for this timerange</a>
