@@ -20,3 +20,5 @@ npm-debug.log
 
 #testing log
 phantomjsdriver.log
+html-angular-validate-report.json
+html-angular-validate-report-checkstyle.xml

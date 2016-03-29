@@ -20,6 +20,8 @@
     "grunt-contrib-watch": "^0.6.1",
     "grunt-filerev": "^0.2.1",
     "grunt-google-cdn": "^0.4.0",
+    "grunt-html": "^7.0.0",
+    "grunt-html-angular-validate": "^0.5.7",
     "grunt-karma": "^0.10.1",
     "grunt-newer": "^0.7.0",
     "grunt-ng-annotate": "^1.0.1",
@@ -43,7 +45,7 @@
   },
   "scripts": {
     "test": "grunt test",
-	"test_headless": "grunt test_headless",
+    "test_headless": "grunt test_headless",
     "build": "grunt build && zip -r dist.zip dist",
     "postinstall": "bower cache clean && bower install && webdriver-manager update"
   }

@@ -15,7 +15,9 @@ module.exports = function (grunt) {
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
 
-  grunt.loadNpmTasks('grunt-protractor-webdriver');
+  grunt.loadNpmTasks('grunt-protractor-webdriver'); //protractor task
+  grunt.loadNpmTasks('grunt-html-angular-validate'); //htmlangular task
+  grunt.loadNpmTasks('grunt-html'); //htmllint task
 
   // Configurable paths for the application
   var appConfig = {
@@ -380,7 +382,34 @@ module.exports = function (grunt) {
 				},
 			}
 		}
+	},
+
+	// html validation
+	htmlangular: {
+		options: {
+			// Task-specific options go here.
+		},
+		partials: {
+			// Target-specific file lists and/or options go here.
+			src: ['app/views/**/*.html'],
+			options: {
+				tmplext: "html",
+				relaxerror: [
+					'Element “head” is missing a required instance of child element “title”',
+					'Element “div” not allowed as child of element “h2” in this context',
+					'Element “img” is missing required attribute “src”',
+				],
+				customtags: [
+					'quick-datepicker',
+				],
+			},
+		},
+	},
+
+	htmllint: {
+		 index: ['app/index.html']
 	}
+
   });
 
 
@@ -408,6 +437,8 @@ module.exports = function (grunt) {
     'clean:server',
     'concurrent:test',
     'autoprefixer',
+    'htmlangular:partials',
+    'htmllint:index',
     'connect:test',
     'karma',
 	'protractor:run'
@@ -417,6 +448,8 @@ module.exports = function (grunt) {
     'clean:server',
     'concurrent:test',
     'autoprefixer',
+    'htmlangular:partials',
+    'htmllint:index',
     'connect:test',
     'karma',
 	'protractor:run_headless'
