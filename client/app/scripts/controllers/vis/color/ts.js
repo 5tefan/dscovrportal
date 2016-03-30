@@ -161,7 +161,7 @@ angular.module('dscovrDataApp')
 					data.map( function(dat) {
 							dates.push( moment( dat.time ).subtract(utcoffset, 'minutes').toDate() );
 							y_accessor.map( function(att, j) {
-								if (dat[att] == "-9999" | dat[att] == "-999") {
+								if (dat[att] == -99999) {
 									traces[j].y.push( null );
 								} else {
 									traces[j].y.push( + dat[att] );

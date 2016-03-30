@@ -127,8 +127,7 @@ angular.module('dscovrDataApp')
 							trace.marker.colorbar.ticktext
 							.push(moment(dat.time).format("YYYY-MM-DD HH:MM"));
 						}
-						if (dat[x_accessor] == "-9999" | dat[x_accessor] == "-999" 
-						| dat[y_accessor] == "-9999" | dat[y_accessor] == "-999") {
+						if (dat[x_accessor] == -99999| dat[y_accessor] == -99999) {
 							return
 						};
 						trace.marker.color.push(dat.time);
