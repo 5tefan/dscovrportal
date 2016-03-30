@@ -49,16 +49,20 @@
 			<div class="row">
 				<div class="col-xs-12" ng-switch="frame_size">
 					<div ng-switch-when="6h">
-						<img class="img-responsive" ng-src="{{ get_plotsrc_6h(0) }}" alt="a graph">
-						<img class="img-responsive" ng-src="{{ get_plotsrc_6h(6) }}" alt="a graph">
-						<img class="img-responsive" ng-src="{{ get_plotsrc_6h(12) }}" alt="a graph">
-						<img class="img-responsive" ng-src="{{ get_plotsrc_6h(18) }}" alt="a graph">
-						
+						<img class="img-responsive" ng-src="{{ get_plotsrc_6h(0) }}" alt="summary plot" onerror="this.className='nosummary'">
+						<img class="img-responsive" ng-src="{{ get_plotsrc_6h(6) }}" alt="summary plot" onerror="this.style.display='none'">
+						<img class="img-responsive" ng-src="{{ get_plotsrc_6h(12) }}" alt="summary plot" onerror="this.style.display='none'">
+						<img class="img-responsive" ng-src="{{ get_plotsrc_6h(18) }}" alt="summary plot" onerror="this.style.display='none'">
+						<a class="hidden-xs" ng-href="#/download/{{summary_file_date.valueOf()}};{{summary_end_ms}}">
+							Download the data for these plots
+						</a>
 					</div>
-					<img ng-switch-default class="img-responsive" ng-src="{{ get_plotsrc() }}" alt="a graph">
-					<a class="hidden-xs" ng-href="#/download/{{summary_file_date.valueOf()}};{{summary_end_ms}}">
-						Download the data for this plot
-					</a>
+					<div ng-switch-default>
+						<img class="img-responsive" ng-src="{{ get_plotsrc() }}" alt="summary plot" onerror="this.className='nosummary'">
+						<a class="hidden-xs" ng-href="#/download/{{summary_file_date.valueOf()}};{{summary_end_ms}}">
+							Download the data for this plot
+						</a>
+					</div>
 				</div>
 			</div>
 		</div>
