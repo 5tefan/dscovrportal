@@ -17,7 +17,11 @@ module.exports = function (grunt) {
 
   grunt.loadNpmTasks('grunt-protractor-webdriver'); //protractor task
   grunt.loadNpmTasks('grunt-html-angular-validate'); //htmlangular task
-  grunt.loadNpmTasks('grunt-html'); //htmllint task
+
+//Note: this validation requires Java 1.8 and the servers here
+//dont have that so... I'm just commenting out until we update and then we can use
+//this if the new solution is subpar
+//  grunt.loadNpmTasks('grunt-html'); //htmllint task
 
   // Configurable paths for the application
   var appConfig = {
@@ -404,11 +408,14 @@ module.exports = function (grunt) {
 				],
 			},
 		},
+                index: {
+                    src: ['app/index.html'],
+                },
 	},
 
-	htmllint: {
-		 index: ['app/index.html']
-	}
+//	htmllint: { //see note about java version
+//		 index: ['app/index.html']
+//	}
 
   });
 
@@ -438,7 +445,8 @@ module.exports = function (grunt) {
     'concurrent:test',
     'autoprefixer',
     'htmlangular:partials',
-    'htmllint:index',
+    'htmlangular:index',
+//    'htmllint:index', //see note about java version
     'connect:test',
     'karma',
 	'protractor:run'
@@ -449,7 +457,8 @@ module.exports = function (grunt) {
     'concurrent:test',
     'autoprefixer',
     'htmlangular:partials',
-    'htmllint:index',
+    'htmlangular:index',
+//    'htmllint:index', //see note about java version
     'connect:test',
     'karma',
 	'protractor:run_headless'
