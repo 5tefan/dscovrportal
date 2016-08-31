@@ -53,12 +53,14 @@ angular
         redirectTo: '/'
       });
 
+        var mission_begin = moment("26-07-2016Z", "DD-MM-YYYY").startOf('day').valueOf();
+        var mission_end = moment().subtract(1, 'days').endOf('day').valueOf();
 	//Update these when the mission ends
-	var mission_start = moment.utc("02-03-2015", "DD-MM-YYYY");
-	var mission_end = moment.utc().subtract(1, 'days').startOf('day');
 	ngQuickDateDefaultsProvider.set('dateFilter', function(d) {
-		return moment(d).isBetween(mission_start, mission_end);
+                d = d.valueOf();
+                return d >= mission_begin && d <= mission_end;
 	});
 	ngQuickDateDefaultsProvider.set('placeholder', '---------------');
 	ngQuickDateDefaultsProvider.set('closeButtonHtml', 'ok');
+	ngQuickDateDefaultsProvider.set('disableClearButton', true);
   });

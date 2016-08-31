@@ -13,21 +13,24 @@
                         </div>
                     </div>
                 </div>
-                <p class="border-top margin-t15 padding-t15"> For full resolution data, raw telemetry, and bulk orders, please use
-                    <a href="//www.ngdc.noaa.gov/dscovr/next"><strong>NEXT</strong></a>.
+                <p class="border-top margin-t15 padding-t15"> Full resolution data and raw telemetry available from 
+                    <a href="//www.ngdc.noaa.gov/dscovr/next">NEXT</a>.
                 </p>
             </div>
             <div id="download-selectarea" class="col-xs-7" style="background-color:#fff;">
                 <h4 style="margin-bottom:20px;">Results:</h4>
-                <p style="display: inline"> Download all files using 
+                <p style="display: inline"> Download all files using a 
                         <a href="https://en.wikipedia.org/wiki/Wget">
                                 <strong>wget</strong> 
-                        </a>
+                        </a> command
                 </p>
                 <div data-tooltip-help class="right inline" data-hover="Paste the command below into a command line to download all files listed to your current directory"></div>
-                <input class="form-control input-sm" type="text" value="{{make_wget()}}" readonly>
+                <input class="form-control input-sm cursor-text" type="text" value="{{make_wget()}}" readonly>
 				<br/>
-                <p> Individual files by date</p>
+                <p> Individual day files by date</p>
+                <p ng-if="error" class="red"> {{error}} <br/>
+			You can browse the files directly at <a href="//www.ngdc.noaa.gov/dscovr/data/"> www.ngdc.noaa.gov/dscovr/data/ </a>
+		</p>
                 <div ng-repeat="(date, links) in files">
                     <h4> {{date}} </h4>
                     <div ng-repeat="product in products | filter:{selected:true}">

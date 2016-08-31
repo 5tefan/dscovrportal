@@ -12,11 +12,11 @@ angular.module('dscovrDataApp')
 			template: 
                 '<div class="row" style="margin-bottom: 15px;">'+
                     '<div class="col-xs-4"><h5>Begin Date</h5>'+
-                        '<quick-datepicker ng-model="selected_begin" on-change="onchange_begin()" disable-timepicker="true" icon-class="glyphicon glyphicon-calendar"></quick-datepicker>'+
+                        '<quick-datepicker ng-model="selected_begin" on-change="onchange_begin()" disable-timepicker="true" icon-class="glyphicon glyphicon-calendar" disable-clear-button="true"></quick-datepicker>'+
                     '</div>'+
                     '<div class="col-xs-6" style="padding:0;margin:0;">'+
                         '<h5>End Date</h5>'+
-                        '<quick-datepicker ng-model="selected_end" on-change="onchange_end()" disable-timepicker="true" icon-class="glyphicon glyphicon-calendar"></quick-datepicker>'+
+                        '<quick-datepicker ng-model="selected_end" on-change="onchange_end()" disable-timepicker="true" icon-class="glyphicon glyphicon-calendar" disable-clear-button="true"></quick-datepicker>'+
                     '</div>'+
                 '</div>',
 			restrict: 'A',
@@ -26,14 +26,26 @@ angular.module('dscovrDataApp')
 			link: function postLink(scope) {
 				var unwatch_predef = scope.$watch('predef', function() {
 					if (scope.predef) {
-						scope.selected_begin = new Date(+scope.predef[0]);
-						scope.selected_end = new Date(+scope.predef[1]);
+                                                // inverse of what's happening in scope.evalTimerange, add offset
+                                                // because ms coming in is UTC, add offset so that local time display
+                                                // *looks* like utc
+                                                var minutes_to_ms = 60 * 1000;
+                                                var _ = new Date();
+                                                var offset = _.getTimezoneOffset() * minutes_to_ms;
+						scope.selected_begin = new Date(+scope.predef[0] + offset);
+						scope.selected_end = new Date(+scope.predef[1] + offset);
 						unwatch_predef();
 					}
 				});
 
 				scope.onchange_common = function() {
-					scope.$emit('datechange', [scope.selected_begin.getTime(), scope.selected_end.getTime()]);
+                                        scope.time_difference = scope.selected_end.getTime() - scope.selected_begin.getTime();
+                                        // subtract utc offset to make request appear as though it was in utc
+                                        // quick-datepicker shows localtime, but with offset it *looks* like utc
+                                        var minutes_to_ms = 60 * 1000;
+                                        var _ = new Date();
+                                        var offset = _.getTimezoneOffset() * minutes_to_ms;
+					scope.$emit('datechange', [scope.selected_begin - offset, scope.selected_end - offset]);
 				};
 
 				scope.onchange_begin = function() {
@@ -47,8 +59,6 @@ angular.module('dscovrDataApp')
 						} else {
 							scope.selected_end = dscovrUtil.getMissionEnd().toDate();
 						}
-					} else {
-						scope.time_difference = scope.selected_end.getTime() - scope.selected_begin.getTime();
 					}
 					scope.onchange_common();
 				};
@@ -64,18 +74,14 @@ angular.module('dscovrDataApp')
 						} else {
 							scope.selected_begin = dscovrUtil.getMissionBegin().toDate();
 						}
-					} else {
-						scope.time_difference = scope.selected_end.getTime() - scope.selected_begin.getTime();
 					}
 					scope.onchange_common();
 				};
 
-				scope.selected_begin = dscovrUtil.getMissionEnd().subtract(7, 'days').toDate();
+				scope.selected_begin = dscovrUtil.getMissionEnd().subtract(3, 'days').startOf('day').toDate();
 				scope.selected_end = dscovrUtil.getMissionEnd().toDate();
-				scope.time_difference = scope.selected_end.getTime()-scope.selected_begin.getTime();
 				scope.onchange_common();
 
-				
 			}
 		};
 	});

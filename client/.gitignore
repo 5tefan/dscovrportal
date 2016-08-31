@@ -1,0 +1,29 @@
+*.class
+*.swp
+*.swo
+*.tmp
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+#gradle stuff
+.gradle/
+
+# Build artifacts
+build/
+dist
+dist.zip
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+#client stuff
+node_modules/
+bower_components/
+npm-debug.log
+
+#testing log
+phantomjsdriver.log
+html-angular-validate-report.json
+html-angular-validate-report-checkstyle.xml
+

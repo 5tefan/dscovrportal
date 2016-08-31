@@ -9,10 +9,11 @@
  */
 angular.module('dscovrDataApp')
   .factory('dscovrDataAccess', function ($http, $q, $timeout) {
-    // Service logic
-	var _url_base = "//gis.ngdc.noaa.gov/dscovr-data-access/";
+        // Service logic
+	//var _url_base = "/dscovr-data-access/";
+	var _url_base = "//mapdevel.ngdc.noaa.gov/dscovr-data-access/";
 	var _commonGet = function( url ) {
-		console.log(url);
+		//console.log(url);
 		var tries_counter = 0;
 		var deferred = $q.defer();
 		function do_request() {
@@ -26,7 +27,7 @@ angular.module('dscovrDataApp')
 					if (response) {
 						deferred.reject(response.error + " ("+response.status+") : "+response.message);
 					} else {
-						deferred.reject("could not contact data server, please try again later");
+						deferred.reject("data service is down, please try again later");
 					}
 				}
 			});
@@ -37,48 +38,13 @@ angular.module('dscovrDataApp')
 
     // Public API here
 	return {
-		getProducts: function() {
-			return $http.get( _url_base + 'products').then( function(response) {
-				if (typeof response.data === 'object') {
-					return response.data;
-				} else {
-					return $q.reject(response.data);
-				}
-			}, function(response) {
-				return $q.reject(response.data);
-			});
-		},
 		getProducts2: function() {
 			var url = _url_base + 'products';
 			return _commonGet(url);
 		},
-		getParameters: function() {
-			return $http.get( _url_base + 'parameters').then( function(response) {
-				if (typeof response.data === 'object') {
-					return response.data;
-				} else {
-					return $q.reject(response.data);
-				}
-			}, function(response) {
-				return $q.reject(response.data);
-			});
-		},
 		getParameters2: function() {
 			var url = _url_base + 'parameters';
 			return _commonGet(url);
-		},
-		getValues: function(parameters, criteria) {
-			var url = _url_base + 'values?parameters=' + parameters + '&criteria=' + criteria;
-			console.log(url);
-			return $http.get( url ).then( function(response) {
-				if (typeof response.data === 'object') {
-					return response.data;
-				} else {
-					return $q.reject(response.data);
-				}
-			}, function(response) {
-				return $q.reject(response.data);
-			});
 		},
 		getValues2: function(parameters, criteria) {
 			var url = _url_base + 'values?parameters=' + parameters + '&criteria=' + criteria;
@@ -136,18 +102,6 @@ angular.module('dscovrDataApp')
 			}
 			do_request();
 			return deferred.promise;
-		},
-		getFiles: function(start, end) {
-			var url = _url_base + 'files?start_date=' + start + '&end_date=' + end;
-			return $http.get( url ).then( function(response) {
-				if (typeof response.data === 'object') {
-					return response.data;
-				} else {
-					return $q.reject(response.data);
-				}
-			}, function(response) {
-				return $q.reject(response.data);
-			});
 		},
 		getFiles2: function(start, end) {
 			var url = _url_base + 'files?start_date=' + start + '&end_date=' + end;

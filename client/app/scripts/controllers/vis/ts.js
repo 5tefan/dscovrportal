@@ -127,7 +127,7 @@ angular.module('dscovrDataApp')
 
 				show_info("panel " + (panel_index + 1) + ": requesting data");
 				dscovrDataAccess.getValues3(lines, timerange, conditions).then( function(data) {
-					show_info("panel " + (panel_index + 1) + ": data received, parsing");
+					show_info("panel " + (panel_index + 1) + ": response received, parsing");
 					var traces = y_accessor.map( function(att) { 
 						return {
 							x: [], y: [],
@@ -142,12 +142,14 @@ angular.module('dscovrDataApp')
 					});
 					var dates = [];
 					var utcoffset = moment().utcOffset();
+					var has_data = false;
 					data.map( function(dat) {
 							dates.push( moment( dat.time ).subtract(utcoffset, 'minutes').toDate() );
 							y_accessor.map( function(att, j) {
 								if (dat[att] == -99999) {
 									traces[j].y.push( null );
 								} else {
+									has_data = true;
 									traces[j].y.push( +dat[att] );
 								}
 							});
@@ -155,7 +157,7 @@ angular.module('dscovrDataApp')
 					traces.map( function(trace) { 
 						trace.x = dates;
 					});
-					if (dates.length > 1) { // check that we have data worth plotting
+					if (has_data) { // check that we have data worth plotting
 						show_info("panel " + (panel_index + 1) + ": plot will appear below");
 						var title = lines + " from " + timerange.map( Date ).join(" to ");
 						// append to $scope.plots so that ng-repeat directive sees and plots

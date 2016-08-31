@@ -27,7 +27,9 @@ angular.module('dscovrDataApp')
 				var unwatch_predef = scope.$watch('predef', function() {
 					if (scope.predef) {
 						// remove the default pane and puts in the predefined ones
-						scope.panes = scope.predef.split(";;").map(function(pane) { return {predef: pane} });
+						scope.panes = scope.predef.split(";;").map( function(pane) {
+                                                     return {predef: pane};
+                                                });
 						unwatch_predef();
 					}
 				});

@@ -127,7 +127,8 @@ module.exports = function (grunt) {
       all: {
         src: [
           'Gruntfile.js',
-          '<%= yeoman.app %>/scripts/{,*/}*.js'
+          '<%= yeoman.app %>/scripts/{,*/}*.js',
+          '!plotly.min.js'
         ]
       },
       test: {
@@ -271,7 +272,10 @@ module.exports = function (grunt) {
           conservativeCollapse: true,
           collapseBooleanAttributes: true,
           removeCommentsFromCDATA: true,
-          removeOptionalTags: true
+          removeComments: true,
+          collapseInlineTagWhitespace: true,
+          removeRedundantAttributes: true,
+//          removeOptionalTags: true
         },
         files: [{
           expand: true,
@@ -316,7 +320,8 @@ module.exports = function (grunt) {
             '*.html',
             'views/{,*/{,*/}}*.html',
             'images/{,*/}*.{webp}',
-            'fonts/{,*/}*.*'
+            'fonts/{,*/}*.*',
+            'scripts/plotly.min.js'
           ]
         }, {
           expand: true,
@@ -392,6 +397,9 @@ module.exports = function (grunt) {
 	htmlangular: {
 		options: {
 			// Task-specific options go here.
+                    relaxerror: [
+                            'This document appears to be written in English. Consider adding “lang="en"” (or variant) to the “html” start tag.'
+                    ],
 		},
 		partials: {
 			// Target-specific file lists and/or options go here.
@@ -402,6 +410,7 @@ module.exports = function (grunt) {
 					'Element “head” is missing a required instance of child element “title”',
 					'Element “div” not allowed as child of element “h2” in this context',
 					'Element “img” is missing required attribute “src”',
+                                        'This document appears to be written in English. Consider adding “lang="en"” (or variant) to the “html” start tag.'
 				],
 				customtags: [
 					'quick-datepicker',

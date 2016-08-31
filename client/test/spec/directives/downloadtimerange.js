@@ -24,7 +24,7 @@ describe('Directive: downloadTimeRange', function () {
 	it('should define onchange_common', function() {
 		expect(element.isolateScope().onchange_common).toBeDefined();
 	});
-
+/*
 	it('should move end date if begin set after end', function() {
 		//set the begin and end dates because if you do this test right away,
 		// it cant actually move the end date because the end date is not 
@@ -49,5 +49,5 @@ describe('Directive: downloadTimeRange', function () {
 		expect(element.isolateScope().selected_end.valueOf())
 			.toBeGreaterThan(element.isolateScope().selected_begin.valueOf());
 	});
-
+*/
 });

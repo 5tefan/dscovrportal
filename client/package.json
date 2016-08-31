@@ -45,7 +45,8 @@
   "scripts": {
     "test": "grunt test",
     "test_headless": "grunt test_headless",
-    "build": "grunt build && zip -r dist.zip dist",
-    "postinstall": "bower cache clean && bower install && webdriver-manager update"
+    "build": "grunt build && cd dist && zip -r dist.zip * && mv dist.zip ..",
+    "postinstall": "bower cache clean && bower install && webdriver-manager update",
+    "dev": "grunt serve"
   }
 }

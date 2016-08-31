@@ -15,26 +15,33 @@ angular.module('dscovrDataApp')
 			"6h": {
 				//dt is going to be 24 for 6h since 6h is going to place 4 plots on the screen
 				dt: 1000 * 60 * 60 * 24,
-				src: "plots/dscovr_6hr_plots/{{year}}/{{month}}/{{year}}{{month}}{{day}}{{hour}}-6hr.png"
+				src: "dscovr_6hr_plots/{{year}}/{{month}}/{{year}}{{month}}{{day}}{{hour}}-6hr.png"
 			},
 			"1d": {
 				dt: 1000 * 60 * 60 * 24,
-				src: "plots/dscovr_1day_plots/{{year}}/{{month}}/{{year}}{{month}}{{day}}-day.png"
+				src: "dscovr_1day_plots/{{year}}/{{month}}/{{year}}{{month}}{{day}}-day.png"
 			},
 			"3d": {
 				dt: 1000 * 60 * 60 * 24 * 3,
-				src: "plots/dscovr_3day_plots/{{year}}/{{year}}{{month}}{{day}}-3day.png"
+				src: "dscovr_3day_plots/{{year}}/{{year}}{{month}}{{day}}-3day.png"
 			},
 			"7d": {
 				dt: 1000 * 60 * 60 * 24 * 7,
-				src: "plots/dscovr_7day_plots/{{year}}/{{year}}{{month}}{{day}}-7day.png"
+				src: "dscovr_7day_plots/{{year}}/{{year}}{{month}}{{day}}-7day.png"
 			},
 			"1m": {
 				dt: 1000 * 60 * 60 * 24 * 28,
-				src: "plots/dscovr_month_plots/{{year}}/{{year}}{{month}}-month.png"
+				src: "dscovr_month_plots/{{year}}/{{year}}{{month}}-month.png"
 			}
 		};
+                var summary_image_base = "//www.ngdc.noaa.gov/dscovr/plots/";
+	
+		$scope.to_utc_ms = function(non_utc_ms) {
+			var utcoffset = moment().utcOffset();
+			return +moment(non_utc_ms).add(utcoffset, 'minutes');
+		}
 
+	
 		$scope.parse_args = function(arg, argg) {
 			//a frame size must have a corresponding
 			//summary_config option to be valid
@@ -48,9 +55,11 @@ angular.module('dscovrDataApp')
 				case "1m":
 					$scope.frame_size = arg;
 					if (dscovrUtil.dateInRange( argg )) {
-						$scope.summary_date = moment.utc( +argg ).toDate();
+						$scope.summary_date = moment(+argg).startOf('day').toDate();
 					} else {
-						$scope.summary_date = moment.utc().subtract(1, 'days').toDate();
+						// while serving as default date, also means that trying to 
+						// go earlier than the start date loops to the beginning
+						$scope.summary_date = dscovrUtil.getMissionEnd().startOf('day').toDate();
 					};
 
 					//calculate the difference between userselectdate and mission_start, divide by 
@@ -60,48 +69,46 @@ angular.module('dscovrDataApp')
 					if ($scope.frame_size == "3d" || $scope.frame_size == "7d") {
 						//use epoch time to calculate what day is needed when
 						//viewing a day in the 3 day or 7 day frames
-						$scope.summary_file_date = moment.utc( 
-							dscovrUtil.getMissionBegin().valueOf() 
-							+ $scope.summary_frame_info[ $scope.frame_size ].dt 
+						$scope.summary_file_date = moment( 
+							+dscovrUtil.getMissionBegin() + $scope.summary_frame_info[$scope.frame_size].dt 
 							* Math.floor( 
-								($scope.summary_date.valueOf() - dscovrUtil.getMissionBegin().valueOf()) 
+								(+$scope.summary_date - dscovrUtil.getMissionBegin()) 
 								/ $scope.summary_frame_info[ $scope.frame_size ].dt 
 							) 
+						);
+						var int_frame_size = Number.parseInt($scope.frame_size);
+						$scope.summary_prev_ms = +moment($scope.summary_date).subtract(
+							int_frame_size, 'days'
+						);
+						$scope.summary_end_ms = +moment($scope.summary_date).add(
+							int_frame_size, 'days'
 						);
 					} else if ($scope.frame_size == "1d" || $scope.frame_size == "6h") {
 						//when its one day or 6h, the day file path name 
 						//is just the same as the day the user selects
-						$scope.summary_file_date = moment.utc($scope.summary_date).startOf('day');
+						$scope.summary_file_date = moment($scope.summary_date).startOf('day');
+						$scope.summary_prev_ms = +moment($scope.summary_date).subtract(1, 'days');
+						$scope.summary_end_ms = +moment($scope.summary_date).add(1, 'days');
 					} else if ($scope.frame_size == "1m") {
-						$scope.summary_file_date = moment.utc($scope.summary_date).startOf('month')
+						$scope.summary_file_date = moment($scope.summary_date).startOf('month')
+						$scope.summary_prev_ms = +moment($scope.summary_date).subtract(1, 'months');
+						$scope.summary_end_ms = +moment($scope.summary_date).add(1, 'months');
 					};
 
-					//set the end date of the frame, parameter for next frame
-					if ($scope.frame_size == "1m") {
-						$scope.summary_prev_ms = moment.utc($scope.summary_date).subtract(1, 'months').valueOf();
-						$scope.summary_end_ms = moment.utc($scope.summary_file_date).add(1, 'months').valueOf();
-					} else {
-						$scope.summary_prev_ms = +$scope.summary_date 
-							- ($scope.summary_frame_info[$scope.frame_size].dt);
-						$scope.summary_end_ms = +$scope.summary_file_date
-							+ $scope.summary_frame_info[$scope.frame_size].dt;
-					}
+					// Should the forward and back buttons next to the date be shown?
+					$scope.display_forward = dscovrUtil.dateInRange($scope.summary_end_ms);
+					$scope.display_back = dscovrUtil.dateInRange($scope.summary_prev_ms);
 
 					break;
 				default:
 					//if incorrect type parameter, default to:
 					$location.url("/vis/summary/7d");
+					// replace instead of create new history entry in current digest
 					$location.replace();
 					$scope.parse_args("7d");
 			} //end switch on arg
 		};
 
-		//initialize the page with $routeParams.arg and argg
-		if ($routeParams.arg) {
-			$scope.parse_args($routeParams.arg, $routeParams.argg);
-		} else if ($cookieStore.get("summary.arg")) {
-			$scope.parse_args($cookieStore.get("summary.arg"), $cookieStore.get("summary.argg"));
-		};
 		// see http://stackoverflow.com/a/14329570
 		// prevents refresh on route change
 		var lastRoute = $route.current;
@@ -116,14 +123,11 @@ angular.module('dscovrDataApp')
 			// this is the locationchange function used by both clicking frame sizes
 			// and as a callback from the date pick directive. The date picker directive
 			// does not give any arguments onchange callback
-			$scope.frame_size = optional_new_frame_size || $scope.frame_size;
-			var new_time = (optional_new_ms || $scope.summary_date.valueOf());
+			$scope.parse_args(optional_new_frame_size || $scope.frame_size, optional_new_ms || +$scope.summary_date);
 			$cookieStore.put("summary.arg", $scope.frame_size);
-			$cookieStore.put("summary.argg", new_time);
-			$location.url("/vis/summary/" + $scope.frame_size + "/" + new_time);
+			$cookieStore.put("summary.argg", +$scope.summary_date);
+			$location.url("/vis/summary/" + $scope.frame_size + "/" + $scope.summary_date.valueOf());
 			//change the url ^ but still reparse with the new frame size and date range 
-			//in $scope.parse_args now that we are intercepting the $locationChangeSuccess event
-			$scope.parse_args($scope.frame_size, new_time);
 		};
 
 		//formats the summary_frame_info url string to the current user selected date
@@ -134,7 +138,7 @@ angular.module('dscovrDataApp')
 				src = src.split("{{year}}").join( $scope.summary_file_date.format("YYYY") )
 				src = src.split("{{month}}").join( $scope.summary_file_date.format("MM") )
 				src = src.split("{{day}}").join( $scope.summary_file_date.format("DD") )
-				return src;
+				return summary_image_base + src;
 			};
 		};
 		$scope.get_plotsrc_6h = function(hour) {
@@ -149,9 +153,19 @@ angular.module('dscovrDataApp')
 				} else {
 					src = src.split("{{hour}}").join( hour );
 				}
-				return src;
+				return summary_image_base + src;
 			};
 		};
 
+                // defaults on page load
+                $scope.summary_date = dscovrUtil.getMissionEnd().startOf('day').toDate();
+		//initialize the page with $routeParams.arg and argg
+		if ($routeParams.arg) {
+			$scope.parse_args($routeParams.arg, $routeParams.argg);
+		} else if ($cookieStore.get("summary.arg")) {
+			$scope.parse_args($cookieStore.get("summary.arg"), $cookieStore.get("summary.argg"));
+		} else {
+                        $scope.locationchange("1d");
+                }
 		
 	});

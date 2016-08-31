@@ -16,7 +16,7 @@
         <title>DSCOVR Space Weather Data | NCEI</title>
         <meta name="description" content="Access to NCEI's data archive from the DSCOVR spacecraft">
         <meta name="viewport" content="width=device-width">
-            <link rel="stylesheet" href="//ngdc.noaa.gov/ngdcbasicstyle.css"/>
+        <link rel="stylesheet" href="//ngdc.noaa.gov/ngdcbasicstyle.css"/>
 
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <!-- build:css(.) styles/vendor.css -->
@@ -60,13 +60,12 @@
                 </div>
                 <!-- END NCEI HEADER -->
 
-				<!--<img data-ng-class="{hidden : isActive('')}" id="banner" src="images/dscovr_banner_small.png"></img>-->
                 <img id="banner" class="img-rounded" src="images/dscovr_banner_small.png" alt="DSCOVR banner">
                 
                 <!--<div class="view"  data-ng-class="{hidden : isActive('')}">-->
-				<div class="view">
-                    <div class="alert alert-warning alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close" title="Close warning box"><span aria-hidden="true">&times;</span></button>
-                        <strong>Notice:</strong> DSCOVR science products are currently embargoed by the data provider, with no date set for when these products can be shared with the public. Please email {{ [["William","Rowland"].join("."), "noaa.gov"].join("@") }} with subject "Notify DSCOVR public" to receive an email when we can share data.
+                <div class="view ng-cloak" ng-if="alert">
+                    <div class="alert alert-info alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close" title="Close warning box"><span aria-hidden="true">&times;</span></button>
+			{{ alert }}
                     </div>
                 </div>
 
@@ -78,10 +77,10 @@
             </div>
 
             <div data-ng-view="" class="tab-area">
-				<noscript> This site requires Javascript. </noscript>
-			</div>
+                    <noscript> This site requires Javascript. </noscript>
+            </div>
 
-			<!-- BEGIN CALL TO FOOTER, EDIT NOSCRIPT IF NECESSARY -->
+            <!-- BEGIN CALL TO FOOTER, EDIT NOSCRIPT IF NECESSARY -->
             <div class="foot">
                 <div class="footltbg center">
                     <script type="text/javascript" src="//www.ngdc.noaa.gov/bin/ngdcmetafooter.js"></script>
@@ -94,7 +93,7 @@
                     </noscript>
                 </div>
             </div>
-			<!-- END CALL TO FOOTER -->
+            <!-- END CALL TO FOOTER -->
 
         </div>
 
@@ -146,6 +145,7 @@
         <script src="scripts/directives/color/conditionedit.js"></script>
         <!-- endbuild -->
 
-		<script src="https://cdn.plot.ly/plotly-1.5.2.min.js"></script>
+        <script src="scripts/plotly.min.js" charset="utf-8"></script>
+	<!--	<script src="https://cdn.plot.ly/plotly-1.5.2.min.js"></script> -->
     </body>
 </html>

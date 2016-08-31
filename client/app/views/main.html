@@ -1,43 +1,8 @@
 <div class="view">
     <div class="container-fluid">
-		
-        <!--<div class="row">
-			<div class="col-xs-4 col-xs-offset-1 well">
-				<h3> Contents </h3>
-				<ol>
-					<li> <a href="" ng-click="scrollTo('swi')" >Space weather instruments</a> </li>
-					<li> <a href="" ng-click="scrollTo('dd')" >Data descriptions </a> </li>
-					<li> <a href="" ng-click="scrollTo('faq')">FAQ</a> </li> 
-					<li> <a href="" ng-click="scrollTo('l')">Links</a> </li> 
-					<li> <a href="" ng-click="scrollTo('dt')" >NCEI dscovr team</a> </li>
-				</ol>
-			</div>
-			<div class="col-xs-6 col-xs-offset-1">
-				<h2 id="dt"> NCEI DSCOVR team </h2>
-				<dl class="dl-horizontal">
-					<dt> William Rowland </dt>
-					<dd> Data manager, project supervisor</dt>
-					<dt> Paul Lotoaniu </dt>
-					<dd> Instrument scientist </dd>
-					<dt> John Cartwright </dt>
-					<dd> Server side api </dt>
-					<dt> John LaRocque </dt>
-					<dd> DBA </dd>
-					<br>
-					<dt> Stefan Codrescu </dt>
-					<dd> Web interface, pre-generated plots </dd>
-					<dt> Margaret Tilton </dt>
-					<dd> Database construction </dt>
-					<dt> Rob Redmon </dt>
-					<dd> Contributor </dd>
-					<dt> Heather McCullough </dt>
-					<dd> Contributor </dt>
-				</dl>
-			</div>
-		</div>-->
         
         <div class="row" style="background-color:#fff;padding: 0 5px 10px 20px;vertical-align:middle;margin-bottom:15px;">
-            <h1 style="text-align:center;font-variant:small-caps;margin-bottom:25px;padding-bottom:7px;font-family:Verdana,Arial,sans-serif;font-weight:bold;font-size:26pt;border-bottom:thin solid #ddd;"> DSCOVR Space Weather Data </h1>
+            <h1 style="text-align:center;font-variant:small-caps;margin-bottom:25px;padding-bottom:7px;font-family:Verdana,Arial,sans-serif;font-weight:bold;font-size:26pt;border-bottom:thin solid #ddd;"> DSCOVR Space Weather Data Portal</h1>
             <div class="col-xs-10 col-sm-4 well well-sm" style="margin-top:20px;">
                 <ol>
                     <li> <a href="" ng-click="scrollTo('swi')">Space Weather Instruments</a> </li>
@@ -58,38 +23,28 @@
                 <img class="img-responsive" style="margin-top:25px;" src="images/nasa_logo.png" alt="NASA logo"/>
             </div>
         </div>
-		<!--<div class="row">
-			<div class="col-xs-2 col-xs-offset-2">
-				<img class="img-responsive" alt="NOAA Logo" src="images/noaa_logo.png"/>
-			</div>
-			<div class="col-xs-3">
-				<img class="img-responsive" alt="DSCOVR
-                Logo" src="images/dscovr_logo.jpg"/>
-			</div> 
-			<div class="col-xs-2">
-				<img class="img-responsive" alt="NASA Logo" src="images/nasa_logo.png"/>
-			</div>
-		</div>-->
         
-		<!--<h2> General </h2>
-		<p> 
-			The Deep Space Climate Observatory (DSCOVR) is replacing NASA's Advanced Composition Explorer (ACE) for monitoring space weather at L1. 
-			The data collected by DSCOVR enables forecasters to monitor space weather conditions and supports research investigations. The results
-			of these efforts will be warning and understanding of conditions that could disrupt earth based infrastructure.
-		</p>
-		<p>
-			Here, we archive, distribute, and provide basic visualization tools for magnetometer and faraday cup measurements. 
-			For realtime data, please visit our friends at the <a href="swpc.noaa.gov">Space Weather Prediction Center (SWPC).</a> 
-			For EPIC and NISTAR data, please visit NASA's <a href="https://eosweb.larc.nasa.gov"> Atmospheric Science Data Center </a>.
-		</p>-->
-        
-		<p>The <strong>Deep Space Climate Observatory (DSCOVR)</strong> is the replacement satellite for the NASA
-		Advanced Composition Explorer (ACE) spacecraft to continue monitoring space weather from L1. DSCOVR allows forecasters to observe
-		space weather conditions and supports research investigations. The results of these efforts will be warning and understanding of
-		 conditions that could disrupt Earth-based infrastructure.</p>
-        <p>Here, data are archived, distributed, and visualized for magnetometer and faraday cup measurements. For realtime data,
-		 see the <a href="//www.swpc.noaa.gov">Space Weather Prediction Center (SWPC)</a>. For EPIC and NISTAR data, see NASA's 
-		<a href="//eosweb.larc.nasa.gov"> Atmospheric Science Data Center.</a></p>
+	<p>
+		The <strong>Deep Space Climate Observatory (DSCOVR)</strong> is the replacement satellite for NASA's
+		<a href="http://www.srl.caltech.edu/ACE/"> Advanced Composition Explorer (ACE) spacecraft </a> to continue
+		 monitoring <a href="https://en.wikipedia.org/wiki/Solar_wind"> solar wind </a> near
+		 the <a href="https://en.wikipedia.org/wiki/Lagrangian_point"> L1 point </a>. 
+		 DSCOVR observations are critical to our space weather ready nation. These data support 
+		 forecasts and research of phenomena that have the potential to
+		<a href="http://www.swpc.noaa.gov/impacts"> disrupt and damage </a>
+		 Earth-based infrastructure.
+	</p>
+	<p>
+		Here, data are archived, 
+		<a href="#/download"> distributed </a>, and 
+		<a href="#/vis"> visualized </a>
+		for magnetometer and faraday cup measurements.
+		 For realtime data, see the 
+		<a href="http://www.swpc.noaa.gov/products/real-time-solar-wind">
+			Space Weather Prediction Center (SWPC) real time solar wind page
+		</a>. For information and data from the other instruments onboard DSCOVR, EPIC and NISTAR, see NASA's 
+		<a href="//eosweb.larc.nasa.gov"> Atmospheric Science Data Center.</a>
+	</p>
         
 		<h2 id="swi" class="subheading"> Space Weather Instruments</h2>
 		<p> DSCOVR is carrying the following space weather monitoring instruments: </p>
@@ -102,11 +57,6 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td> PlasMAG </td>
-					<td> DSCOVR Faraday Cup and Magnetometer </td>
-					<td> Individual instruments described below. </td>
-				</tr>
 				<tr>
 					<td> MAG </td>
 					<td> Magnetometer </td>
@@ -143,28 +93,28 @@
 					<td> DSCOVR telemetry </td>
 					<td> vc0 </td>
 					<td> DSCOVR raw telemetry </td>
-					<td> Only <a href="//www.ngdc.noaa.gov/dscovr/next">NEXT</a></td>
+					<td> <a href="//www.ngdc.noaa.gov/dscovr/next">NEXT</a></td>
 					<td> Always available publicly. </td>
 				</tr>
 				<tr>
 					<td></td>
 					<td> vc1 </td>
 					<td> DSCOVR stored raw telemetry </td>
-					<td> Only <a href="//www.ngdc.noaa.gov/dscovr/next">NEXT</a></td>
+					<td>  <a href="//www.ngdc.noaa.gov/dscovr/next">NEXT</a></td>
 					<td> Always available publicly. </td>
 				</tr>
 				<tr>
 					<td></td>
 					<td> rt0 </td>
 					<td> DSCOVR real time raw telemetry retransmitted from receiving station </td>
-					<td> Only <a href="//www.ngdc.noaa.gov/dscovr/next">NEXT</a></td>
+					<td>  <a href="//www.ngdc.noaa.gov/dscovr/next">NEXT</a></td>
 					<td> Always available publicly. </td>
 				</tr>
 				<tr>
 					<td></td>
 					<td> rt1 </td>
 					<td> DSCOVR stored raw telemetry retransmitted from receiving station </td>
-					<td> Only <a href="//www.ngdc.noaa.gov/dscovr/next">NEXT</a></td>
+					<td>  <a href="//www.ngdc.noaa.gov/dscovr/next">NEXT</a></td>
 					<td> Always available publicly. </td>
 				</tr>
 				<tr>
@@ -178,7 +128,7 @@
 					<td> Faraday Cup </td>
 					<td> fc0 </td>
 					<td> Faraday Cup Level 0 full resolution data (e.g. counts rather than physical units) </td>
-					<td> Only <a href="//www.ngdc.noaa.gov/dscovr/next">NEXT</a></td>
+					<td>  <a href="//www.ngdc.noaa.gov/dscovr/next">NEXT</a></td>
 					<td> Sampling rate may vary.  All science data are currently still embargoed by the data provider. </td>
 				</tr>
 				<tr>
@@ -199,14 +149,18 @@
 					<td></td>
 					<td> f1m </td>
 					<td> Faraday Cup 1 minute averages </td>
-					<td> <a href="#/download//f1m"> Portal (recommended)</a> or <a href="//www.ngdc.noaa.gov/dscovr/next">NEXT</a></td>
+					<td> 
+						<a href="#/download//f1m"> Portal Download</a>, <br/>
+						<a href="#/vis/ts"> Portal Vis </a> or <br/>
+						<a href="//www.ngdc.noaa.gov/dscovr/next">NEXT</a>
+					</td>
 					<td> All science data are currently still embargoed by the data provider. </td>
 				</tr>
 				<tr>
 					<td></td>
 					<td> fcc </td>
 					<td> Faraday Cup calibration file </td>
-					<td> Only <a href="//www.ngdc.noaa.gov/dscovr/next">NEXT</a></td>
+					<td>  <a href="//www.ngdc.noaa.gov/dscovr/next">NEXT</a></td>
 					<td> Often flagged for dissemination. </td>
 				</tr>
 				<tr>
@@ -220,7 +174,7 @@
 					<td> Magnetometer </td>
 					<td> mg0 </td>
 					<td> Magnetometer Level 0 full resolution data (e.g. counts rather than physical units) </td>
-					<td> Only <a href="//www.ngdc.noaa.gov/dscovr/next">NEXT</a></td>
+					<td>  <a href="//www.ngdc.noaa.gov/dscovr/next">NEXT</a></td>
 					<td> 50Hz sampling rate.  All science data are currently still embargoed by the data provider. </td>
 				</tr>
 				<tr>
@@ -241,14 +195,18 @@
 					<td></td>
 					<td> m1m </td>
 					<td> Magnetometer 1 minute averages </td>
-					<td> <a href="#/download//m1m"> Portal (recommended)</a> or <a href="//www.ngdc.noaa.gov/dscovr/next">NEXT</a></td>
+					<td> 
+						<a href="#/download//m1m"> Portal Download</a>, <br/>
+						<a href="#/vis/ts"> Portal Vis </a> or  <br/>
+						<a href="//www.ngdc.noaa.gov/dscovr/next">NEXT</a>
+					</td>
 					<td> All science data are currently still embargoed by the data provider. </td>
 				</tr>
 				<tr>
 					<td></td>
 					<td> mcc </td>
 					<td> Magnetometer calibration file </td>
-					<td> Only <a href="//www.ngdc.noaa.gov/dscovr/next">NEXT</a></td>
+					<td>  <a href="//www.ngdc.noaa.gov/dscovr/next">NEXT</a></td>
 					<td> Often flagged for dissemination. </td>
 				</tr>
 				<tr>
@@ -262,7 +220,10 @@
 					<td> Orbit and orientation information </td>
 					<td> pop </td>
 					<td> Predicted Orbit Product.  Position and velocity in gse, gsi, gsm. </td>
-					<td> Only <a href="//www.ngdc.noaa.gov/dscovr/next">NEXT</a></td>
+					<td> 
+						<a href="#/download//pop"> Portal download</a> or
+						<a href="//www.ngdc.noaa.gov/dscovr/next">NEXT</a>
+					</td>
 					<td> Should be flagged for public dissemination. </td>
 				</tr>
 				<tr>
@@ -295,7 +256,7 @@
 				</div>
 				<div class="panel panel-default">
 					<div class="panel-heading"> Where can I access realtime solar wind data from DSCOVR? </div>
-					<div class="panel-body"> See NOAA's <a href="//swpc.noaa.gov">Space Weather Prediction Center (SWPC).</a> </div>
+					<div class="panel-body"> See NOAA's <a href="//swpc.noaa.gov">Space Weather Prediction Center (SWPC).</a> plot of <a href="http://www.swpc.noaa.gov/products/real-time-solar-wind"> real time solar wind </a> </div>
 				</div>
 				<div class="panel panel-default">
 					<div class="panel-heading"> Where can I access EPIC or NISTAR data? </div>
@@ -344,7 +305,7 @@
 		<dl class="dl-horizontal">
 			<dt> <a href="//www.ngdc.noaa.gov/docucomp/page?xml=NOAA/NESDIS/NGDC/STP/Space_Weather/iso/xml/satellite-systems_dscovr.xml&view=iso2html&title=Get%20Data%20NOAA/NESDIS/NGDC/STP/Space_Weather/iso/xml/satellite-systems_dscovr.xml">Metadata record</a> </dt>
 			<dd> View NCEI's metadata for the DSCOVR archive. </dd>
-			<dt> <a href=""> Real Time DSCOVR data </a> </dt>
+			<dt> <a href="http://www.swpc.noaa.gov/products/real-time-solar-wind"> Real Time DSCOVR data </a> </dt>
 			<dd> Real Time DSCOVR Space Weather data from SWPC </dd>
 			<dt><a href="//www.ngdc.noaa.gov/next-web/docs/guide/"> Next REST api</a> </dt>
 			<dd> REST api access to Next tape archive </dd>

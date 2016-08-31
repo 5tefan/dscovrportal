@@ -9,6 +9,7 @@
  */
 angular.module('dscovrDataApp')
   .controller('DownloadCtrl', function ($scope, $routeParams, $location, $route, dscovrDataAccess) {
+        $scope.error = "";
 
 	//info icon to do desc
 	dscovrDataAccess.getProducts2().then( function(products) {
@@ -17,9 +18,7 @@ angular.module('dscovrDataApp')
 			// specified
 			var selected = $routeParams.argg.split(';');
 			$scope.products = products.map(function(d) {
-				 if (selected.indexOf(d.product) > -1) {
-					d.selected = true;
-				}
+                                d.selected = (selected.indexOf(d.product) > -1);
 				return d;
 			});
 		} else {
@@ -36,8 +35,18 @@ angular.module('dscovrDataApp')
 		if (arg) {
 			var daterange = arg.split(';');
 			if (daterange.length === 2 && !isNaN(daterange[0]) && !isNaN(daterange[1])) {
-				dscovrDataAccess.getFiles2(daterange[0], daterange[1]).then( function(data) {
+                                var through_begin = +moment(+daterange[0]).startOf('day');
+                                var through_end = +moment(+daterange[1]).endOf('day');
+				dscovrDataAccess.getFiles2(through_begin, through_end).then( function(data) {
+                                        if (Object.keys(data).length === 0) {
+                                            $scope.error = "No files found!";
+                                        } else {
+                                            $scope.error = "";
+                                        }
 					$scope.files = data;
+				}, function(err_msg) {
+					$scope.error = err_msg;
+					$scope.files = {};
 				});
 				$scope.predef_time = daterange;
 			}
@@ -98,17 +107,23 @@ angular.module('dscovrDataApp')
 	};
 
 	$scope.$on("datechange", function(event, dates) {
-		var selected = $scope.get_selected_products();
-		$location.url("/download/" 
-			+ dates.join(';') + '/' + selected.join(';')
-		);
-		$scope.parse_arg(dates.join(";"));
+		var dates_join = dates.join(';');
+                if ($scope.products) {
+                        var selected = $scope.get_selected_products();
+                        $location.url("/download/" 
+                                + dates_join + '/' + selected.join(';')
+                        );
+                        $scope.parse_arg(dates_join);
+                } else if (!$routeParams.arg) {
+                        $location.url("/download/" + dates_join );
+                        $scope.parse_arg(dates_join);
+                }
 	});
 
 	// initialize by parsing routeparam arg
 	if ($routeParams.arg) {
 		$scope.parse_arg($routeParams.arg);
-	}
+        }
 });
 
 

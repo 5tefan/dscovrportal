@@ -12,10 +12,10 @@ angular.module('dscovrDataApp')
 			template: 
 				'<div class="col-xs-12">'+
 					'<div class="row margin-b10">'+
-						'<div class="col-xs-3 ts-param-pane-panel-title">'+
+						'<div class="col-xs-9 ts-param-pane-panel-title">'+
 							'<h4 class="ts-param-pane-panel-title"> Panel {{position}}</h4>'+
 						'</div>'+
-						'<div class="ts-param-pane-remove-pane" class="col-xs-2">'+
+						'<div class="ts-param-pane-remove-pane" class="col-xs-3">'+
 							'<a ng-if="removable" class="btn btn-default btn-sm" ng-click=rmPane($index)><span class="glyphicon glyphicon-remove"> </span></a>'+
 						'</div>'+
 					'</div>'+
